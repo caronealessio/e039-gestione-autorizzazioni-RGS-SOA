@@ -198,6 +198,11 @@ sap.ui.define(
         );
       },
 
+      onRegisterSoa: function () {
+        var self = this;
+        self.getRouter().navTo("registerSoa");
+      },
+
       /** -----------------PRIVATE METHODS------------------- */
 
       _getSoaList: function () {

@@ -139,6 +139,21 @@
           "pattern": "AuthDetail/{Bukrs},{Gjahr},{Zchiaveaut},{ZstepAut}",
           "name": "authDetail",
           "target": ["authDetail"]
+        },
+        {
+          "pattern": "RegisterSoa",
+          "name": "registerSoa",
+          "target": ["registerSoa"]
+        },
+        {
+          "pattern": "DocumentiCosto",
+          "name": "documentiCosto",
+          "target": ["documentiCosto"]
+        },
+        {
+          "pattern": "NoDocumentiCosto",
+          "name": "noDocumentiCosto",
+          "target": ["noDocumentiCosto"]
         }
       ],
       "targets": {
@@ -180,6 +195,21 @@
         "notFound": {
           "viewName": "NotFound",
           "viewId": "notFound"
+        },
+        "registerSoa": {
+          "viewName": "RegisterSoa",
+          "viewId": "registerSoa",
+          "viewLevel": 3
+        },
+        "documentiCosto": {
+          "viewName": "DocumentiCosto",
+          "viewId": "documentiCosto",
+          "viewLevel": 4
+        },
+        "noDocumentiCosto": {
+          "viewName": "NoDocumentiCosto",
+          "viewId": "noDocumentiCosto",
+          "viewLevel": 4
         }
       }
     },

@@ -1,0 +1,32 @@
+<mvc:View
+	controllerName="rgssoa.controller.RegisterSoa"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+>
+  <Page class="bgWhite" >
+    <customHeader>
+      <Bar>
+        <contentLeft>
+          <Title text="{i18n>registerSoaTitle}" />
+        </contentLeft>
+      </Bar>
+    </customHeader>
+    <FlexBox alignItems="Center" height="15%">
+      <VBox width="100%" alignItems="Center" justifyContent="Center" > 
+          <Button text="{i18n>btnDocumentiCosto}" type="Emphasized" press="onDocumentiCosto"></Button>
+      </VBox>
+      <VBox width="100%" alignItems="Center" justifyContent="Center"> 
+          <Button text="{i18n>btnNonDocumentiCosto}" type="Emphasized" press="onNoDocumentiCosto"></Button>
+      </VBox>
+    </FlexBox>
+    <footer>
+      <OverflowToolbar>
+        <Button type="Emphasized" text="{i18n>btnBack}" press="onNavBack" >
+          <layoutData>
+            <OverflowToolbarLayoutData priority="NeverOverflow" />
+          </layoutData>
+        </Button>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>
