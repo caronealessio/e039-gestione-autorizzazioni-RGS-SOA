@@ -5,7 +5,7 @@
 >
   <VBox id="vbxListSoa" visible="false">
   <VBox  width="100%"  class="tableTitle">
-    <Title text="{i18n>listSOATableTitle}"  class="sapUiTinyMargin titleSize"/>
+    <Title text="{SoaModel>/listSOATableTitle}"  class="sapUiTinyMargin titleSize"/>
   </VBox>
   <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgWhite">
     <Table  
@@ -15,6 +15,7 @@
       contextualWidth="Auto"
       growing="true"
       selectionChange="onSelectedItem"
+      updateFinished="onUpdateFinished"
       items="{path: 'SOASet>/'}">
       <columns>
         <Column minScreenWidth="Desktop" demandPopin="true">

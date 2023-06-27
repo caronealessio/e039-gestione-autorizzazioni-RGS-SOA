@@ -114,6 +114,27 @@ sap.ui.define(
         }
       },
 
+      setTitleTotalItems: function (
+        modelName,
+        totalItemsProperties,
+        tableTitle,
+        tableTitleCount
+      ) {
+        var sTitle;
+        var oModel = this.getModel(modelName);
+
+        var iTotalItems = oModel.getProperty("/" + totalItemsProperties);
+
+        if (iTotalItems > 0) {
+          sTitle = this.getResourceBundle().getText(tableTitleCount, [
+            iTotalItems,
+          ]);
+        } else {
+          sTitle = this.getResourceBundle().getText(tableTitle);
+        }
+        oModel.setProperty("/" + tableTitle, sTitle);
+      },
+
       /** -------------------GESTIONE VALUE HELP--------------------------- */
 
       _createFilterValueHelp: function (key, operator, value, useToLower) {
@@ -317,6 +338,31 @@ sap.ui.define(
           oPaginatorModel.setVisible(true);
         } else {
           oPaginatorModel.setVisible(false);
+        }
+      },
+
+      setPaginatorProperties: function (
+        oPaginatorModel,
+        oData,
+        iNumRecordsForPage
+      ) {
+        if (oData > iNumRecordsForPage) {
+          oPaginatorModel.setProperty("/btnLastEnabled", true);
+
+          var paginatorTotalPage = oData / iNumRecordsForPage;
+          var moduleN = Number.isInteger(paginatorTotalPage);
+
+          if (!moduleN) {
+            paginatorTotalPage = Math.trunc(paginatorTotalPage) + 1;
+          }
+          oPaginatorModel.setProperty(
+            "/paginatorTotalPage",
+            paginatorTotalPage
+          );
+          oPaginatorModel.setProperty("/maxPage", paginatorTotalPage);
+        } else {
+          oPaginatorModel.setProperty("/maxPage", 1);
+          oPaginatorModel.setProperty("/btnLastEnabled", false);
         }
       },
     });

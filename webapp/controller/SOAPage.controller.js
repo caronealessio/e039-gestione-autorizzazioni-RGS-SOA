@@ -12,7 +12,8 @@ sap.ui.define(
     const EQ = FilterOperator.EQ;
     const NE = FilterOperator.NE;
     const SOA_ENTITY_SET = "SOASet";
-    const SOA_MODEL = "SOASet";
+    const SOA_ENTITY_MODEL = "SOASet";
+    const SOA_MODEL = "SoaModel";
     const PAGINATOR_MODEL = "paginatorModel";
 
     return BaseController.extend("rgssoa.controller.SOAPage", {
@@ -186,6 +187,17 @@ sap.ui.define(
         this._getSoaList();
       },
 
+      onUpdateFinished: function () {
+        var self = this;
+
+        self.setTitleTotalItems(
+          SOA_MODEL,
+          "totalItems",
+          "listSOATableTitle",
+          "listSOATableTitleCount"
+        );
+      },
+
       /** -----------------PRIVATE METHODS------------------- */
 
       _getSoaList: function () {
@@ -193,8 +205,13 @@ sap.ui.define(
         var oDataModel = self.getModel();
         var oView = self.getView();
         var oFilters = this._getHeaderFilters();
+        var oPaginatorModel = self.getModel(PAGINATOR_MODEL);
         var oPaginator = oView.byId("pnlPaginator");
         var oListSoa = oView.byId("vbxListSoa");
+        var urlParameters = {
+          $top: oPaginatorModel.getProperty("/numRecordsForPage"),
+          $skip: oPaginatorModel.getProperty("/paginatorSkip"),
+        };
 
         oView.setBusy(true);
 
@@ -203,10 +220,7 @@ sap.ui.define(
           .metadataLoaded()
           .then(function () {
             oDataModel.read("/" + SOA_ENTITY_SET, {
-              // urlParameters: {
-              //   $top: numRecordsForPage,
-              //   $skip: skip,
-              // },
+              urlParameters: urlParameters,
               filters: oFilters,
               success: function (data, oResponse) {
                 self.setResponseMessage(oResponse);
@@ -215,7 +229,7 @@ sap.ui.define(
 
                 var oModelJson = new sap.ui.model.json.JSONModel();
                 oModelJson.setData(data.results);
-                oView.setModel(oModelJson, SOA_MODEL);
+                oView.setModel(oModelJson, SOA_ENTITY_MODEL);
                 self.getView().setBusy(false);
               },
               error: function (error) {
@@ -229,10 +243,11 @@ sap.ui.define(
         var self = this;
         var oDataModel = self.getModel();
         var oFilters = this._getHeaderFilters();
-        var oPaginator = self.getModel(PAGINATOR_MODEL);
+        var oPaginatorModel = self.getModel(PAGINATOR_MODEL);
 
-        self.resetPaginator(oPaginator);
-        var numRecordsForPage = oPaginator.getProperty("/numRecordsForPage");
+        self.resetPaginator(oPaginatorModel);
+        var iNumRecordsForPage =
+          oPaginatorModel.getProperty("/numRecordsForPage");
 
         self
           .getModel()
@@ -242,24 +257,11 @@ sap.ui.define(
               filters: oFilters,
               success: function (data) {
                 self.getModel(SOA_MODEL).setProperty("/totalItems", data);
-                if (data > numRecordsForPage) {
-                  oPaginator.setProperty("/btnLastEnabled", true);
-
-                  var paginatorTotalPage = data / numRecordsForPage;
-                  var moduleN = Number.isInteger(paginatorTotalPage);
-
-                  if (!moduleN) {
-                    paginatorTotalPage = Math.trunc(paginatorTotalPage) + 1;
-                  }
-                  oPaginator.setProperty(
-                    "/paginatorTotalPage",
-                    paginatorTotalPage
-                  );
-                  oPaginator.setProperty("/maxPage", paginatorTotalPage);
-                } else {
-                  oPaginator.setProperty("/maxPage", 1);
-                  oPaginator.setProperty("/btnLastEnabled", false);
-                }
+                self.setPaginatorProperties(
+                  oPaginatorModel,
+                  data,
+                  iNumRecordsForPage
+                );
               },
               error: function () {},
             });
