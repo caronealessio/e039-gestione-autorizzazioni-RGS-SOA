@@ -1,0 +1,397 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+	<VBox >
+	<l:Grid
+		id="grdFilter"
+		defaultSpan="XL12 L12 M12 S12"
+		vSpacing="0"
+		class="sapUiSmallMargin"
+	>
+		<VBox > 
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterGjahr}" class="filterLabel"/>
+				<ComboBox 
+					id="fltGjahr" 
+					width="100%" 
+					items="{path: '/EsercizioGestioneSet'}"
+					app:searchPropertyModel="Gjahr" >
+					<c:Item key="{Gjahr}" text="{Gjahr}" />
+				</ComboBox>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZzamministr}"	class="filterLabel"/>
+				<Input id="fltZzamministr" app:searchPropertyModel="Zzamministr"/>		
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZcapitolo}" class="filterLabel"/>
+				<Input id="fltZcapitolo" app:searchPropertyModel="Zcapitolo"/>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZnumsopFrom}" class="filterLabel"/>
+					<Input id="fltZnumsopFrom" app:searchPropertyModel="Znumsop"/>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZnumsopTo}" class="filterLabel"/>
+					<Input id="fltZnumsopTo"/>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZcodStatosop}" class="filterLabel"/>
+				<ComboBox 
+					id="fltZcodStatosop" 
+					width="100%" 
+					items="{path: '/StateSOASet'}" 
+					selectedKey="TU" 
+					app:searchPropertyModel="ZcodStatosop">
+					<c:Item key="{ZstatoSoa}" text="{ZdescStatoSoa}" />
+				</ComboBox>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZchiaveaut}" class="filterLabel" required="true"/>
+				<Input id="fltZchiaveaut" app:searchPropertyModel="Zchiaveaut"/>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZtipodisp2}" class="filterLabel"/>
+					<ComboBox
+							id="fltZtipodisp2"
+							width="100%"
+							selectedKey="000"
+							selectionChange="onTipologiaAutorizzazioneChange"
+							items="{path:'/TipoDisp2Set'}"
+							app:searchPropertyModel="Ztipodisp2">
+							<c:Item key="{Ztipodisp2}" text="{Zdesctipodisp2}" />					
+					</ComboBox>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZtipodisp3}" class="filterLabel"/>
+				<ComboBox
+					id="fltZtipodisp3"
+					width="100%"
+					selectedKey="000"
+					items="{path:'TipoDisp3Set>/'}"
+					app:searchPropertyModel="Ztipodisp3">
+					<c:Item key="{TipoDisp3Set>Ztipodisp3}" text="{TipoDisp3Set>Zdesctipodisp3}"/>
+				</ComboBox>			
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZztipologia}" class="filterLabel"/>
+				<ComboBox
+						id="fltZztipologia"
+						width="100%"
+						selectedKey="0"
+						items="{path:'/TipoSOASet'}"
+						app:searchPropertyModel="Zztipologia">
+						<c:Item key="{ZtipoSoa}" text="{ZdescTipoSoa}" />					
+				</ComboBox>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterDescTipopag}" class="filterLabel" />
+					<ComboBox 
+					id="fltDescTipopag" 
+					width="100%" 
+					items="{path: '/TipoPagSet'}" 
+					selectedKey="TUTTI"
+					app:searchPropertyModel="DescTipopag"
+					>
+						<c:Item key="{Low}" text="{Low}" />
+					</ComboBox>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZspecieSop}" class="filterLabel"/>
+					<ComboBox
+						id="fltZspecieSop"
+						width="100%"
+						selectedKey="0"
+						items="{path:'/SpecieSOASet'}"
+						app:searchPropertyModel="ZspecieSop">
+						<c:Item key="{ZspecieSoa}" text="{ZdescSpecieSoa}" />					
+				</ComboBox>
+			</items>
+		
+		</VBox>
+				<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZricann}" class="filterLabel"/>
+				<ComboBox 
+					id="fltZricann" 
+					width="100%" 
+					selectedKey="{i18n>itemNo}" 
+					app:searchPropertyModel="Zricann"
+				>
+					<c:Item  key="{i18n>itemNo}" text="{i18n>itemNo}" />	
+					<c:Item  key="{i18n>itemYes}" text="{i18n>itemYes}" />		
+				</ComboBox>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZdatasopFrom}" class="filterLabel"/>
+				<DatePicker
+					id="fltZdatasopFrom"								
+					valueFormat="yyyy-MM-dd"
+					displayFormat="dd/MM/yyyy"
+					app:searchPropertyModel="Zdatasop"
+				/>	
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZdatasopTo}" class="filterLabel"/>
+				<DatePicker
+					id="fltZdatasopTo"								
+					valueFormat="yyyy-MM-dd"
+					displayFormat="dd/MM/yyyy"/>	
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZdataprot}" class="filterLabel"/>
+				<DatePicker
+					id="fltZdataprot"								
+					valueFormat="yyyy-MM-dd"
+					displayFormat="dd/MM/yyyy"
+					app:searchPropertyModel="Zdataprot"
+					/>	
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZnumprot}" class="filterLabel"/>
+					<Input id="fltZnumprot" app:searchPropertyModel="Znumprot"/>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterLifnr}" class="filterLabel"/>
+					<Input id="fltLifnr" app:searchPropertyModel="Lifnr"/>
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterWitht}" class="filterLabel"/>
+				<Input
+					id="fltRitenuta"
+					valueHelpRequest="onValueHelpRitenuta"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					app:dialogName="sdRitenuta"
+					app:fragmentName="Ritenuta"
+					app:searchPropertyModel="Witht"
+				/>			
+			</items>
+		</VBox>
+		
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12" />
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZzCebenra}" class="filterLabel"/>
+				<Input
+					id="fltEnteBeneficiario"
+					valueHelpRequest="onValueHelpEnteBeneficiario"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					app:dialogName="sdEnteBeneficiario"
+					app:fragmentName="EnteBeneficiario"
+					app:searchPropertyModel="ZzCebenra"
+				/>						
+			</items>
+		</VBox>
+
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12" linebreak="true"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterFiposFrom}" class="filterLabel"/>
+					<Input id="fltFiposFrom" app:searchPropertyModel="Fipos"/>
+			</items>
+		</VBox>
+
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12" />
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterFiposTo}" class="filterLabel"/>
+					<Input id="fltFiposTo" />
+			</items>
+		</VBox>
+
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL3 L4 M6 S12" />
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterFistl}" class="filterLabel"/>
+					<Input id="fltFistl" app:searchPropertyModel="Fistl"/>
+			</items>
+		</VBox>
+
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12" linebreak="true"/>
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZnumliqFrom}" class="filterLabel"/>
+					<Input id="fltZnumliqFrom" app:searchPropertyModel="Znumliq"/>
+			</items>
+		</VBox>
+
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL2 L3 M6 S12" />
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZnumliqTo}" class="filterLabel"/>
+					<Input id="fltZnumliqTo"/>
+			</items>
+		</VBox>
+
+		<VBox>
+			<layoutData>
+				<l:GridData span="XL4 L6 M8 S12" />
+			</layoutData>
+			<items>
+				<Label text="{i18n>soaFilterZdescProsp}" class="filterLabel"/>
+					<Input id="fltZdescProsp" app:searchPropertyModel="ZdescProsp"/>
+			</items>
+		</VBox>
+
+		<Button 
+			id="btnSearchSoa"
+			text="{i18n>btnSearchSoa}"
+			tooltip="{i18n>btnSearchSoa}"
+			class="button"
+			width="100%"
+			type="Emphasized"
+			press="onSearch">
+			<layoutData>
+				<l:GridData
+					linebreak="true"
+					span="XL1 L1 M1 S12"
+					indent="XL11 L11 M11"
+				/>
+			</layoutData>	
+		</Button>
+	</l:Grid>
+	
+	<FlexBox alignItems="Center"	justifyContent="Center">								
+		<Button 
+			id="btnToggle"
+			class="button"
+			icon="sap-icon://slim-arrow-up"
+			tooltip="{i18n>tooltipArrowHide}"
+			type="Emphasized"
+			press="onToggle">
+		</Button>
+		<Button 
+			class="sapUiTinyMarginBegin"
+			icon="sap-icon://pushpin-off"
+			tooltip="{i18n>tooltipArrowBlock}"
+			type="Emphasized"
+			press="onBlockToggle">
+		</Button>
+	</FlexBox>
+	</VBox>
+</c:FragmentDefinition>

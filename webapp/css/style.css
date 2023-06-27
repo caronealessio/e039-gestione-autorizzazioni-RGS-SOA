@@ -1,3 +1,13 @@
-.bgCyan{
-    background: rgba(235, 249, 255, 255);
+.bgCyan {
+  background: rgba(235, 249, 255, 255);
+}
+
+.bgWhite {
+  background: white;
+}
+.filterLabel {
+  color: black;
+}
+.tableTitle {
+  padding-left: 8px;
 }

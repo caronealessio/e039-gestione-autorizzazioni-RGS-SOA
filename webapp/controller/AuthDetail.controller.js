@@ -170,7 +170,6 @@ sap.ui.define([
             self.getModel().metadataLoaded().then( function() {
 				oDataModel.read("/" + path, {
 					success: function(data, oResponse){
-                        console.log(data);
                         self._loadTipologiaDisposizione(data.Ztipodisp2);
                         self.setDetailModel(data);
                         self.getView().setBusy(false);
@@ -421,7 +420,6 @@ sap.ui.define([
                     oDataModel.read("/WFStateAutSet", {
                         filters:filters,
                         success: function(data, oResponse){
-                            console.log(data);//TODO:da canc
                             var oModelJson = new sap.ui.model.json.JSONModel();
                             oModelJson.setData(data.results);
                             self.getView().setModel(oModelJson, "WFStateAutSet");  

@@ -54,7 +54,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.71.50",
       "libs": {
@@ -110,9 +110,7 @@
         "controlId": "app",
         "controlAggregation": "pages",
         "bypassed": {
-          "target": [
-            "notFound"
-          ]
+          "target": ["notFound"]
         },
         "async": true
       },
@@ -120,9 +118,7 @@
         {
           "pattern": "",
           "name": "startpage",
-          "target": [
-            "startpage"
-          ]
+          "target": ["startpage"]
         },
         {
           "pattern": "AuthPage",
@@ -131,22 +127,18 @@
         },
         {
           "pattern": "SOAPage",
-          "name": "soaPage",
-          "target": ["soaPage"]
+          "name": "SOAPage",
+          "target": ["SOAPage"]
         },
         {
           "pattern": "AutorizzazioneSet/{objectId}",
           "name": "object",
-          "target": [
-            "object"
-          ]
+          "target": ["object"]
         },
         {
-            "pattern": "AuthDetail/{Bukrs},{Gjahr},{Zchiaveaut},{ZstepAut}",
-            "name": "authDetail",
-            "target": [
-                "authDetail"
-            ]
+          "pattern": "AuthDetail/{Bukrs},{Gjahr},{Zchiaveaut},{ZstepAut}",
+          "name": "authDetail",
+          "target": ["authDetail"]
         }
       ],
       "targets": {
@@ -162,20 +154,18 @@
           "viewLevel": 2,
           "title": "{i18n>authPageViewTitle}"
         },
-        "soaPage": {
+        "SOAPage": {
           "viewName": "SOAPage",
           "viewId": "soaPage",
           "viewLevel": 2,
           "title": "{i18n>soaPageViewTitle}"
         },
         "authDetail": {
-            "viewName": "AuthDetail",
-            "viewId": "authDetail",
-            "viewLevel": 2,
-            "title": "{i18n>authDetailTitle}"
+          "viewName": "AuthDetail",
+          "viewId": "authDetail",
+          "viewLevel": 2,
+          "title": "{i18n>authDetailTitle}"
         },
-
-
 
         "object": {
           "viewName": "Object",

@@ -1,6 +1,30 @@
 <mvc:View
-    controllerName="rgssoa.controller.SOAPage"
-    xmlns="sap.m"
-    xmlns:mvc="sap.ui.core.mvc">
-
+	controllerName="rgssoa.controller.SOAPage"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:c="sap.ui.core"
+>
+	<Page showHeader="false" class="bgWhite">
+		<content>
+			<c:Fragment fragmentName="rgssoa.view.fragment.soa.HeaderFilterbar" type="XML"/>	
+		</content>
+		<content >
+			<c:Fragment fragmentName="rgssoa.view.fragment.soa.ListSOA" type="XML"/>	
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<Button type="Emphasized" text="{i18n>btnBack}" press="onNavBack" >
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+				</Button>
+				<ToolbarSpacer />
+				<Button type="Emphasized" text="{i18n>btnRegisterSoa}" press="onRegisterSoa" >
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+				</Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
 </mvc:View>
