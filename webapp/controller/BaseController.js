@@ -97,12 +97,14 @@ sap.ui.define(
       },
 
       setResponseMessage: function (oResponse) {
+        var bError = false;
         if (oResponse?.headers["sap-message"]) {
           var oMessage = JSON.parse(oResponse.headers["sap-message"]);
 
           switch (oMessage.severity) {
             case "error":
               sap.m.MessageBox.error(oMessage.message);
+              bError = true;
               break;
             case "success":
               sap.m.MessageBox.success(oMessage.message);
@@ -112,6 +114,7 @@ sap.ui.define(
               break;
           }
         }
+        return bError;
       },
 
       setTitleTotalItems: function (
@@ -175,13 +178,13 @@ sap.ui.define(
         if (!oSelectedItem) {
           oInput.resetProperty("value");
           oInput.data("key", null);
-          this._closeDialog();
+          this.closeDialog();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
         oInput.data("key", sKey);
-        this._closeDialog();
+        this.closeDialog();
       },
 
       openDialog: function (dialogPath) {
@@ -192,7 +195,7 @@ sap.ui.define(
         return sDialog;
       },
 
-      _closeDialog: function () {
+      closeDialog: function () {
         if (sDialog) {
           if (sDialog.close) {
             sDialog.close();
@@ -205,13 +208,16 @@ sap.ui.define(
       /** -------------------GESTIONE FILTRI--------------------- */
 
       setFilterBTValue: function (aFilters, oInputFrom, oInputTo) {
-        if (oInputFrom?.getValue() && oInputTo?.getValue()) {
+        var sInputFrom = oInputFrom?.getValue() ? oInputFrom?.getValue() : null;
+        var sInputTo = oInputTo?.getValue() ? oInputTo?.getValue() : null;
+
+        if (sInputFrom || sInputTo) {
           aFilters.push(
             new Filter(
-              oInputFrom.data("searchPropertyModel"),
+              oInputFrom?.data("searchPropertyModel"),
               BT,
-              oInputFrom.getValue(),
-              oInputTo.getValue()
+              sInputFrom,
+              sInputTo
             )
           );
         }
@@ -251,6 +257,29 @@ sap.ui.define(
             )
           );
         }
+      },
+
+      checkBTFilter: function (oFilters) {
+        var oBundle = this.getResourceBundle();
+
+        var oIntervalFilters = oFilters.filter((oFilter) => {
+          if (
+            oFilter?.sOperator === "BT" &&
+            (!oFilter?.oValue1 || !oFilter?.oValue2)
+          ) {
+            return oFilter;
+          }
+        });
+
+        if (oIntervalFilters.length > 0) {
+          return (
+            oBundle.getText("checkBTFilter") +
+            " " +
+            oBundle.getText(oIntervalFilters[0]?.sPath)
+          );
+        }
+
+        return;
       },
 
       /** ----------------GESTIONE PAGINAZIONE-------------------- */

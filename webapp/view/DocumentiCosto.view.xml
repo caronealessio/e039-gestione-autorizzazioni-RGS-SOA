@@ -5,14 +5,23 @@
 	displayBlock="true"
 	height="100%"
 	busyIndicatorDelay="0"
+	xmlns:c="sap.ui.core"
 >
 	<Page showHeader="false" class="bgWhite">
-    <footer>
+    <content>
+			<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.InputAutorizzazione" type="XML"/>	
+		</content>
+		<footer>
 			<OverflowToolbar>
 				<Button type="Emphasized" text="{i18n>btnBack}" press="onNavBack" >
 						<layoutData>
 							<OverflowToolbarLayoutData priority="NeverOverflow" />
 						</layoutData>
+				</Button>
+				<Button type="Emphasized" text="{i18n>btnForward}" press="onNavForward" >
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow" />
+					</layoutData>
 				</Button>
 			</OverflowToolbar>
 		</footer>

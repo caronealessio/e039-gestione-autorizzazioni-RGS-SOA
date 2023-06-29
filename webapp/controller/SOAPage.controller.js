@@ -218,6 +218,18 @@ sap.ui.define(
           $skip: oPaginatorModel.getProperty("/paginatorSkip"),
         };
 
+        //Controllo i filtri di tipo BEETWEN
+        var sIntervalFilter = self.checkBTFilter(oFilters);
+        if (sIntervalFilter) {
+          sap.m.MessageBox.error(sIntervalFilter);
+
+          var oModelJson = new JSONModel();
+          oPaginator.setVisible(false);
+          oListSoa.setVisible(false);
+          oView.setModel(oModelJson, SOA_ENTITY_MODEL);
+          return;
+        }
+
         oView.setBusy(true);
 
         self
@@ -228,14 +240,12 @@ sap.ui.define(
               urlParameters: urlParameters,
               filters: oFilters,
               success: function (data, oResponse) {
-                self.setResponseMessage(oResponse);
+                var oModelJson = new JSONModel();
+                oListSoa.setVisible(!self.setResponseMessage(oResponse));
                 self.setPaginatorVisible(oPaginator, data);
-                oListSoa.setVisible(true);
-
-                var oModelJson = new sap.ui.model.json.JSONModel();
                 oModelJson.setData(data.results);
                 oView.setModel(oModelJson, SOA_ENTITY_MODEL);
-                self.getView().setBusy(false);
+                oView.setBusy(false);
               },
               error: function (error) {
                 oView.setBusy(false);
@@ -315,6 +325,7 @@ sap.ui.define(
         self.setFilterEQValue(aFilters, oAmministrazione);
         self.setFilterEQValue(aFilters, oCapitolo);
         self.setFilterBTValue(aFilters, oNumSoaFrom, oNumSoaTo);
+
         self.setFilterEQKey(aFilters, oStatoSoa);
         //TODO - Settarlo quando viene inserito il MC code
         self.setFilterEQValue(aFilters, oChiaveAut);

@@ -11,3 +11,12 @@
 .tableTitle {
   padding-left: 8px;
 }
+.labelWidth > div {
+  width: 100% !important;
+}
+.removePanelPaddingBottom > div {
+  padding-bottom: 0px !important;
+}
+.gridTextEnd {
+  text-align-last: right;
+}
