@@ -189,6 +189,30 @@ sap.ui.define(
         this.closeDialog();
       },
 
+      onValueHelpMultiDialogClose: function (oEvent) {
+        var self = this;
+        var oContexts = oEvent.getParameter("selectedContexts");
+        var oSource = oEvent.getSource().data();
+        var sValue = oSource.searchPropertyModel;
+        var oMultiInput = self.getView().byId(oSource.input);
+
+        oMultiInput.removeAllTokens();
+
+        if (oContexts?.length) {
+          var aData = oContexts.map((oContext) => {
+            return oContext.getObject()[sValue];
+          });
+
+          for (var i = 0; i < aData.length; i++) {
+            oMultiInput.addToken(
+              new sap.m.Token({
+                text: aData[i],
+              })
+            );
+          }
+        }
+      },
+
       openDialog: function (dialogPath) {
         if (!sDialog) {
           sDialog = sap.ui.xmlfragment(dialogPath, this);

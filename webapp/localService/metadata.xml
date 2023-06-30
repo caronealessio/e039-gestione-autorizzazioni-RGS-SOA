@@ -139,6 +139,7 @@
                     <PropertyRef Name="Beneficiario"/>
                 </Key>
                 <Property Name="Beneficiario" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Vendor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Type" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Partn.Cat." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Nome" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="First name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Cognome" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Last name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="RagSoc" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Name 1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -638,6 +639,30 @@
                 <Property Name="ZfermAmm" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Zimpliq" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="RicercaDescProspLiq" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ZdescProsp"/>
+                </Key>
+                <Property Name="ZdescProsp" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="RicercaNProspLiq" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Znumliq"/>
+                </Key>
+                <Property Name="Znumliq" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="RicercaUffLiquidatore" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Zuffliq"/>
+                </Key>
+                <Property Name="Zuffliq" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="RicercaEseContabile" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Gjahr"/>
+                </Key>
+                <Property Name="Gjahr" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <EntityContainer Name="ZS4_SOA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="DescFistlSet" EntityType="ZS4_SOA_SRV.DescFistl" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="WFStateAutSet" EntityType="ZS4_SOA_SRV.WFStateAut" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
@@ -687,6 +712,10 @@
                 <EntitySet Name="RicNumDocBeneficiarioSet" EntityType="ZS4_SOA_SRV.RicNumDocBeneficiario" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="RicBenefDocCostoSet" EntityType="ZS4_SOA_SRV.RicBenefDocCosto" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="RegProspettoLiquidazioneSet" EntityType="ZS4_SOA_SRV.RegProspettoLiquidazione" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="RicercaDescProspLiqSet" EntityType="ZS4_SOA_SRV.RicercaDescProspLiq" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="RicercaNProspLiqCollection" EntityType="ZS4_SOA_SRV.RicercaNProspLiq" sap:content-version="1"/>
+                <EntitySet Name="RicercaUffLiquidatoreSet" EntityType="ZS4_SOA_SRV.RicercaUffLiquidatore" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="RicercaEseContabileSet" EntityType="ZS4_SOA_SRV.RicercaEseContabile" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <FunctionImport Name="IbanBeneficiario" ReturnType="Collection(ZS4_SOA_SRV.IbanBeneficiarioSOA)" EntitySet="IbanBeneficiaroSOASet" m:HttpMethod="GET">
                     <Parameter Name="Iban" Type="Edm.String" Mode="In" MaxLength="34"/>
                     <Parameter Name="Zwels" Type="Edm.String" Mode="In" MaxLength="10"/>

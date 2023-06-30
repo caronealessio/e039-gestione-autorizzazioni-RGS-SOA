@@ -333,7 +333,7 @@
 				<l:GridData span="XL2 L3 M6 S12" linebreak="true"/>
 			</layoutData>
 			<items>
-				<Label text="{i18n>soaFilterZnumliqFrom}" class="filterLabel"/>
+				<Label text="{i18n>filterZnumliqFrom}" class="filterLabel"/>
 					<Input id="fltZnumliqFrom" app:searchPropertyModel="Znumliq"/>
 			</items>
 		</VBox>
@@ -343,7 +343,7 @@
 				<l:GridData span="XL2 L3 M6 S12" />
 			</layoutData>
 			<items>
-				<Label text="{i18n>soaFilterZnumliqTo}" class="filterLabel"/>
+				<Label text="{i18n>filterZnumliqTo}" class="filterLabel"/>
 					<Input id="fltZnumliqTo"/>
 			</items>
 		</VBox>
@@ -353,7 +353,7 @@
 				<l:GridData span="XL4 L6 M8 S12" />
 			</layoutData>
 			<items>
-				<Label text="{i18n>soaFilterZdescProsp}" class="filterLabel"/>
+				<Label text="{i18n>filterZdescProsp}" class="filterLabel"/>
 					<Input id="fltZdescProsp" app:searchPropertyModel="ZdescProsp"/>
 			</items>
 		</VBox>

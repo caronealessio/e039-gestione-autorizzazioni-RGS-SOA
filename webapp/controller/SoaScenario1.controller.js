@@ -190,6 +190,88 @@ sap.ui.define(
         self.closeDialog();
       },
 
+      onValueHelpNProspLiquidazione: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+        var oSelectDialog = sap.ui.getCore().byId(dialogName);
+        oSelectDialog.data("input", oSourceData.input);
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaNProspLiqSet", {
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                oSelectDialog?.setModel(oModelJson, "NProspLiquidazione");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpDescProspLiquidazione: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaDescProspLiqSet", {
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "DescProspLiquidazione");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpUffLiquidatore: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaUffLiquidatoreSet", {
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "UfficioLiquidatore");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
       onTipoBeneficiarioChange: function (oEvent) {
         this._setEditableRitenuta(oEvent.getParameter("value"));
       },
