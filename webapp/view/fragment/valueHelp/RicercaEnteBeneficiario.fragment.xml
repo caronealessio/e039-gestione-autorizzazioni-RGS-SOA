@@ -8,8 +8,8 @@
     noDataText="{i18n>noEnteBeneficiario}"
 		title="{i18n>columnNameEnteBeneficiario}"
 		search="onValueHelpChange"
-		confirm="onValueHelpDialogClose"
-		cancel="onValueHelpDialogClose"
+		confirm="onValueHelpRitenutaClose"
+		cancel="onValueHelpRitenutaClose"
     app:input="fltEnteBeneficiario"
 		app:searchPropertyModel="DescEnte"
 		items="{path: 'RicercaEnteBeneficiario>/'}">		

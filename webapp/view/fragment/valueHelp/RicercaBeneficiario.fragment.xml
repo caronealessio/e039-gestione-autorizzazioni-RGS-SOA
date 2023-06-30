@@ -1,0 +1,30 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+<SelectDialog
+		id="sdRicercaBeneficiario"
+    noDataText="{i18n>noBeneficiario}"
+		title="{i18n>columnNameBeneficiario}"
+		search="onValueHelpChange"
+		confirm="onValueHelpBeneficiarioClose"
+		cancel="onValueHelpBeneficiarioClose"
+    app:input="fltBeneficiario"
+		app:searchPropertyModel="Beneficiario"
+		items="{path: 'RicercaBeneficiario>/'}">		
+		<StandardListItem
+      iconDensityAware="false"
+      iconInset="false"
+      title="{RicercaBeneficiario>Beneficiario}"
+      app:key="{RicercaBeneficiario>Beneficiario}"
+      app:typeBen="{RicercaBeneficiario>Type}"
+      app:name="{RicercaBeneficiario>Nome}"
+      app:surname="{RicercaBeneficiario>Cognome}"
+      app:ragSociale="{RicercaBeneficiario>RagSoc}"
+      app:codFiscale="{RicercaBeneficiario>CodFisc}"
+      app:codFiscaleEstero="{RicercaBeneficiario>CodFiscEst}"
+      app:pIva="{RicercaBeneficiario>PIva}"
+    />
+	</SelectDialog>
+</c:FragmentDefinition>

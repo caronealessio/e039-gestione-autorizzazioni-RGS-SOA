@@ -8,8 +8,8 @@
     noDataText="{i18n>noRitenuta}"
 		title="{i18n>columnNameRitenuta}"
 		search="onValueHelpChange"
-		confirm="onValueHelpDialogClose"
-		cancel="onValueHelpDialogClose"
+		confirm="onValueHelpRitenutaClose"
+		cancel="onValueHelpRitenutaClose"
     app:input="fltRitenuta"
 		app:searchPropertyModel="DescRitenuta"
 		items="{path: 'RicercaRitenuta>/'}">		
