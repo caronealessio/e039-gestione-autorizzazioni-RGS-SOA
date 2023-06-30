@@ -20,3 +20,13 @@
 .gridTextEnd {
   text-align-last: right;
 }
+.textLabelSoaDetail {
+  padding-right: 5px;
+  font-weight: bold;
+}
+.bgBlue > div {
+  background-color: rgba(235, 249, 255, 255);
+}
+.noPadding > div {
+  padding: 0px;
+}

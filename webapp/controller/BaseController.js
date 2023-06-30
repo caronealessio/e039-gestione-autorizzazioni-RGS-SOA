@@ -151,20 +151,22 @@ sap.ui.define(
       onValueHelpChange: function (oEvent) {
         var sValue = oEvent.getParameter("value");
         var oSource = oEvent.getSource();
-        var searchPropertyModel = oSource.data().searchPropertyModel;
+        var searchPropertyModel = oSource.data()?.searchPropertyModel;
         var oFilter = [];
         var qFilters = [];
 
-        oFilter.push(
-          this._createFilterValueHelp(
-            searchPropertyModel,
-            CONTAINS,
-            sValue,
-            false
-          )
-        );
-        qFilters = new Filter({ filters: oFilter, and: false });
-        oSource.getBinding("items").filter(qFilters);
+        if (searchPropertyModel) {
+          oFilter.push(
+            this._createFilterValueHelp(
+              searchPropertyModel,
+              CONTAINS,
+              sValue,
+              false
+            )
+          );
+          qFilters = new Filter({ filters: oFilter, and: false });
+          oSource.getBinding("items").filter(qFilters);
+        }
       },
 
       onValueHelpDialogClose: function (oEvent) {

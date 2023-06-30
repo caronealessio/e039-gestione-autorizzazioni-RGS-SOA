@@ -1,0 +1,22 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+<SelectDialog
+		id="sdRicercaEnteBeneficiario"
+    noDataText="{i18n>noEnteBeneficiario}"
+		title="{i18n>columnNameEnteBeneficiario}"
+		search="onValueHelpChange"
+		confirm="onValueHelpDialogClose"
+		cancel="onValueHelpDialogClose"
+    app:input="fltEnteBeneficiario"
+		app:searchPropertyModel="DescEnte"
+		items="{path: 'RicercaEnteBeneficiario>/'}">		
+		<StandardListItem
+      iconDensityAware="false"
+      iconInset="false"
+      title="{RicercaEnteBeneficiario>DescEnte}"
+      app:key="{RicercaEnteBeneficiario>CodEnte}"/>
+	</SelectDialog>
+</c:FragmentDefinition>

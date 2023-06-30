@@ -1,0 +1,156 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+  xmlns:l="sap.ui.layout"
+>
+  <Panel class="bgBlue removePanelPaddingBottom" backgroundDesign="Transparent">
+    <l:Grid defaultSpan="XL12 L12 M12 S12" class="sapUiSmallMarginTop" vSpacing="0" >
+      <HBox >
+        <items>
+            <Title text="{i18n>headerSonDatiSOA}" class="sapUiTinyMarginBottom" />						
+        </items>
+        <layoutData><l:GridData span="XL12 L12 M12 S12"/></layoutData>
+      </HBox>
+      <!-- RIGA 1 -->
+      <HBox >
+        <Label text="{i18n>headerSonEsercizioGestione}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Gjahr}" />
+        <layoutData><l:GridData span="XL2 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox >
+        <Label text="{i18n>headerSonImporto}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Zimpaut}" /> -->
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonAmminstrazione}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Zzamministr}" />
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonUfficio}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/ZufficioCont}" />
+        <layoutData><l:GridData span="XL2 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <!-- RIGA 2 -->
+      <HBox>
+        <Label text="{i18n>headerSonNomeBen}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Gjahr}" /> -->
+        <layoutData><l:GridData span="XL2 L4 M6 S12" linebreak="true"/></layoutData>
+      </HBox>
+
+      <HBox >
+        <Label text="{i18n>headerSonCognomeBen}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Zimpaut}" /> -->
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonRagioneSociale}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Zzamministr}" /> -->
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonCFBen}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/ZufficioCont}" /> -->
+        <layoutData><l:GridData span="XL2 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonIVABen}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/ZufficioCont}" /> -->
+        <layoutData><l:GridData span="XL2 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <!-- RIGA 3 -->
+      <HBox>
+        <Label text="{i18n>headerSonRitenuta}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Gjahr}" /> -->
+        <layoutData><l:GridData span="XL2 L4 M6 S12" linebreak="true"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonEnteBeneficiario}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Zimpaut}" /> -->
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonFipos}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Fipos}" />
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonFistl}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Fistl}" />
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <!-- RIGA 4 -->
+      <HBox>
+        <Label text="{i18n>headerSonChiaveAut}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Zchiaveaut}" />
+        <layoutData><l:GridData span="XL2 L4 M6 S12" linebreak="true"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonTipoAutorizzazione}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Zdesctipodisp2}" />
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonTipoDisposizione}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Zdesctipodisp3}" />
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonImportoAut}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{
+                      path: 'SoaDetail>/Zimpaut',
+                      formatter:'.formatter.convertFormattedNumber'
+              }" />  
+        <layoutData><l:GridData span="XL2 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonDispAut}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <Text text="{SoaDetail>/Zimpdispaut}" />
+        <layoutData><l:GridData span="XL2 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <!-- RIGA 5 -->
+      <HBox>
+        <Label text="{i18n>headerSonTipoSoa}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Gjahr}" /> -->
+        <layoutData><l:GridData span="XL2 L4 M6 S12" linebreak="true"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonCodiceFD}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Zimpaut}" /> -->
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonDescrizioneFD}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/Zzamministr}" /> -->
+        <layoutData><l:GridData span="XL3 L4 M6 S12"/></layoutData>
+      </HBox>
+
+      <HBox>
+        <Label text="{i18n>headerSonSpecieSoa}" class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+        <!-- <Text text="{SoaDetail>/ZufficioCont}" /> -->
+        <layoutData><l:GridData span="XL2 L4 M6 S12"/></layoutData>
+      </HBox>
+
+    </l:Grid>
+  </Panel>
+</c:FragmentDefinition>

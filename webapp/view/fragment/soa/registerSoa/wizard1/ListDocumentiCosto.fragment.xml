@@ -1,0 +1,12 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+  <Panel>
+		<headerToolbar>
+      <OverflowToolbar>
+        <Title text="{i18n>listDocumentiCosto}" />
+      </OverflowToolbar>
+    </headerToolbar>
+	</Panel>
+</c:FragmentDefinition>

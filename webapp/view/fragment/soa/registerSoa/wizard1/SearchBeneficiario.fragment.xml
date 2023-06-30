@@ -1,0 +1,12 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+  <Panel backgroundDesign="Transparent">
+		<headerToolbar>
+      <OverflowToolbar>
+        <Title text="{i18n>searchBeneficiario}" />
+      </OverflowToolbar>
+    </headerToolbar>
+	</Panel>
+</c:FragmentDefinition>

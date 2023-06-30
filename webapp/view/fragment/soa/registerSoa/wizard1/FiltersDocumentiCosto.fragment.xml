@@ -1,0 +1,11 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+  <Panel class="noPadding" backgroundDesign="Transparent">
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchRitenuta" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchBeneficiario" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchProspettiLiquidazione" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchDocumentiCosto" type="XML"/>
+  </Panel>	
+</c:FragmentDefinition>

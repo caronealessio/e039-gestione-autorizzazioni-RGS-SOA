@@ -154,6 +154,11 @@
           "pattern": "NoDocumentiCosto",
           "name": "noDocumentiCosto",
           "target": ["noDocumentiCosto"]
+        },
+        {
+          "pattern": "SoaScenario1/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soaScenario1",
+          "target": ["soaScenario1"]
         }
       ],
       "targets": {
@@ -210,6 +215,11 @@
           "viewName": "NoDocumentiCosto",
           "viewId": "noDocumentiCosto",
           "viewLevel": 4
+        },
+        "soaScenario1": {
+          "viewName": "SoaScenario1",
+          "viewId": "soaScenario1",
+          "viewLevel": 5
         }
       }
     },

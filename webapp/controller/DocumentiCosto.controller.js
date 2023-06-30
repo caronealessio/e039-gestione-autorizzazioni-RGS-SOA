@@ -5,8 +5,16 @@ sap.ui.define(
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
     "../model/formatter",
+    "sap/m/MessageBox",
   ],
-  function (BaseController, Filter, FilterOperator, JSONModel, formatter) {
+  function (
+    BaseController,
+    Filter,
+    FilterOperator,
+    JSONModel,
+    formatter,
+    MessageBox
+  ) {
     "use strict";
 
     return BaseController.extend("rgssoa.controller.DocumentiCosto", {
@@ -40,7 +48,6 @@ sap.ui.define(
 
         oView.setModel(oChiaveAutorizzazioneModel, "ChiaveAutorizzazione");
       },
-
       onValueHelpChiaveAutorizzazione: function (oEvent) {
         var self = this;
         var oDataModel = self.getModel();
@@ -83,7 +90,6 @@ sap.ui.define(
             });
           });
       },
-
       onValueHelpChiaveAutorizzazioneClose: function (oEvent) {
         var self = this;
         var oView = self.getView();
@@ -94,6 +100,9 @@ sap.ui.define(
         var oInput = self.getView().byId(sInput);
 
         var oChiaveAutorizzazioneModel = new JSONModel({
+          zChiaveAut: oSelectedItem?.data("zChiaveAut"),
+          bukrs: oSelectedItem?.data("bukrs"),
+          gjahr: oSelectedItem?.data("gjahr"),
           dataAutorizzazione: oSelectedItem?.data("dataAutorizzazione"),
           impAutorizzato: oSelectedItem?.data("impAutorizzato"),
           dispAutorizzato: oSelectedItem?.data("dispAutorizzato"),
@@ -127,6 +136,27 @@ sap.ui.define(
 
         oInput.setValue(oSelectedItem.getTitle());
         self.closeDialog();
+      },
+      onNavForward: function () {
+        var self = this;
+        var oView = self.getView();
+        var oChiaveAutorizzazioneModel = oView.getModel("ChiaveAutorizzazione");
+
+        var oParameters = {
+          Zchiaveaut: oChiaveAutorizzazioneModel?.getProperty("/zChiaveAut"),
+          Bukrs: oChiaveAutorizzazioneModel?.getProperty("/bukrs"),
+          Gjahr: oChiaveAutorizzazioneModel?.getProperty("/gjahr"),
+        };
+
+        if (
+          !oParameters?.Zchiaveaut ||
+          !oParameters?.Bukrs ||
+          !oParameters?.Gjahr
+        ) {
+          MessageBox.error("Inserire una Autorizzazione valida");
+          return;
+        }
+        self.getRouter().navTo("soaScenario1", oParameters);
       },
     });
   }

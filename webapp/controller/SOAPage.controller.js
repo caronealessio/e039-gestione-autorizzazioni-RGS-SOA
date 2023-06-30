@@ -325,7 +325,6 @@ sap.ui.define(
         self.setFilterEQValue(aFilters, oAmministrazione);
         self.setFilterEQValue(aFilters, oCapitolo);
         self.setFilterBTValue(aFilters, oNumSoaFrom, oNumSoaTo);
-
         self.setFilterEQKey(aFilters, oStatoSoa);
         //TODO - Settarlo quando viene inserito il MC code
         self.setFilterEQValue(aFilters, oChiaveAut);
