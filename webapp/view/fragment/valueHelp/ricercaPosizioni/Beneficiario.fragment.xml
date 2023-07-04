@@ -4,7 +4,7 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 <SelectDialog
-		id="sdRicercaBeneficiario"
+		id="sdBeneficiario"
     noDataText="{i18n>noBeneficiario}"
 		title="{i18n>columnNameBeneficiario}"
 		search="onValueHelpChange"
@@ -12,19 +12,19 @@
 		cancel="onValueHelpBeneficiarioClose"
     app:input="fltBeneficiario"
 		app:searchPropertyModel="Beneficiario"
-		items="{path: 'RicercaBeneficiario>/'}">		
+		items="{path: 'Beneficiario>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
-      title="{RicercaBeneficiario>Beneficiario}"
-      app:key="{RicercaBeneficiario>Beneficiario}"
-      app:typeBen="{RicercaBeneficiario>Type}"
-      app:name="{RicercaBeneficiario>Nome}"
-      app:surname="{RicercaBeneficiario>Cognome}"
-      app:ragSociale="{RicercaBeneficiario>RagSoc}"
-      app:codFiscale="{RicercaBeneficiario>CodFisc}"
-      app:codFiscaleEstero="{RicercaBeneficiario>CodFiscEst}"
-      app:pIva="{RicercaBeneficiario>PIva}"
+      title="{Beneficiario>Beneficiario}"
+      app:key="{Beneficiario>Beneficiario}"
+      app:typeBen="{Beneficiario>Type}"
+      app:name="{Beneficiario>Nome}"
+      app:surname="{Beneficiario>Cognome}"
+      app:ragSociale="{Beneficiario>RagSoc}"
+      app:codFiscale="{Beneficiario>CodFisc}"
+      app:codFiscaleEstero="{Beneficiario>CodFiscEst}"
+      app:pIva="{Beneficiario>PIva}"
     />
 	</SelectDialog>
 </c:FragmentDefinition>

@@ -4,7 +4,7 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 <SelectDialog
-		id="sdRicercaRitenuta"
+		id="sdRitenuta"
     noDataText="{i18n>noRitenuta}"
 		title="{i18n>columnNameRitenuta}"
 		search="onValueHelpChange"
@@ -12,11 +12,11 @@
 		cancel="onValueHelpRitenutaClose"
     app:input="fltRitenuta"
 		app:searchPropertyModel="DescRitenuta"
-		items="{path: 'RicercaRitenuta>/'}">		
+		items="{path: 'Ritenuta>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
-      title="{RicercaRitenuta>DescRitenuta}"
-      app:key="{RicercaRitenuta>CodRitenuta}"/>
+      title="{Ritenuta>DescRitenuta}"
+      app:key="{Ritenuta>CodRitenuta}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

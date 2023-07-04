@@ -14,7 +14,7 @@
     <content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 				<Text text="{i18n>filterEseContabile}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
         <ComboBox 
 					width="100%" 
@@ -24,28 +24,28 @@
           <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</ComboBox>
 				<Text text="{i18n>filterUffLiquidatore}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
        <MultiInput  					
           id="fltZuffliq"
 					valueHelpRequest="onValueHelpUffLiquidatore"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdRicercaUffLiquidatore"
-					app:fragmentName="RicercaUffLiquidatore">
+					app:dialogName="sdUfficioLiquidatore"
+					app:fragmentName="UfficioLiquidatore">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </MultiInput >
         <Text text="{i18n>filterZnumliqFrom}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
         <Input 					
           id="fltZnumliqFrom"
 					valueHelpRequest="onValueHelpNProspLiquidazione"
 					showValueHelp="true"
 					valueHelpOnly="true"
-          app:input="ftrZnumliqFrom"
-					app:dialogName="sdRicercaNProspLiquidazione"
-					app:fragmentName="RicercaNProspLiquidazione">
+          app:input="fltZnumliqFrom"
+					app:dialogName="sdNProspLiquidazione"
+					app:fragmentName="NProspLiquidazione">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Input>
 			</l:Grid>
@@ -54,7 +54,7 @@
 		<content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 				<Text text="{i18n>filterZnumliqTo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input 					
           id="fltZnumliqTo"
@@ -62,22 +62,21 @@
 					showValueHelp="true"
 					valueHelpOnly="true"
           app:input="fltZnumliqTo"
-					app:dialogName="sdRicercaNProspLiquidazione"
-					app:fragmentName="RicercaNProspLiquidazione">
+					app:dialogName="sdNProspLiquidazione"
+					app:fragmentName="NProspLiquidazione">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Input>
 				<Text text="{i18n>filterZdescProsp}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L12 M5 S12" indent="XL1" /></layoutData>
+          <layoutData><l:GridData span="XL2 L12 M5 S12" /></layoutData>
         </Text>
 				<Input 					
-          id="ftlZdescProsp"
+          id="fltZdescProsp"
 					valueHelpRequest="onValueHelpDescProspLiquidazione"
 					showValueHelp="true"
 					valueHelpOnly="true"
-          app:input="ftlZdescProsp"
-					app:dialogName="sdRicercaDescProspLiquidazione"
-					app:fragmentName="RicercaDescProspLiquidazione">
-          <layoutData><l:GridData span="XL5 L12 M12 S12" /></layoutData>
+					app:dialogName="sdDescProspLiquidazione"
+					app:fragmentName="DescProspLiquidazione">
+          <layoutData><l:GridData span="XL4 L12 M12 S12" /></layoutData>
         </Input>
 			</l:Grid>
 		</content>

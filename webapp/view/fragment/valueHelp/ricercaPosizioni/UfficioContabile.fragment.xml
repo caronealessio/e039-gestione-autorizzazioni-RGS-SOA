@@ -4,20 +4,19 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 <SelectDialog
-		id="sdRicercaDescProspLiquidazione"
-    noDataText="{i18n>noDescProspLiquidazione}"
-		title="{i18n>labelDescProspLiquidazione}"
+		id="sdUfficioContabile"
+    noDataText="{i18n>noUfficioContabile}"
+		title="{i18n>labelUfficioContabile}"
 		search="onValueHelpChange"
 		confirm="onValueHelpDialogClose"
 		cancel="onValueHelpDialogClose"
-    app:input="ftrZdescProsp"
-		app:searchPropertyModel="ZdescProsp"
-		items="{path: 'DescProspLiquidazione>/'}"
-  >		
+    app:input="fltUfficioContabile"
+		app:searchPropertyModel="Fkber"
+		items="{path: 'UfficioContabile>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
-      title="{DescProspLiquidazione>ZdescProsp}"
-      app:key="{DescProspLiquidazione>ZdescProsp}"/>
+      title="{UfficioContabile>Fkber}"
+      app:key="{UfficioContabile>Fkber}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

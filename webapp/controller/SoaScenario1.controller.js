@@ -16,6 +16,27 @@ sap.ui.define(
           .getRoute("soaScenario1")
           .attachPatternMatched(this._onObjectMatched, this);
       },
+
+      onBeforeRendering: function () {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oInputUffContabile = self.getView().byId("fltUfficioContabile");
+        var oInputUffPagatore = self.getView().byId("fltUfficioPagatore");
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "PrevalUfficioContabileSet", {
+              success: function (data) {
+                oInputUffContabile.setValue(data?.results[0]?.Fkber);
+                oInputUffPagatore.setValue(data?.results[0]?.Fkber);
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
       onNavBack: function () {
         var self = this;
         var oWizard = self.getView().byId("wizScenario1");
@@ -41,7 +62,7 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.openDialog(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
         );
 
         //Resetto l'input dell'Ente Beneficiario ogni qual volta imposto una Ritenuta
@@ -58,7 +79,7 @@ sap.ui.define(
                 var oModelJson = new JSONModel();
                 oModelJson.setData(data.results);
                 var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "RicercaRitenuta");
+                oSelectDialog?.setModel(oModelJson, "Ritenuta");
                 oDialog.open();
               },
               error: function (error) {},
@@ -73,7 +94,7 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.openDialog(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
         );
         var oInputRitenuta = self.getView().byId("fltRitenuta");
 
@@ -99,7 +120,7 @@ sap.ui.define(
                 var oModelJson = new JSONModel();
                 oModelJson.setData(data.results);
                 var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "RicercaEnteBeneficiario");
+                oSelectDialog?.setModel(oModelJson, "EnteBeneficiario");
                 oDialog.open();
               },
               error: function (error) {},
@@ -136,7 +157,7 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.openDialog(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
         );
 
         self
@@ -149,7 +170,7 @@ sap.ui.define(
                 var oModelJson = new JSONModel();
                 oModelJson.setData(data.results);
                 var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "RicercaBeneficiario");
+                oSelectDialog?.setModel(oModelJson, "Beneficiario");
                 oDialog.open();
               },
               error: function (error) {},
@@ -160,6 +181,7 @@ sap.ui.define(
       onValueHelpBeneficiarioClose: function (oEvent) {
         var self = this;
         var oView = self.getView();
+        var oDataModel = self.getModel();
         var oSelectedItem = oEvent.getParameter("selectedItem");
         var oSource = oEvent.getSource();
         var sInput = oSource.data().input;
@@ -183,10 +205,32 @@ sap.ui.define(
         if (!oSelectedItem) {
           oInput.resetProperty("value");
           self.closeDialog();
+          self.clearModel("AnnoDocBeneficiario");
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
+
+        var aFiltersAnnoDocBeneficiario = [];
+        aFiltersAnnoDocBeneficiario.push(
+          new Filter("Lifnr", FilterOperator.EQ, oSelectedItem.getTitle())
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaAnnoDocBeneSet", {
+              filters: aFiltersAnnoDocBeneficiario,
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                self.getView().setModel(oModelJson, "AnnoDocBeneficiario");
+              },
+              error: function (error) {},
+            });
+          });
+
         self.closeDialog();
       },
 
@@ -197,10 +241,10 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.openDialog(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
         );
         var oSelectDialog = sap.ui.getCore().byId(dialogName);
-        oSelectDialog.data("input", oSourceData.input);
+        oSelectDialog?.data("input", oSourceData.input);
 
         self
           .getModel()
@@ -225,7 +269,7 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.openDialog(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
         );
 
         self
@@ -252,7 +296,7 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.openDialog(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
         );
 
         self
@@ -265,6 +309,185 @@ sap.ui.define(
                 oModelJson.setData(data.results);
                 var oSelectDialog = sap.ui.getCore().byId(dialogName);
                 oSelectDialog?.setModel(oModelJson, "UfficioLiquidatore");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpUffContabile: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaUfficioContabileSet", {
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "UfficioContabile");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpUffPagatore: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaUfficioPagatoreSet", {
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "UfficioPagatore");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpNRegDocumento: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
+        );
+        var oSelectDialog = sap.ui.getCore().byId(dialogName);
+        oSelectDialog.data("input", oSourceData.input);
+        var oInputAnnoRegDocumento = self.getView().byId("fltAnnoRegDoc");
+        var aKeys = oInputAnnoRegDocumento.getSelectedKeys();
+        var aFilters = [];
+
+        aKeys.map((sKey) => {
+          aFilters.push(new Filter("Gjahr", FilterOperator.EQ, sKey));
+        });
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaNumRegDocSet", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                oSelectDialog?.setModel(oModelJson, "NRegDocumento");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onChangeAnnoRegDoc: function () {
+        var self = this;
+        self.clearModel("NRegDocumento");
+        var oInputNRegDocumentoFrom = self.getView().byId("fltNRegDocFrom");
+        var oInputNRegDocumentoTo = self.getView().byId("fltNRegDocTo");
+
+        oInputNRegDocumentoFrom.resetProperty("value");
+        oInputNRegDocumentoTo.resetProperty("value");
+      },
+
+      onValueHelpNRegDocumento: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
+        );
+        var oSelectDialog = sap.ui.getCore().byId(dialogName);
+        oSelectDialog.data("input", oSourceData.input);
+        var oInputAnnoRegDocumento = self.getView().byId("fltAnnoDocBene");
+        var aKeys = oInputAnnoRegDocumento.getSelectedKeys();
+        var aFilters = [];
+
+        aKeys.map((sKey) => {
+          aFilters.push(new Filter("Gjahr", FilterOperator.EQ, sKey));
+        });
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaNumDocBeneSet", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                oSelectDialog?.setModel(oModelJson, "NDocBeneficiario");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onChangeAnnoDocBene: function () {
+        var self = this;
+        self.clearModel("NDocBeneficiario");
+        var oInputNDocBeneficiario = self.getView().byId("fltNDocBene");
+
+        oInputNDocBeneficiario.resetProperty("value");
+      },
+
+      onValueHelpNumDocBene: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp.ricercaPosizioni." + sFragmentName
+        );
+        var oInputAnnoDocBene = self.getView().byId("fltAnnoDocBene");
+        var aKeys = oInputAnnoDocBene.getSelectedKeys();
+        var aFilters = [];
+
+        aKeys.map((sKey) => {
+          aFilters.push(new Filter("Gjahr", FilterOperator.EQ, sKey));
+        });
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RicercaNumDocBeneSet", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "NDocBeneficiario");
                 oDialog.open();
               },
               error: function (error) {},

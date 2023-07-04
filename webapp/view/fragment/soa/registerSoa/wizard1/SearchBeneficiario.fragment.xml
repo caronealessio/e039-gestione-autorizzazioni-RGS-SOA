@@ -14,7 +14,7 @@
     <content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 				<Text text="{i18n>soaFilterTipoBen}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<ComboBox
 					id="fltTipoBeneficiario" 
@@ -26,16 +26,16 @@
 					<c:Item key="{CodTipoBen}" text="{DescTipoBen}" />
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</ComboBox>
-				<Text text="{i18n>soaFilterLifnr}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+				<Text text="{i18n>filterBeneficiario}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input
 					id="fltBeneficiario"
 					valueHelpRequest="onValueHelpBeneficiario"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdRicercaBeneficiario"
-					app:fragmentName="RicercaBeneficiario"
+					app:dialogName="sdBeneficiario"
+					app:fragmentName="Beneficiario"
 					app:searchPropertyModel="Beneficiario"
 				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
@@ -46,22 +46,22 @@
 		<content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 					<Text text="{i18n>soaFilterName}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-						<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+						<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 					</Text>
           <Input value="{Beneficiario>/Name}" editable="false">
             <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				  </Input >
           <Text text="{i18n>soaFilterSurname}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-						<layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+						<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 					</Text>
           <Input value="{Beneficiario>/Surname}" editable="false">
             <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				  </Input>
           <Text text="{i18n>soaFilterRagSociale}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-						<layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+						<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 					</Text>
           <Input value="{Beneficiario>/RagSociale}" editable="false">
-            <layoutData><l:GridData span="XL3 L2 M5 S12" /></layoutData>
+            <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				  </Input>
 				</l:Grid>
 		</content>
@@ -69,19 +69,19 @@
 		<content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 				<Text text="{i18n>soaFilterCF}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input value="{Beneficiario>/CodFiscale}" editable="false">
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>
 				<Text text="{i18n>soaFilterCFEstero}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input value="{Beneficiario>/CodFiscaleEstero}" editable="false">
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>
         <Text text="{i18n>soaFilterPIVA}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input value="{Beneficiario>/PIva}" editable="false">
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>

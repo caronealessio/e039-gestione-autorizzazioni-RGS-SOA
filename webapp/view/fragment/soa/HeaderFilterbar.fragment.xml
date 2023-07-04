@@ -257,7 +257,7 @@
 				<l:GridData span="XL2 L3 M6 S12"/>
 			</layoutData>
 			<items>
-				<Label text="{i18n>soaFilterLifnr}" class="filterLabel"/>
+				<Label text="{i18n>filterBeneficiario}" class="filterLabel"/>
 					<Input id="fltLifnr" app:searchPropertyModel="Lifnr"/>
 			</items>
 		</VBox>

@@ -4,7 +4,7 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 <SelectDialog
-		id="sdRicercaEnteBeneficiario"
+		id="sdEnteBeneficiario"
     noDataText="{i18n>noEnteBeneficiario}"
 		title="{i18n>columnNameEnteBeneficiario}"
 		search="onValueHelpChange"
@@ -12,11 +12,11 @@
 		cancel="onValueHelpRitenutaClose"
     app:input="fltEnteBeneficiario"
 		app:searchPropertyModel="DescEnte"
-		items="{path: 'RicercaEnteBeneficiario>/'}">		
+		items="{path: 'EnteBeneficiario>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
-      title="{RicercaEnteBeneficiario>DescEnte}"
-      app:key="{RicercaEnteBeneficiario>CodEnte}"/>
+      title="{EnteBeneficiario>DescEnte}"
+      app:key="{EnteBeneficiario>CodEnte}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

@@ -5,8 +5,16 @@ sap.ui.define(
     "sap/m/library",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/model/json/JSONModel",
   ],
-  function (Controller, UIComponent, mobileLibrary, Filter, FilterOperator) {
+  function (
+    Controller,
+    UIComponent,
+    mobileLibrary,
+    Filter,
+    FilterOperator,
+    JSONModel
+  ) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -138,6 +146,11 @@ sap.ui.define(
         oModel.setProperty("/" + tableTitle, sTitle);
       },
 
+      clearModel: function (sNameModel) {
+        var oModelJSON = new JSONModel({});
+        this.getView().setModel(oModelJSON, sNameModel);
+      },
+
       /** -------------------GESTIONE VALUE HELP--------------------------- */
 
       _createFilterValueHelp: function (key, operator, value, useToLower) {
@@ -211,6 +224,7 @@ sap.ui.define(
             );
           }
         }
+        this.closeDialog();
       },
 
       openDialog: function (dialogPath) {

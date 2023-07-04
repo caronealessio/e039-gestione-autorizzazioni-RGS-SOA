@@ -14,29 +14,29 @@
 		<content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 				<Text text="{i18n>soaFilterWitht}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input
 					id="fltRitenuta"
 					valueHelpRequest="onValueHelpRitenuta"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdRicercaRitenuta"
-					app:fragmentName="RicercaRitenuta"
+					app:dialogName="sdRitenuta"
+					app:fragmentName="Ritenuta"
 					app:searchPropertyModel="CodRitenuta"
 				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>	
 				<Text text="{i18n>soaFilterZzCebenra}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input
 					id="fltEnteBeneficiario"
 					valueHelpRequest="onValueHelpEnteBeneficiario"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdRicercaEnteBeneficiario"
-					app:fragmentName="RicercaEnteBeneficiario"
+					app:dialogName="sdEnteBeneficiario"
+					app:fragmentName="EnteBeneficiario"
 					app:searchPropertyModel="ZzCebenra"
 				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
@@ -47,7 +47,7 @@
 		<content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 					<Text text="{i18n>soaFilterQuoteEsigibili}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-						<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+						<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 					</Text>
 					<CheckBox id="fltQuoteEsigibili" selected="true" select="onQuoteEsibilitaChange">
 						<layoutData><l:GridData span="XL1 L1 M1 S1"/></layoutData>
@@ -58,7 +58,7 @@
 		<content>
 			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
 				<Text text="{i18n>soaFilterDataEseFrom}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<DatePicker
 					id="fltDataEseFrom"								
@@ -66,10 +66,10 @@
 					displayFormat="dd/MM/yyyy"
 					change="onDataEseChange"
 				>
-					<layoutData><l:GridData span="XL1 L2 M5 S12" /></layoutData>
+					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</DatePicker>
 				<Text text="{i18n>soaFilterDataEseTo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL2"/></layoutData>
+          <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Text>
 				<DatePicker
 					id="fltDataEseTo"								
@@ -77,7 +77,7 @@
 					displayFormat="dd/MM/yyyy"
 					change="onDataEseChange"	
 				>
-					<layoutData><l:GridData span="XL1 L2 M5 S12" /></layoutData>
+					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</DatePicker>
 			</l:Grid>
 		</content>
