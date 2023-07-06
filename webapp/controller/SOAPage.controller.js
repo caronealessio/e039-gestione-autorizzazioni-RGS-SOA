@@ -209,7 +209,7 @@ sap.ui.define(
         var self = this;
         var oDataModel = self.getModel();
         var oView = self.getView();
-        var oFilters = this._getHeaderFilters();
+        var aFilters = this._getHeaderFilters();
         var oPaginatorModel = self.getModel(PAGINATOR_MODEL);
         var oPaginator = oView.byId("pnlPaginator");
         var oListSoa = oView.byId("vbxListSoa");
@@ -219,7 +219,7 @@ sap.ui.define(
         };
 
         //Controllo i filtri di tipo BEETWEN
-        var sIntervalFilter = self.checkBTFilter(oFilters);
+        var sIntervalFilter = self.checkBTFilter(aFilters);
         if (sIntervalFilter) {
           sap.m.MessageBox.error(sIntervalFilter);
 
@@ -238,13 +238,11 @@ sap.ui.define(
           .then(function () {
             oDataModel.read("/" + SOA_ENTITY_SET, {
               urlParameters: urlParameters,
-              filters: oFilters,
+              filters: aFilters,
               success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
                 oListSoa.setVisible(!self.setResponseMessage(oResponse));
+                self.setModelCustom(SOA_ENTITY_MODEL, data.results);
                 self.setPaginatorVisible(oPaginator, data);
-                oModelJson.setData(data.results);
-                oView.setModel(oModelJson, SOA_ENTITY_MODEL);
                 oView.setBusy(false);
               },
               error: function (error) {

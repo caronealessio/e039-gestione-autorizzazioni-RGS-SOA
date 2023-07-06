@@ -19,10 +19,15 @@ sap.ui.define([], function () {
       if (!sValue) {
         return "";
       }
-
       sValue = sValue.replace(".", ",");
 
       return sValue.toString().replace(/\B(?<!\,\d*)(?=(\d{3})+(?!\d))/g, ".");
+    },
+
+    acceptOnlyNumbers: function (e) {
+      if (e.keyCode === 46) {
+        e.preventDefault();
+      }
     },
   };
 });

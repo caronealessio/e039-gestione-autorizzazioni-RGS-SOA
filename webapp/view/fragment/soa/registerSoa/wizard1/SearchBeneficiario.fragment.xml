@@ -22,6 +22,7 @@
 					items="{path: '/TipologiaBeneficiarioSet'}"
 					selectedKey="{Beneficiario>/TypeBen}"
 					change="onTipoBeneficiarioChange"
+					app:searchPropertyModel="TipoBeneficiario"
 				>
 					<c:Item key="{CodTipoBen}" text="{DescTipoBen}" />
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
@@ -29,6 +30,7 @@
 				<Text text="{i18n>filterBeneficiario}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
+				<!-- TODO - Eliminare value -->
 				<Input
 					id="fltBeneficiario"
 					valueHelpRequest="onValueHelpBeneficiario"
@@ -36,7 +38,7 @@
 					valueHelpOnly="true"
 					app:dialogName="sdBeneficiario"
 					app:fragmentName="Beneficiario"
-					app:searchPropertyModel="Beneficiario"
+					app:searchPropertyModel="Lifnr"
 				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>

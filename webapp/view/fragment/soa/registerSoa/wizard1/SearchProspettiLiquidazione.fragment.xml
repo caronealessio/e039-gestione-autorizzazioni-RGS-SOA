@@ -17,6 +17,8 @@
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
         <ComboBox 
+					id="fltEseContabile"
+					app:searchPropertyModel="EsercizioContabile"
 					width="100%" 
 					items="{path: '/RicercaEseContabileSet'}"
         >
@@ -27,25 +29,29 @@
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
        <MultiInput  					
-          id="fltZuffliq"
+          id="fltUffLiquidatore"
 					valueHelpRequest="onValueHelpUffLiquidatore"
 					showValueHelp="true"
 					valueHelpOnly="true"
 					app:dialogName="sdUfficioLiquidatore"
-					app:fragmentName="UfficioLiquidatore">
+					app:fragmentName="UfficioLiquidatore"
+					app:searchPropertyModel="UfficioLiquidatore"
+				>
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </MultiInput >
         <Text text="{i18n>filterZnumliqFrom}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
         <Input 					
-          id="fltZnumliqFrom"
+          id="fltNProspLiquidazioneFrom"
 					valueHelpRequest="onValueHelpNProspLiquidazione"
 					showValueHelp="true"
 					valueHelpOnly="true"
-          app:input="fltZnumliqFrom"
+          app:input="fltNProspLiquidazioneFrom"
 					app:dialogName="sdNProspLiquidazione"
-					app:fragmentName="NProspLiquidazione">
+					app:fragmentName="NProspLiquidazione"
+					app:searchPropertyModel="NProspLiquidazione"
+				>
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Input>
 			</l:Grid>
@@ -57,11 +63,11 @@
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<Input 					
-          id="fltZnumliqTo"
+          id="fltNProspLiquidazioneTo"
 					valueHelpRequest="onValueHelpNProspLiquidazione"
 					showValueHelp="true"
 					valueHelpOnly="true"
-          app:input="fltZnumliqTo"
+          app:input="fltNProspLiquidazioneTo"
 					app:dialogName="sdNProspLiquidazione"
 					app:fragmentName="NProspLiquidazione">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
@@ -75,7 +81,8 @@
 					showValueHelp="true"
 					valueHelpOnly="true"
 					app:dialogName="sdDescProspLiquidazione"
-					app:fragmentName="DescProspLiquidazione">
+					app:fragmentName="DescProspLiquidazione"
+					app:searchPropertyModel="DescProspLiquidazione">
           <layoutData><l:GridData span="XL4 L12 M12 S12" /></layoutData>
         </Input>
 			</l:Grid>

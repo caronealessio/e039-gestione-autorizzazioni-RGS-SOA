@@ -151,6 +151,13 @@ sap.ui.define(
         this.getView().setModel(oModelJSON, sNameModel);
       },
 
+      setModelCustom: function (sNameModel, oData) {
+        var oView = this.getView();
+        var oModelJson = new JSONModel();
+        oModelJson.setData(oData);
+        oView.setModel(oModelJson, sNameModel);
+      },
+
       /** -------------------GESTIONE VALUE HELP--------------------------- */
 
       _createFilterValueHelp: function (key, operator, value, useToLower) {
@@ -299,10 +306,42 @@ sap.ui.define(
         }
       },
 
-      checkBTFilter: function (oFilters) {
+      setFilterMultiInputEQText: function (aFilters, oInput) {
+        if (oInput.getTokens().length !== 0) {
+          oInput.getTokens().map((oRow) => {
+            if (oRow.getText()) {
+              aFilters.push(
+                new Filter(
+                  oInput.data("searchPropertyModel"),
+                  EQ,
+                  oRow.getText()
+                )
+              );
+            }
+          });
+        }
+      },
+
+      setFilterMultiComboBoxEQKey: function (aFilters, oInput) {
+        if (oInput.getSelectedItems().length !== 0) {
+          oInput.getSelectedItems().map((oRow) => {
+            if (oRow.getKey()) {
+              aFilters.push(
+                new Filter(
+                  oInput.data("searchPropertyModel"),
+                  EQ,
+                  oRow.getKey()
+                )
+              );
+            }
+          });
+        }
+      },
+
+      checkBTFilter: function (aFilters) {
         var oBundle = this.getResourceBundle();
 
-        var oIntervalFilters = oFilters.filter((oFilter) => {
+        var oIntervalFilters = aFilters.filter((oFilter) => {
           if (
             oFilter?.sOperator === "BT" &&
             (!oFilter?.oValue1 || !oFilter?.oValue2)
@@ -315,7 +354,7 @@ sap.ui.define(
           return (
             oBundle.getText("checkBTFilter") +
             " " +
-            oBundle.getText(oIntervalFilters[0]?.sPath)
+            oBundle.getText("label" + oIntervalFilters[0]?.sPath)
           );
         }
 

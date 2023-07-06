@@ -30,3 +30,13 @@
 .noPadding > div {
   padding: 0px;
 }
+.onlyTopPadding > div {
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+}
+.calculator {
+  text-align: right;
+  align-items: center;
+  display: flex;
+}

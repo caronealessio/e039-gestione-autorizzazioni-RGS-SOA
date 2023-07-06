@@ -360,8 +360,8 @@
 
 		<Button 
 			id="btnSearchSoa"
-			text="{i18n>btnSearchSoa}"
-			tooltip="{i18n>btnSearchSoa}"
+			text="{i18n>btnStart}"
+			tooltip="{i18n>btnStart}"
 			class="button"
 			width="100%"
 			type="Emphasized"

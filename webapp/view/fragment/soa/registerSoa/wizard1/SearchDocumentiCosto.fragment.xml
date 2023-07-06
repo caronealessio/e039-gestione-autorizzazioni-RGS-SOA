@@ -23,6 +23,7 @@
 					valueHelpOnly="true"
 					app:dialogName="sdUfficioContabile"
 					app:fragmentName="UfficioContabile"
+          app:searchPropertyModel="UfficioContabile"
         >
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Input>
@@ -36,6 +37,7 @@
 					valueHelpOnly="true"
 					app:dialogName="sdUfficioPagatore"
 					app:fragmentName="UfficioPagatore"
+          app:searchPropertyModel="UfficioPagatore"
         >
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Input>
@@ -47,7 +49,12 @@
 				<Text text="{i18n>filterAnnoRegDoc}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-        <MultiComboBox id="fltAnnoRegDoc" items="{path: '/RicercaAnnoRegDocSet'}" selectionChange="onChangeAnnoRegDoc">   
+        <MultiComboBox 
+          id="fltAnnoRegDoc" 
+          items="{path: '/RicercaAnnoRegDocSet'}" 
+          selectionChange="onChangeAnnoRegDoc"
+          app:searchPropertyModel="AnnoRegDocumento"
+        >   
           <c:Item key="{Gjahr}" text="{Gjahr}"/>
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </MultiComboBox>
@@ -62,6 +69,7 @@
           app:input="fltNRegDocFrom"
 					app:dialogName="sdNRegDocumento"
 					app:fragmentName="NRegDocumento"
+          app:searchPropertyModel="NumRegDoc"
         >
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Input>
@@ -87,7 +95,12 @@
 				<Text text="{i18n>filterAnnoDocBene}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-        <MultiComboBox id="fltAnnoDocBene" items="{path: 'AnnoDocBeneficiario>/'}" selectionChange="onChangeAnnoDocBene">   
+        <MultiComboBox 
+          id="fltAnnoDocBene" 
+          items="{path: 'AnnoDocBeneficiario>/'}" 
+          selectionChange="onChangeAnnoDocBene"
+          app:searchPropertyModel="AnnoDocBeneficiario"
+        >   
           <c:Item key="{AnnoDocBeneficiario>Gjahr}" text="{AnnoDocBeneficiario>Gjahr}"/>
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </MultiComboBox>
@@ -101,6 +114,7 @@
 					valueHelpOnly="true"
 					app:dialogName="sdNDocBeneficiario"
 					app:fragmentName="NDocBeneficiario"
+          app:searchPropertyModel="NDocBen"
         >
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </MultiInput>
@@ -112,13 +126,13 @@
 				<Text text="{i18n>filterCIG}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-        <Input>
+        <Input id="fltCIG" app:searchPropertyModel="Cig">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Input>
 				<Text text="{i18n>filterCUP}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-        <Input>
+        <Input id="fltCUP" app:searchPropertyModel="Cup">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </Input>
 			</l:Grid>
@@ -130,7 +144,8 @@
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
         <DatePicker
-					id="fltScadenzaDocFrom"								
+					id="fltScadenzaDocFrom"		
+          app:searchPropertyModel="ScadenzaDoc"						
 					valueFormat="yyyy-MM-dd"
 					displayFormat="dd/MM/yyyy">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
