@@ -63,6 +63,16 @@ sap.ui.define(
           Swift: "", //BIC
           Zcoordest: "", //Cordinate Estere
           Iban: "", //IBAN
+          Ztipofirma: "", //Tipologia Firma
+          ZpersCognomeQuiet1: "", //Cognome primo quietanzante
+          ZpersCognomeQuiet2: "", //Cognome secondo quietanzante
+          ZpersNomeQuiet1: "", //Nome primo quietanzante
+          ZpersNomeQuiet2: "", //Nome secondo quietanzante
+          ZpersNomeVaglia: "", //Nome persona vaglia
+          ZpersCognomeVaglia: "", //Cognome persona vaglia
+          Zstcd1: "", //Codice Fiscale Utilizzatore
+          Zstcd12: "", //Codice fiscale secondo quietanzante
+          Zstcd13: "", //Codice fiscale destinatario vaglia
           data: [],
 
           BuType: "", //Tipologia Persona
@@ -73,6 +83,15 @@ sap.ui.define(
           Zdescwels: "", //Descrizione Modalità Pagamento
           Zbanks: "", //Paese di Residenza (Primi 2 digit IBAN)
           ZDesccauval: "", //Descrizione Causale Valutaria
+
+          Zqindiriz: "", //Indirizzo primo quietanzante
+          Zqcitta: "", //Citta primo quietanzante
+          Zqcap: "", //Cap primo quietanzante
+          Zqprovincia: "", //Provincia primo quietanzante
+          Zqindiriz12: "", //Indirizzo secondo quietanzante
+          Zqcitta12: "", //Citta secondo quietanzante
+          Zqcap12: "", //Cap secondo quietanzante
+          Zqprovincia12: "", //Provincia secondo quietanzante
         });
 
         var oModelTipoPersona = new JSONModel({
@@ -207,6 +226,7 @@ sap.ui.define(
           this._setDataBenficiario();
           this._setModalitaPagamento();
           this._setIbanBeneficiario();
+          this._setDatiVaglia();
           oWizard.nextStep();
         } else if (bWizard2) {
           oStepScenarioModel.setProperty("/wizard2", false);
@@ -1188,18 +1208,29 @@ sap.ui.define(
         oModelSoa.setProperty("/Zdescwels", oSelectedItem?.getTitle());
         oModelSoa.setProperty("/Zwels", sKey);
 
-        //Resetto il valore di causale valutaria
         if (sKey !== "ID6") {
           //Resetto il valore di causale valutaria
           oInputCausaleValutaria.resetProperty("value");
           oInputCausaleValutaria.data("key", null);
           oModelSoa.setProperty("/ZCausaleval", "");
           oModelSoa.setProperty("/ZDesccauval", "");
+          //Resetto Coordinate estere e BIC
           oModelSoa.setProperty("/Swift", "");
           oModelSoa.setProperty("/Zcoordest", "");
           oInputCoordEstere.resetProperty("value");
           oInputCoordEstere.data("swift", null);
         }
+
+        if (sKey !== "ID1") {
+          //Resetto Tipo Firma
+          var oInputTipoFirma = self.getView().byId("iptTipoFirma");
+          oModelSoa.setProperty("/Ztipofirma", "");
+
+          oInputTipoFirma.setSelectedKey("");
+          oInputTipoFirma.setSelectedItem("");
+        }
+
+        this._setDatiVaglia();
 
         if (!oSelectedItem) {
           oInput.resetProperty("value");
@@ -1421,6 +1452,174 @@ sap.ui.define(
         this.closeDialog();
       },
 
+      onValueHelpCodiceFiscale1Close: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelSoa = self.getModel("Soa");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+        var oSource = oEvent.getSource();
+
+        var sInput = oSource.data().input;
+        var oInput = self.getView().byId(sInput);
+
+        this._resetCodiceFiscale1();
+
+        if (!oSelectedItem) {
+          oInput.resetProperty("value");
+          this.closeDialog();
+          return;
+        }
+
+        if (oModelSoa.getProperty("/Zwels") === "ID1") {
+          oModelSoa.setProperty("/Zstcd1", oSelectedItem?.getTitle());
+        } else if (oModelSoa.getProperty("/Zwels") === "ID2") {
+          oModelSoa.setProperty("/Zstcd3", oSelectedItem?.getTitle());
+        }
+
+        oInput.setValue(oSelectedItem.getTitle());
+        this.closeDialog();
+      },
+
+      onValueHelpCodiceFiscale1: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oDataModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+        var aFilters = [];
+
+        if (oModelSoa?.getProperty("/Lifnr")) {
+          aFilters.push(
+            new Filter(
+              "Lifnr",
+              FilterOperator.EQ,
+              oModelSoa?.getProperty("/Lifnr")
+            )
+          );
+        }
+
+        if (oModelSoa?.getProperty("/Ztipofirma")) {
+          aFilters.push(
+            new Filter(
+              "TipoFirma",
+              FilterOperator.EQ,
+              oModelSoa?.getProperty("/Ztipofirma")
+            )
+          );
+        }
+
+        if (oModelSoa?.getProperty("/Zwels")) {
+          aFilters.push(
+            new Filter(
+              "Zwels",
+              FilterOperator.EQ,
+              oModelSoa?.getProperty("/Zwels")
+            )
+          );
+        }
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "CodFiscUtilizzatoreBenSOASet", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "CodiceFiscale1");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpCodiceFiscale2Close: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelSoa = self.getModel("Soa");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+        var oSource = oEvent.getSource();
+        console.log(oSelectedItem);
+        var sInput = oSource.data().input;
+        var oInput = self.getView().byId(sInput);
+
+        this._resetCodiceFiscale2();
+
+        if (!oSelectedItem) {
+          oInput.resetProperty("value");
+          this.closeDialog();
+          return;
+        }
+
+        oModelSoa.setProperty("/Zstcd12", oSelectedItem?.getTitle());
+
+        oInput.setValue(oSelectedItem.getTitle());
+        this.closeDialog();
+      },
+
+      onValueHelpCodiceFiscale2: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oDataModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+        var aFilters = [];
+
+        if (oModelSoa?.getProperty("/Lifnr")) {
+          aFilters.push(
+            new Filter(
+              "Lifnr",
+              FilterOperator.EQ,
+              oModelSoa?.getProperty("/Lifnr")
+            )
+          );
+        }
+
+        if (oModelSoa?.getProperty("/Ztipofirma")) {
+          aFilters.push(
+            new Filter(
+              "TipoFirma",
+              FilterOperator.EQ,
+              oModelSoa?.getProperty("/Ztipofirma")
+            )
+          );
+        }
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "CodFiscSecondoQBenSOASet", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "CodiceFiscale2");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
       //#endregion
 
       //#region SELECTION CHANGE
@@ -1441,6 +1640,15 @@ sap.ui.define(
             ? oEvent.getParameter("value").toUpperCase()
             : ""
         );
+      },
+
+      onTipoFirmaChange: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelSoa = self.getModel("Soa");
+
+        var oInput = self.getView().byId("iptTipoFirma");
+        oModelSoa.setProperty("/Ztipofirma", oInput.getSelectedKey());
       },
 
       //#endregion
@@ -1600,6 +1808,127 @@ sap.ui.define(
           },
           error: function (error) {},
         });
+      },
+
+      _setDatiVaglia: function () {
+        var self = this;
+        //Load Models
+        var oDataModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+        //Load Components
+        var oInputCodiceFiscale1 = self.getView().byId("iptCodiceFiscale1");
+        var oInputCodiceFiscale2 = self.getView().byId("iptCodiceFiscale2");
+
+        var aFilters = [];
+
+        if (oModelSoa.getProperty("/Lifnr")) {
+          aFilters.push(
+            new Filter(
+              "Lifnr",
+              FilterOperator.EQ,
+              oModelSoa.getProperty("/Lifnr")
+            )
+          );
+        }
+
+        if (oModelSoa.getProperty("/Zwels")) {
+          aFilters.push(
+            new Filter(
+              "Zwels",
+              FilterOperator.EQ,
+              oModelSoa.getProperty("/Zwels")
+            )
+          );
+        }
+
+        this._resetCodiceFiscale1();
+        this._resetCodiceFiscale2();
+
+        if (
+          oModelSoa.getProperty("/Zwels") === "ID1" ||
+          oModelSoa.getProperty("/Zwels") === "ID2"
+        ) {
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oDataModel.read("/" + "DatiVagliaBenSOASet", {
+                filters: aFilters,
+                success: function (data) {
+                  var oData = data?.results[0];
+
+                  if (oModelSoa.getProperty("/Zwels") === "ID1") {
+                    oModelSoa.setProperty("/ZpersNomeQuiet1", oData?.Zqnome);
+                    oModelSoa.setProperty(
+                      "/ZpersCognomeQuiet1",
+                      oData?.Zqcognome
+                    );
+                    oModelSoa.setProperty("/Zstcd1", oData?.Zstcd1);
+                  } else if (oModelSoa.getProperty("/Zwels") === "ID2") {
+                    oModelSoa.setProperty("/ZpersNomeVaglia", oData?.Zqnome);
+                    oModelSoa.setProperty(
+                      "/ZpersCognomeVaglia",
+                      oData?.Zqcognome
+                    );
+                    oModelSoa.setProperty("/Zstcd13", oData?.Zstcd1);
+                  }
+                  oModelSoa.setProperty(
+                    "/ZpersCognomeQuiet2",
+                    oData?.ZpersCognomeQuiet2
+                  );
+                  oModelSoa.setProperty(
+                    "/ZpersNomeQuiet2",
+                    oData?.ZpersNomeQuiet2
+                  );
+                  oInputCodiceFiscale1.setValue(oData?.Zstcd1);
+                  oInputCodiceFiscale2.setValue(oData?.Zstcd12);
+                  oModelSoa.setProperty("/Zstcd12", oData?.Zstcd12);
+                  oModelSoa.setProperty("/Zqindiriz", oData?.Zqindiriz);
+                  oModelSoa.setProperty("/Zqcitta", oData?.Zqcitta);
+                  oModelSoa.setProperty("/Zqcap", oData?.Zqcap);
+                  oModelSoa.setProperty("/Zqprovincia", oData?.Zqprovincia);
+                  oModelSoa.setProperty("/Zqindiriz12", oData?.Zqindiriz12);
+                  oModelSoa.setProperty("/Zqcitta12", oData?.Zqcitta12);
+                  oModelSoa.setProperty("/Zqcap12", oData?.Zqcap12);
+                  oModelSoa.setProperty("/Zqprovincia12", oData?.Zqprovincia12);
+                },
+                error: function (error) {},
+              });
+            });
+        }
+      },
+
+      _resetCodiceFiscale1: function () {
+        var self = this;
+        var oModelSoa = self.getModel("Soa");
+        var oInput = self.getView().byId("iptCodiceFiscale1");
+
+        oModelSoa.setProperty("/ZpersNomeQuiet1", "");
+        oModelSoa.setProperty("/ZpersCognomeQuiet1", "");
+        oModelSoa.setProperty("/Zstcd1", "");
+        oModelSoa.setProperty("/ZpersNomeVaglia", "");
+        oModelSoa.setProperty("/ZpersCognomeVaglia", "");
+        oModelSoa.setProperty("/Zstcd13", "");
+        oModelSoa.setProperty("/Zqindiriz", "");
+        oModelSoa.setProperty("/Zqcitta", "");
+        oModelSoa.setProperty("/Zqcap", "");
+        oModelSoa.setProperty("/Zqprovincia", "");
+        oInput.resetProperty("value");
+      },
+
+      _resetCodiceFiscale2: function () {
+        var self = this;
+        var oModelSoa = self.getModel("Soa");
+        var oInput = self.getView().byId("iptCodiceFiscale2");
+
+        oModelSoa.setProperty("/ZpersCognomeQuiet2", "");
+        oModelSoa.setProperty("/ZpersNomeQuiet2", "");
+        oModelSoa.setProperty("/Zstcd12", "");
+        oModelSoa.setProperty("/Zqindiriz12", "");
+        oModelSoa.setProperty("/Zqcitta12", "");
+        oModelSoa.setProperty("/Zqcap12", "");
+        oModelSoa.setProperty("/Zqprovincia12", "");
+        oInput.resetProperty("value");
       },
 
       //#endregion
