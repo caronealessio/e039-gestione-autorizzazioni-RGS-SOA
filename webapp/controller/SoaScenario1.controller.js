@@ -85,13 +85,18 @@ sap.ui.define(
           ZDesccauval: "", //Descrizione Causale Valutaria
 
           Zqindiriz: "", //Indirizzo primo quietanzante
-          Zqcitta: "", //Citta primo quietanzante
+          Zqcitta: "", //Citta primo quietanzantez
           Zqcap: "", //Cap primo quietanzante
           Zqprovincia: "", //Provincia primo quietanzante
           Zqindiriz12: "", //Indirizzo secondo quietanzante
           Zqcitta12: "", //Citta secondo quietanzante
           Zqcap12: "", //Cap secondo quietanzante
           Zqprovincia12: "", //Provincia secondo quietanzante
+          Stras: "", //Via,numero civico
+          Ort01: "", //Località
+          Regio: "", //Regione
+          Pstlz: "", //Codice di avviamento postale
+          Land1: "", //Codice paese
         });
 
         var oModelTipoPersona = new JSONModel({
@@ -227,6 +232,7 @@ sap.ui.define(
           this._setModalitaPagamento();
           this._setIbanBeneficiario();
           this._setDatiVaglia();
+          this._getSedeBeneficiario();
           oWizard.nextStep();
         } else if (bWizard2) {
           oStepScenarioModel.setProperty("/wizard2", false);
@@ -1651,6 +1657,19 @@ sap.ui.define(
         oModelSoa.setProperty("/Ztipofirma", oInput.getSelectedKey());
       },
 
+      onSedeBeneficiarioChange: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelSoa = self.getModel("Soa");
+
+        var oInputData = oEvent?.getSource()?.getSelectedItem()?.data();
+
+        oModelSoa.setProperty("/Ort01", oInputData?.Ort01);
+        oModelSoa.setProperty("/Regio", oInputData?.Regio);
+        oModelSoa.setProperty("/Pstlz", oInputData?.Pstlz);
+        oModelSoa.setProperty("/Land1", oInputData?.Land1);
+      },
+
       //#endregion
 
       //#region PRIVATE METHODS
@@ -1929,6 +1948,59 @@ sap.ui.define(
         oModelSoa.setProperty("/Zqcap12", "");
         oModelSoa.setProperty("/Zqprovincia12", "");
         oInput.resetProperty("value");
+      },
+
+      _getSedeBeneficiario: function () {
+        var self = this;
+        //Load Models
+        var oDataModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+
+        var aFilters = [];
+
+        if (oModelSoa.getProperty("/Lifnr")) {
+          aFilters.push(
+            new Filter(
+              "Lifnr",
+              FilterOperator.EQ,
+              oModelSoa.getProperty("/Lifnr")
+            )
+          );
+        }
+
+        if (oModelSoa.getProperty("/Witht")) {
+          aFilters.push(
+            new Filter(
+              "CodRitenuta",
+              FilterOperator.EQ,
+              oModelSoa.getProperty("/Witht")
+            )
+          );
+        }
+
+        if (oModelSoa.getProperty("/ZzCebenra")) {
+          aFilters.push(
+            new Filter(
+              "CodEnte",
+              FilterOperator.EQ,
+              oModelSoa.getProperty("/ZzCebenra")
+            )
+          );
+        }
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "SedeBeneficiarioSOASet", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                self.setResponseMessage(oResponse);
+                self.setModelCustom("SedeBeneficiario", data?.results);
+              },
+              error: function (error) {},
+            });
+          });
       },
 
       //#endregion

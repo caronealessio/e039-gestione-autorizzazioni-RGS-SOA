@@ -2,6 +2,7 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
   <Panel backgroundDesign="Transparent">
 		<headerToolbar>
@@ -15,32 +16,45 @@
 				<Text text="{i18n>inputIndirizzo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
         </Text>
-				<Input>
-					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-				</Input>
+				<ComboBox
+					id="iptSedeBeneficiario"
+					width="100%"
+					items="{path:'SedeBeneficiario>/'}"
+					selectionChange="onSedeBeneficiarioChange"
+				>
+					<c:Item 
+						key="{SedeBeneficiario>Zidsede}" 
+						text="{SedeBeneficiario>Stras}"
+						app:Ort01 = "{SedeBeneficiario>Ort01}"
+						app:Regio = "{SedeBeneficiario>Regio}"
+						app:Land1 = "{SedeBeneficiario>Land1}"
+						app:Pstlz = "{SedeBeneficiario>Pstlz}"
+					/>
+					<layoutData><l:GridData span="XL3 L3 M5 S12"/></layoutData>
+				</ComboBox>			
 
 				<Text text="{i18n>inputCitta}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL1 L3 M5 S12" linebreak="true"/></layoutData>
         </Text>
-				<Input>
+				<Input editable="false" value="{Soa>/Ort01}">
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Input>
 				<Text text="{i18n>inputProvincia}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
         </Text>
-				<Input>
+				<Input editable="false" value="{Soa>/Regio}">
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Input>
 				<Text text="{i18n>inputCap}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
         </Text>
-				<Input>
+				<Input editable="false" value="{Soa>/Pstlz}">
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Input>
 				<Text text="{i18n>inputNazione}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL1 L3 M5 S12" indent="XL1"/></layoutData>
         </Text>
-				<Input>
+				<Input editable="false" value="{Soa>/Land1}">
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Input>
 			</l:Grid>
