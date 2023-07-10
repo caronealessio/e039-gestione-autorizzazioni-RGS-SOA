@@ -92,7 +92,7 @@
             </Text>
             <Input 
               value="{
-                      path: 'RiepilogoQuoteDocumenti>/totalImpDaOrd',
+                      path: 'Soa>/Zimptot',
                       formatter:'.formatter.convertFormattedNumber'
                     }"
               editable="false"

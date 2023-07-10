@@ -1,0 +1,69 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+>
+	<Panel backgroundDesign="Transparent">
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="{i18n>titleInps}" />
+			</OverflowToolbar>
+		</headerToolbar>
+
+		<content>
+			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
+				<Text text="{i18n>inputCodiceProvenienza}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputCFCommittente}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputCodiceTributo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+
+				<Text text="{i18n>inputPeridoRiferimentoFrom}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputPeridoRiferimentoTo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputMatricolaINPS}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+
+				<Text text="{i18n>inputCodiceVersante}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputCFVersante}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+
+			</l:Grid>
+		</content>
+	</Panel>
+</c:FragmentDefinition>

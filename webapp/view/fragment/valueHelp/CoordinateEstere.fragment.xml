@@ -1,0 +1,22 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+<SelectDialog
+		id="sdCoordEstere"
+    noDataText="{i18n>noCoordEstere}"
+		title="{i18n>labelCoordEstere}"
+		search="onValueHelpChange"
+		confirm="onValueHelpCoordEstereClose"
+		cancel="onValueHelpCoordEstereClose"
+    app:input="iptCoordEstere"
+		app:searchPropertyModel="Zcoordest"
+		items="{path: 'CoordinateEstere>/'}">		
+		<StandardListItem
+      iconDensityAware="false"
+      iconInset="false"
+      title="{CoordinateEstere>Zcoordest}"
+      app:swift="{CoordinateEstere>Swift}̋"/>
+	</SelectDialog>
+</c:FragmentDefinition>

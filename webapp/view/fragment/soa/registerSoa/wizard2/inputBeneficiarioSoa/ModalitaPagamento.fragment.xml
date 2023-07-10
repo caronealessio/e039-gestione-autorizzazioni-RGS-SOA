@@ -1,0 +1,96 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+  <Panel backgroundDesign="Transparent">
+		<headerToolbar>
+      <OverflowToolbar>
+        <Title text="{i18n>titleModalitaPagamento}" />
+      </OverflowToolbar>
+    </headerToolbar>
+
+		<content>
+			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
+				<Text text="{i18n>inputModalitaPagamento}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input
+					id="iptModalitaPagamento"
+					valueHelpRequest="onValueHelpModPagamento"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					app:dialogName="sdModalitaPagamento"
+					app:fragmentName="ModalitaPagamento"
+					value="{Soa>/Zdescwels}"
+				>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+
+				<Text text="{i18n>inputPaeseResidenza}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
+				</Text>
+				<Input 
+					id="iptPaeseResidenza"
+					value="{Soa>/Zbanks}"
+					change="onPaeseResidenzaChange"
+				>
+					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputCausaleValutaria}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input 
+					id="iptCausaleValutaria"
+					valueHelpRequest="onValueHelpCausaleValutaria"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					app:dialogName="sdCausaleValutaria"
+					app:fragmentName="CausaleValutaria"
+					editable="{=${Soa>/Zwels} === 'ID6' || ${Soa>/Zbanks} !== 'IT' ? true : false}"
+					>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputIban}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input
+					id="iptIbanBeneficiario"
+					valueHelpRequest="onValueHelpIban"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					app:dialogName="sdIbanBeneficiario"
+					app:fragmentName="IbanBeneficiario">
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputBic}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input 
+					editable="false"
+					value="{Soa>/Swift}"
+				>
+					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+				</Input>
+				<Text text="{i18n>inputCoordinateEstere}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Text>
+				<Input
+					id="iptCoordEstere"
+					valueHelpRequest="onValueHelpCoordEstere"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					app:dialogName="sdCoordEstere"
+					app:fragmentName="CoordinateEstere" 
+					editable="{=${Soa>/Zwels} === 'ID6' ? true : false}"
+				>
+					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</Input>
+
+			</l:Grid>
+		</content>
+
+
+	</Panel>
+</c:FragmentDefinition>

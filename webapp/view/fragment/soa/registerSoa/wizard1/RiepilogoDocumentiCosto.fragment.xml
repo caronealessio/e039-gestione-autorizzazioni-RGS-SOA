@@ -13,7 +13,7 @@ xmlns:l="sap.ui.layout"
       <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgWhite" >
         <Table  
           id="tblRiepilogoQuoteDocumenti"
-          items="{path: 'RiepilogoQuoteDocumenti>/data'}"
+          items="{path: 'Soa>/data'}"
         >
         <columns>
           <Column minScreenWidth="Desktop" demandPopin="true">
@@ -44,23 +44,23 @@ xmlns:l="sap.ui.layout"
         <items>
         <ColumnListItem vAlign="Middle">
           <cells>
-            <ObjectIdentifier text="{RiepilogoQuoteDocumenti>AnnoRegDocumento}"/>
-            <ObjectIdentifier text="{RiepilogoQuoteDocumenti>NumRegDoc}"/>
-            <Text text="{RiepilogoQuoteDocumenti>TipoDoc}"/>				
+            <ObjectIdentifier text="{Soa>AnnoRegDocumento}"/>
+            <ObjectIdentifier text="{Soa>NumRegDoc}"/>
+            <Text text="{Soa>TipoDoc}"/>				
             <Text text="{
-                    path: 'RiepilogoQuoteDocumenti>DataDocBen',
+                    path: 'Soa>DataDocBen',
                     type: 'sap.ui.model.type.Date',
                     formatOptions: {
                       pattern: 'dd.MM.yyyy'
                     }
                   }"/>
-            <Text text="{RiepilogoQuoteDocumenti>DenBen}"/> 
+            <Text text="{Soa>DenBen}"/> 
             <Text text="{
-                    path: 'RiepilogoQuoteDocumenti>ImpDaOrd',
+                    path: 'Soa>ImpDaOrd',
                     formatter:'.formatter.convertFormattedNumber'
             }" />    
-            <Text text="{RiepilogoQuoteDocumenti>NProspLiquidazione}"/> 
-            <Text text="{RiepilogoQuoteDocumenti>RigaProsp}"/> 
+            <Text text="{Soa>NProspLiquidazione}"/> 
+            <Text text="{Soa>RigaProsp}"/> 
           </cells>
         </ColumnListItem>
       </items>  
@@ -72,7 +72,7 @@ xmlns:l="sap.ui.layout"
             </Text>
             <Input 
               value="{
-                      path: 'RiepilogoQuoteDocumenti>/totalImpDaOrd',
+                      path: 'Soa>/Zimptot',
                       formatter:'.formatter.convertFormattedNumber'
                     }"
               editable="false"

@@ -3,9 +3,9 @@
 	xmlns:c="sap.ui.core"
 >
   <Panel id="pnlPositionsFilters" class="noPadding" backgroundDesign="Transparent" visible="{StepScenario>/wizard1Step1}">
-    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchRitenuta" type="XML"/>
-    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchBeneficiario" type="XML"/>
-    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchProspettiLiquidazione" type="XML"/>
-    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.SearchDocumentiCosto" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.searchDocumenti.Ritenuta" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.searchDocumenti.Beneficiario" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.searchDocumenti.ProspettiLiquidazione" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.searchDocumenti.DocumentiCosto" type="XML"/>
   </Panel>	
 </c:FragmentDefinition>
