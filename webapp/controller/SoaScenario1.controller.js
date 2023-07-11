@@ -73,6 +73,14 @@ sap.ui.define(
           Zstcd1: "", //Codice Fiscale Utilizzatore
           Zstcd12: "", //Codice fiscale secondo quietanzante
           Zstcd13: "", //Codice fiscale destinatario vaglia
+          Zcodprov: "", //INPS - Codice Provenienza
+          Zcfcommit: "", //INPS - Codice Fiscale Committente
+          Zcodtrib: "", //INPS - Codice tributo
+          Zperiodrifda: "", //INPS - Periodo riferimento da
+          Zperiodrifa: "", //INPS - Periodo riferimento a
+          Zcodinps: "", //INPS - Matricola INPS/Codice INPS/Filiale azienda
+          Zcfvers: "", //INPS - Codice Fiscale Versante
+          Zcodvers: "", //INPS - Codice Versante
           data: [],
 
           BuType: "", //Tipologia Persona
@@ -97,6 +105,7 @@ sap.ui.define(
           Regio: "", //Regione
           Pstlz: "", //Codice di avviamento postale
           Land1: "", //Codice paese
+          FlagInpsEditabile: false,
         });
 
         var oModelTipoPersona = new JSONModel({
@@ -119,8 +128,25 @@ sap.ui.define(
           paginatorTotalPage: 1,
         });
 
+        var oModelClassificazione = new JSONModel({
+          CodiceGestionale: [],
+          Cpv: [],
+          Cig: [],
+          Cup: [],
+          ImpTotAssociareCodiceGestionale: "0.00",
+          ImpTotAssociareCpv: "0.00",
+          ImpTotAssociareCig: "0.00",
+          ImpTotAssociareCup: "0.00",
+        });
+
         var oInputImpDaOrd = self.getView().byId("iptImpDaOrd");
         oInputImpDaOrd.attachBrowserEvent(
+          "keypress",
+          formatter.acceptOnlyNumbers
+        );
+
+        var oInputImpDaAssociare = self.getView().byId("iptImpDaAssociare");
+        oInputImpDaAssociare.attachBrowserEvent(
           "keypress",
           formatter.acceptOnlyNumbers
         );
@@ -129,6 +155,7 @@ sap.ui.define(
         self.setModel(oModelSoa, "Soa");
         self.setModel(oStepScenario, "StepScenario");
         self.setModel(oModelTipoPersona, "TipoPersona");
+        self.setModel(oModelClassificazione, "Classificazione");
 
         this.getRouter()
           .getRoute("soaScenario1")
@@ -233,6 +260,7 @@ sap.ui.define(
           this._setIbanBeneficiario();
           this._setDatiVaglia();
           this._getSedeBeneficiario();
+          this._setInpsData();
           oWizard.nextStep();
         } else if (bWizard2) {
           oStepScenarioModel.setProperty("/wizard2", false);
@@ -826,6 +854,7 @@ sap.ui.define(
           oEvent.getSource().getParent().getBindingContextPath()
         ).ImpDaOrd = parseFloat(sValue).toFixed(2);
       },
+
       //#endregion SELECTION CHANGE
 
       //#region PAGINATOR
@@ -1237,6 +1266,7 @@ sap.ui.define(
         }
 
         this._setDatiVaglia();
+        this._setInpsData();
 
         if (!oSelectedItem) {
           oInput.resetProperty("value");
@@ -1626,6 +1656,47 @@ sap.ui.define(
           });
       },
 
+      onValueHelpCodiceTributo: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oDataModel = self.getModel();
+
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "InpsSOASet", {
+              success: function (data) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "CodiceTributo");
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpCodiceTributoClose: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelSoa = self.getModel("Soa");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+        var sValue = oSelectedItem?.getTitle() ? oSelectedItem?.getTitle() : "";
+        oModelSoa.setProperty("/Zcodtrib", sValue);
+
+        this.closeDialog();
+      },
+
       //#endregion
 
       //#region SELECTION CHANGE
@@ -1668,6 +1739,18 @@ sap.ui.define(
         oModelSoa.setProperty("/Regio", oInputData?.Regio);
         oModelSoa.setProperty("/Pstlz", oInputData?.Pstlz);
         oModelSoa.setProperty("/Land1", oInputData?.Land1);
+      },
+
+      onInpsChange: function (oEvent) {
+        var self = this;
+        var oModelSoa = self.getModel("Soa");
+
+        oModelSoa.setProperty(
+          "/" + oEvent.getSource().data().field,
+          oEvent.getParameter("value")
+        );
+
+        console.log(oModelSoa.getData());
       },
 
       //#endregion
@@ -2002,6 +2085,234 @@ sap.ui.define(
             });
           });
       },
+
+      _setInpsData: function () {
+        var self = this;
+        //Load Models
+        var oModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+
+        oModelSoa.setProperty("/FlagInpsEditabile", false);
+        oModelSoa.setProperty("/Zcodprov", "");
+        oModelSoa.setProperty("/Zcfcommit", "");
+        oModelSoa.setProperty("/Zcodtrib", "");
+        oModelSoa.setProperty("/Zperiodrifda", "");
+        oModelSoa.setProperty("/Zperiodrifa", "");
+        oModelSoa.setProperty("/Zcodinps", "");
+        oModelSoa.setProperty("/Zcfvers", "");
+        oModelSoa.setProperty("/Zcodvers", "");
+
+        if (oModelSoa.getProperty("/Zwels") === "ID4") {
+          var oParameters = {
+            Lifnr: oModelSoa.getProperty("/Lifnr"),
+            Zwels: oModelSoa.getProperty("/Zwels"),
+          };
+
+          var sPath = self.getModel().createKey("InpsSOASet", oParameters);
+
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oModel.read("/" + sPath, {
+                success: function (data) {
+                  oModelSoa.setProperty(
+                    "/FlagInpsEditabile",
+                    data?.FlagInpsEditabile ? true : false
+                  );
+                  oModelSoa.setProperty("/Zcodprov", data?.Zcodprov);
+                },
+                error: function () {},
+              });
+            });
+        }
+      },
+
+      //#endregion
+
+      //#endregion
+
+      //#region WIZARD 3
+
+      onAddRow: function (oEvent) {
+        var self = this;
+        var oModelClassificazione = self.getModel("Classificazione");
+
+        var oData = oEvent?.getSource()?.data();
+        var aListClassificazione = oModelClassificazione.getProperty(
+          "/" + oData?.etichetta
+        );
+
+        aListClassificazione.push({
+          Zchiavesop: "",
+          Bukrs: "",
+          Zetichetta: "",
+          Zposizione: "",
+          ZstepSop: "",
+          Zzcig: "",
+          Zzcup: "",
+          Zcpv: "",
+          ZcpvDesc: "",
+          Zcos: "",
+          ZcosDesc: "",
+          Belnr: "",
+          ZimptotClass: "0.00",
+          Zflagcanc: "",
+          ZstatoClass: "",
+          Index: aListClassificazione.length,
+        });
+
+        oModelClassificazione.setProperty(
+          "/" + oData?.etichetta,
+          aListClassificazione
+        );
+      },
+
+      onCancelRow: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelClassificazione = self.getModel("Classificazione");
+
+        var oSourceData = oEvent?.getSource()?.data();
+        var oTableClassificazione = self.getView().byId(oSourceData?.table);
+
+        var aPathSelectedItems =
+          oTableClassificazione.getSelectedContextPaths();
+
+        var aListClassificazione = oModelClassificazione.getProperty(
+          "/" + oSourceData?.etichetta
+        );
+
+        //Rimuovo i record selezionati
+        aPathSelectedItems.map((sPath) => {
+          var oItem = oModelClassificazione.getObject(sPath);
+          aListClassificazione.splice(aListClassificazione.indexOf(oItem), 1);
+        });
+
+        //Resetto l'index
+        aListClassificazione.map((oItem, iIndex) => {
+          oItem.Index = iIndex;
+        });
+
+        //Rimuovo i record selezionati
+        oTableClassificazione.removeSelections();
+
+        oModelClassificazione.setProperty(
+          "/" + oSourceData?.etichetta,
+          aListClassificazione
+        );
+
+        //Resetto l'importo totale da associare
+        this._setImpTotAssociare(oSourceData?.etichetta);
+      },
+
+      //#region VALUE HELP
+      onValueHelpCodiceGestionale: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oDataModel = self.getModel();
+
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "CodiceGestionaleClassificazioneSet", {
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "CodiceGestionale");
+                oSelectDialog?.data("index", oSourceData.index);
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpCodiceGestionaleClose: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelClassificazione = self.getModel("Classificazione");
+        var aListClassificazione =
+          oModelClassificazione.getProperty("/CodiceGestionale");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+        var oSource = oEvent.getSource();
+        var sIndex = oSource.data().index;
+
+        if (!oSelectedItem) {
+          this.closeDialog();
+          return;
+        }
+
+        aListClassificazione[sIndex].Zcos = oSelectedItem.getTitle();
+        aListClassificazione[sIndex].ZcosDesc = oSelectedItem.getDescription();
+        oModelClassificazione.setProperty(
+          "/CodiceGestionale",
+          aListClassificazione
+        );
+
+        this.closeDialog();
+      },
+      //#endregion
+
+      //#region SELECTION CHANGE
+      onCodiceGestionaleChange: function (oEvent) {
+        console.log("parameters", oEvent.getParameters());
+        console.log("source", oEvent.getSource());
+      },
+
+      onImpDaAssociareChange: function (oEvent) {
+        var self = this;
+        var oSourceData = oEvent.getSource().data();
+        //Load Models
+        var oModelClassificazione = self.getModel("Classificazione");
+
+        var sValue = oEvent.getParameter("value");
+        var aListClassificazione = oModelClassificazione.getProperty(
+          "/" + oSourceData?.etichetta
+        );
+
+        aListClassificazione[oSourceData?.index].ZimptotClass =
+          parseFloat(sValue).toFixed(2);
+
+        oModelClassificazione.setProperty(
+          "/" + oSourceData?.etichetta,
+          aListClassificazione
+        );
+
+        this._setImpTotAssociare(oSourceData?.etichetta);
+      },
+
+      //#region PRIVATE METHODS
+      _setImpTotAssociare: function (sEtichetta) {
+        var self = this;
+        //Load Models
+        var oModelClassificazione = self.getModel("Classificazione");
+
+        var aListClassificazione = oModelClassificazione.getProperty(
+          "/" + sEtichetta
+        );
+
+        var iTotalImpDaAssociare = 0;
+        aListClassificazione.map((oItem) => {
+          iTotalImpDaAssociare += parseFloat(oItem.ZimptotClass);
+        });
+
+        oModelClassificazione.setProperty(
+          "/ImpTotAssociare" + sEtichetta,
+          parseFloat(iTotalImpDaAssociare).toFixed(2)
+        );
+      },
+      //#endregion
 
       //#endregion
 

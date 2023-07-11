@@ -2,6 +2,7 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 	<Panel backgroundDesign="Transparent">
 		<headerToolbar>
@@ -15,51 +16,98 @@
 				<Text text="{i18n>inputCodiceProvenienza}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Text>
-				<Input>
+				<Input 
+					editable="false"
+					value="{Soa>/Zcodprov}"
+					app:field="Zcodprov"
+					change="onInpsChange"	
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 				<Text text="{i18n>inputCFCommittente}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Text>
-				<Input>
+				<Input
+					editable="{Soa>/FlagInpsEditabile}"
+					value="{Soa>/Zcfcommit}"
+					app:field="Zcfcommit"
+					change="onInpsChange"			
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 				<Text text="{i18n>inputCodiceTributo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Text>
-				<Input>
+				<Input
+					editable="{Soa>/FlagInpsEditabile}"
+					value="{Soa>/Zcodtrib}"
+					valueHelpRequest="onValueHelpCodiceTributo"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					app:dialogName="sdCodiceTributo"
+					app:fragmentName="CodiceTributo"
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 
 				<Text text="{i18n>inputPeridoRiferimentoFrom}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
 				</Text>
-				<Input>
+				<DatePicker				
+					valueFormat="yyyy-MM-dd"
+					displayFormat="dd/MM/yyyy"
+					editable="{Soa>/FlagInpsEditabile}"
+					value="{Soa>/Zperiodrifda}"
+					app:field="Zperiodrifda"
+					change="onInpsChange"	
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-				</Input>
+				</DatePicker>
 				<Text text="{i18n>inputPeridoRiferimentoTo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Text>
-				<Input>
+				<DatePicker				
+					valueFormat="yyyy-MM-dd"
+					displayFormat="dd/MM/yyyy"
+					editable="{Soa>/FlagInpsEditabile}"
+					value="{Soa>/Zperiodrifa}"
+					app:field="Zperiodrifa"
+					change="onInpsChange"	
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-				</Input>
+				</DatePicker>
 				<Text text="{i18n>inputMatricolaINPS}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Text>
-				<Input>
+				<Input
+					editable="{Soa>/FlagInpsEditabile}"
+					value="{Soa>/Zcodinps}"
+					app:field="Zcodinps"
+					change="onInpsChange"	
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 
 				<Text text="{i18n>inputCodiceVersante}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
 				</Text>
-				<Input>
+				<Input
+					editable="{Soa>/FlagInpsEditabile}"
+					value="{Soa>/Zcodvers}"
+					app:field="Zcodvers"
+					change="onInpsChange"	
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 				<Text text="{i18n>inputCFVersante}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Text>
-				<Input>
+				<Input
+					editable="{Soa>/FlagInpsEditabile}"
+					value="{Soa>/Zcfvers}"
+					app:field="Zcfvers"
+					change="onInpsChange"	
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 
