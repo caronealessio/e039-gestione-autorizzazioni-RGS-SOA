@@ -55,6 +55,8 @@
 				<Text text="{i18n>inputIban}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Text>
+
+				<FlexBox width="100%">
 				<Input
 					id="iptIbanBeneficiario"
 					valueHelpRequest="onValueHelpIban"
@@ -62,8 +64,13 @@
 					valueHelpOnly="true"
 					app:dialogName="sdIbanBeneficiario"
 					app:fragmentName="IbanBeneficiario">
-					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
+				<c:Icon
+					src="sap-icon://message-popup" class="messagePopup">
+				</c:Icon>
+				<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+				</FlexBox>
+				
 				<Text text="{i18n>inputBic}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Text>
@@ -87,6 +94,7 @@
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
+
 
 			</l:Grid>
 		</content>

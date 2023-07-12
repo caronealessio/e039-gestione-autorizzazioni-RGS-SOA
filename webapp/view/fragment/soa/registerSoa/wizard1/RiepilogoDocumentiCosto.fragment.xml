@@ -10,7 +10,7 @@ xmlns:l="sap.ui.layout"
       </OverflowToolbar>
     </headerToolbar>
     <content>
-      <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgWhite" >
+      <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgNotEditable" >
         <Table  
           id="tblRiepilogoQuoteDocumenti"
           items="{path: 'Soa>/data'}"
@@ -42,11 +42,11 @@ xmlns:l="sap.ui.layout"
           </Column>
         </columns>
         <items>
-        <ColumnListItem vAlign="Middle">
-          <cells>
+        <ColumnListItem vAlign="Middle" class="bgNotEditable">
+          <cells >
             <ObjectIdentifier text="{Soa>AnnoRegDocumento}"/>
             <ObjectIdentifier text="{Soa>NumRegDoc}"/>
-            <Text text="{Soa>TipoDoc}"/>				
+            <Text text="{Soa>TipoDoc}" />				
             <Text text="{
                     path: 'Soa>DataDocBen',
                     type: 'sap.ui.model.type.Date',
@@ -66,7 +66,7 @@ xmlns:l="sap.ui.layout"
       </items>  
         </Table>
         <Panel id="pnlCalculatorRiepilogo" backgroundDesign="Transparent">
-          <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgWhite calculator" >
+          <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgNotEditable calculator" >
             <Text text="{i18n>labelCalculator}">
               <layoutData ><l:GridData span="XL2 L3 M4 S12" indent="XL8 L5" /></layoutData>
             </Text>

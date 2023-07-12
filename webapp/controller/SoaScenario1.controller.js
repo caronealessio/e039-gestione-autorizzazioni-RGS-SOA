@@ -24,6 +24,7 @@ sap.ui.define(
           wizard4: false,
           visibleBtnForward: false,
           visibleBtnStart: true,
+          visibleBtnSave: false,
         });
 
         var oModelSoa = new JSONModel({
@@ -63,6 +64,7 @@ sap.ui.define(
           Swift: "", //BIC
           Zcoordest: "", //Cordinate Estere
           Iban: "", //IBAN
+          Zmotivaz: "", //Motivazione cambio IBAN
           Ztipofirma: "", //Tipologia Firma
           ZpersCognomeQuiet1: "", //Cognome primo quietanzante
           ZpersCognomeQuiet2: "", //Cognome secondo quietanzante
@@ -81,7 +83,13 @@ sap.ui.define(
           Zcodinps: "", //INPS - Matricola INPS/Codice INPS/Filiale azienda
           Zcfvers: "", //INPS - Codice Fiscale Versante
           Zcodvers: "", //INPS - Codice Versante
+          Ztipopag: "1", //Tipo Pagamento
+          Zcausale: "", //Causale di pagamento
+          ZE2e: "", //E2E ID
+          Zlocpag: "", //Località pagamento
+          Zzonaint: "", //Zona di intervento
           data: [],
+          Classificazione: [], //Classificazioni
 
           BuType: "", //Tipologia Persona
           Taxnumxl: "", //Codice Fiscale Estero
@@ -144,9 +152,15 @@ sap.ui.define(
           "keypress",
           formatter.acceptOnlyNumbers
         );
-
         var oInputImpDaAssociare = self.getView().byId("iptImpDaAssociare");
         oInputImpDaAssociare.attachBrowserEvent(
+          "keypress",
+          formatter.acceptOnlyNumbers
+        );
+        var oInputImpDaAssociareCpv = self
+          .getView()
+          .byId("iptImpDaAssociareCpv");
+        oInputImpDaAssociareCpv.attachBrowserEvent(
           "keypress",
           formatter.acceptOnlyNumbers
         );
@@ -210,7 +224,6 @@ sap.ui.define(
         } else if (bWizard1Step3) {
           oStepScenarioModel.setProperty("/wizard1Step3", false);
           oStepScenarioModel.setProperty("/wizard1Step2", true);
-          oModelSoa.setProperty("/Zimptot", "0.00");
         } else if (bWizard2) {
           oStepScenarioModel.setProperty("/wizard2", false);
           oStepScenarioModel.setProperty("/wizard1Step3", true);
@@ -222,6 +235,8 @@ sap.ui.define(
         } else if (bWizard4) {
           oStepScenarioModel.setProperty("/wizard4", false);
           oStepScenarioModel.setProperty("/wizard3", true);
+          oStepScenarioModel.setProperty("/visibleBtnForward", true);
+          oStepScenarioModel.setProperty("/visibleBtnSave", false);
           oWizard.previousStep();
         }
       },
@@ -230,8 +245,6 @@ sap.ui.define(
         var self = this;
         var oWizard = self.getView().byId("wizScenario1");
         var oStepScenarioModel = self.getModel("StepScenario");
-        var oModelSoa = self.getModel("Soa");
-        var oBundle = self.getResourceBundle();
 
         var bWizard1Step2 = oStepScenarioModel.getProperty("/wizard1Step2");
         var bWizard1Step3 = oStepScenarioModel.getProperty("/wizard1Step3");
@@ -239,18 +252,9 @@ sap.ui.define(
         var bWizard3 = oStepScenarioModel.getProperty("/wizard3");
 
         if (bWizard1Step2) {
-          if (
-            oModelSoa.getProperty("/data").length === 0 ||
-            oModelSoa.getProperty("/Zimptot") === "0.00"
-          ) {
-            sap.m.MessageBox.error(oBundle.getText("msgNoDocuments"));
-          } else {
+          if (this._checkQuoteDocumenti()) {
             oStepScenarioModel.setProperty("/wizard1Step2", false);
             oStepScenarioModel.setProperty("/wizard1Step3", true);
-            oModelSoa.setProperty(
-              "/Zimptot",
-              oModelSoa.getProperty("/Zimptot")
-            );
           }
         } else if (bWizard1Step3) {
           oStepScenarioModel.setProperty("/wizard1Step3", false);
@@ -267,9 +271,13 @@ sap.ui.define(
           oStepScenarioModel.setProperty("/wizard3", true);
           oWizard.nextStep();
         } else if (bWizard3) {
-          oStepScenarioModel.setProperty("/wizard3", false);
-          oStepScenarioModel.setProperty("/wizard4", true);
-          oWizard.nextStep();
+          if (this._checkClassificazione()) {
+            oStepScenarioModel.setProperty("/wizard3", false);
+            oStepScenarioModel.setProperty("/wizard4", true);
+            oStepScenarioModel.setProperty("/visibleBtnForward", false);
+            oStepScenarioModel.setProperty("/visibleBtnSave", true);
+            oWizard.nextStep();
+          }
         }
       },
 
@@ -1166,6 +1174,32 @@ sap.ui.define(
           });
       },
 
+      _checkQuoteDocumenti: function () {
+        var self = this;
+        var oModelSoa = self.getModel("Soa");
+        var oBundle = self.getResourceBundle();
+
+        var fImpTot = parseFloat(oModelSoa.getProperty("/Zimptot"));
+        var fImpDispAutorizzazione = parseFloat(
+          oModelSoa.getProperty("/Zimpdispaut")
+        );
+
+        if (fImpTot > fImpDispAutorizzazione) {
+          sap.m.MessageBox.error(oBundle.getText("msgImpTotGreaterImpDispAut"));
+          return false;
+        }
+
+        if (
+          oModelSoa.getProperty("/data").length === 0 ||
+          oModelSoa.getProperty("/Zimptot") === "0.00"
+        ) {
+          sap.m.MessageBox.error(oBundle.getText("msgNoDocuments"));
+          return false;
+        }
+
+        return true;
+      },
+
       //#endregion PRIVATE METHODS
 
       //#endregion
@@ -1414,44 +1448,66 @@ sap.ui.define(
 
       onValueHelpIban: function (oEvent) {
         var self = this;
-        //Load Models
-        var oDataModel = self.getModel();
-        var oModelSoa = self.getModel("Soa");
 
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        var oDialogMotivazione = self.openDialog(
+          "rgssoa.view.fragment.soa.registerSoa.wizard2.inputBeneficiarioSoa.PopupMotivazione"
         );
-        var aFilters = [];
+        oDialogMotivazione.open();
+      },
 
-        if (oModelSoa?.getProperty("/Lifnr")) {
-          aFilters.push(
-            new Filter(
-              "Lifnr",
-              FilterOperator.EQ,
-              oModelSoa?.getProperty("/Lifnr")
-            )
+      onOk: function (oEvent) {
+        var self = this;
+        var sMotivazione = sap.ui.getCore().byId("txtMotivazione")?.getValue();
+        var oDialogMotivazione = sap.ui.getCore().byId("dlgMotivazione");
+
+        oDialogMotivazione.close();
+        self.closeDialog();
+
+        if (sMotivazione) {
+          //Load Models
+          var oDataModel = self.getModel();
+          var oModelSoa = self.getModel("Soa");
+          var oDialog = self.openDialog(
+            "rgssoa.view.fragment.valueHelp.IbanBeneficiario"
           );
-        }
+          var aFilters = [];
 
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "IbanBeneficiarioSOASet", {
-              filters: aFilters,
-              success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "IbanBeneficiario");
-                oDialog.open();
-              },
-              error: function (error) {},
+          if (oModelSoa?.getProperty("/Lifnr")) {
+            aFilters.push(
+              new Filter(
+                "Lifnr",
+                FilterOperator.EQ,
+                oModelSoa?.getProperty("/Lifnr")
+              )
+            );
+          }
+
+          oModelSoa.setProperty("/Zmotivaz", sMotivazione);
+
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oDataModel.read("/" + "IbanBeneficiarioSOASet", {
+                filters: aFilters,
+                success: function (data, oResponse) {
+                  var oModelJson = new JSONModel();
+                  oModelJson.setData(data.results);
+                  var oSelectDialog = sap.ui
+                    .getCore()
+                    .byId("sdIbanBeneficiario");
+                  oSelectDialog?.setModel(oModelJson, "IbanBeneficiario");
+                  oDialog.open();
+                },
+                error: function (error) {},
+              });
             });
-          });
+        }
+      },
+
+      onClose: function () {
+        var oDialogMotivazione = sap.ui.getCore().byId("dlgMotivazione");
+        oDialogMotivazione.close();
       },
 
       onValueHelpIbanClose: function (oEvent) {
@@ -1586,7 +1642,6 @@ sap.ui.define(
 
         var oSelectedItem = oEvent.getParameter("selectedItem");
         var oSource = oEvent.getSource();
-        console.log(oSelectedItem);
         var sInput = oSource.data().input;
         var oInput = self.getView().byId(sInput);
 
@@ -1749,8 +1804,6 @@ sap.ui.define(
           "/" + oEvent.getSource().data().field,
           oEvent.getParameter("value")
         );
-
-        console.log(oModelSoa.getData());
       },
 
       //#endregion
@@ -2262,13 +2315,61 @@ sap.ui.define(
 
         this.closeDialog();
       },
+
+      onValueHelpCpv: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oDataModel = self.getModel();
+
+        var oSourceData = oEvent.getSource().data();
+        var sFragmentName = oSourceData.fragmentName;
+        var dialogName = oSourceData.dialogName;
+        var oDialog = self.openDialog(
+          "rgssoa.view.fragment.valueHelp." + sFragmentName
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "CPVClassificazioneSet", {
+              success: function (data, oResponse) {
+                var oModelJson = new JSONModel();
+                oModelJson.setData(data.results);
+                var oSelectDialog = sap.ui.getCore().byId(dialogName);
+                oSelectDialog?.setModel(oModelJson, "Cpv");
+                oSelectDialog?.data("index", oSourceData.index);
+                oDialog.open();
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpCpvClose: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelClassificazione = self.getModel("Classificazione");
+        var aListClassificazione = oModelClassificazione.getProperty("/Cpv");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+        var oSource = oEvent.getSource();
+        var sIndex = oSource.data().index;
+
+        if (!oSelectedItem) {
+          this.closeDialog();
+          return;
+        }
+
+        aListClassificazione[sIndex].Zcpv = oSelectedItem.getTitle();
+        aListClassificazione[sIndex].ZcpvDesc = oSelectedItem.getDescription();
+        oModelClassificazione.setProperty("/Cpv", aListClassificazione);
+
+        this.closeDialog();
+      },
       //#endregion
 
       //#region SELECTION CHANGE
-      onCodiceGestionaleChange: function (oEvent) {
-        console.log("parameters", oEvent.getParameters());
-        console.log("source", oEvent.getSource());
-      },
 
       onImpDaAssociareChange: function (oEvent) {
         var self = this;
@@ -2315,6 +2416,155 @@ sap.ui.define(
       //#endregion
 
       //#endregion
+
+      //#region PRIVATE METHODS
+      _checkClassificazione: function () {
+        var self = this;
+        var oModelSoa = self.getModel("Soa");
+        var oModelClassificazione = self.getModel("Classificazione");
+        var oBundle = self.getResourceBundle();
+
+        var aListCodiceGestionale =
+          oModelClassificazione.getProperty("/CodiceGestionale");
+        var aListCpv = oModelClassificazione.getProperty("/Cpv");
+        var aListCig = oModelClassificazione.getProperty("/Cig");
+        var aListCup = oModelClassificazione.getProperty("/Cup");
+
+        //Controllo se sono stati inseriti i Codici Gestionali
+        if (aListCodiceGestionale?.length === 0) {
+          sap.m.MessageBox.error(
+            oBundle.getText("msgCodiceGestionaleRequired")
+          );
+          return false;
+        }
+
+        //Controllo se i codici sono stati inseriti
+        if (this._checkCodiceClassificazione(aListCodiceGestionale, "Zcos")) {
+          sap.m.MessageBox.error(oBundle.getText("msgNoZcos"));
+          return false;
+        }
+
+        //Controllo se i codici sono stati inseriti
+        if (this._checkCodiceClassificazione(aListCpv, "Zcpv")) {
+          sap.m.MessageBox.error(oBundle.getText("msgNoZcpv"));
+          return false;
+        }
+
+        //Controllo se i codici sono stati inseriti
+        if (this._checkCodiceClassificazione(aListCig, "Zzcig")) {
+          sap.m.MessageBox.error(oBundle.getText("msgNoZcig"));
+          return false;
+        }
+
+        //Controllo se i codici sono stati inseriti
+        if (this._checkCodiceClassificazione(aListCup, "Zzcup")) {
+          sap.m.MessageBox.error(oBundle.getText("msgNoZcup"));
+          return false;
+        }
+
+        //Controllo gli importi
+        var aListClassificazione = this._getClassificazioneList();
+
+        var bImpZero = false;
+        aListClassificazione.map((oClassificazioe) => {
+          if (oClassificazioe.ZimptotClass === "0.00") {
+            bImpZero = true;
+          }
+        });
+
+        if (bImpZero) {
+          sap.m.MessageBox.error(oBundle.getText("msgImportiZero"));
+          return false;
+        }
+
+        //Controllo il totale degli importi con l'importo associato
+        var iImpAssociato = parseFloat(oModelSoa.getProperty("/Zimptot"));
+        var iImpAssociatoCodiceGestione = parseFloat(
+          oModelClassificazione.getProperty("/ImpTotAssociareCodiceGestionale")
+        );
+        var iImpCpv = parseFloat(
+          oModelClassificazione.getProperty("/ImpTotAssociareCpv")
+        );
+        var iImpCig = parseFloat(
+          oModelClassificazione.getProperty("/ImpTotAssociareCig")
+        );
+        var iImpCup = parseFloat(
+          oModelClassificazione.getProperty("/ImpTotAssociareCup")
+        );
+
+        var iTotaImpAssociato =
+          iImpAssociatoCodiceGestione + iImpCpv + iImpCig + iImpCup;
+
+        if (iImpAssociato !== iTotaImpAssociato) {
+          sap.m.MessageBox.error(
+            oBundle.getText(
+              "msgDifferentImpAssociato",
+              formatter.convertFormattedNumber(
+                parseFloat(iImpAssociato).toFixed(2)
+              )
+            )
+          );
+          return false;
+        }
+
+        oModelSoa.setProperty("/Classificazione", aListClassificazione);
+        return true;
+      },
+
+      _getClassificazioneList: function () {
+        var self = this;
+        var oModelClassificazione = self.getModel("Classificazione");
+
+        var aListCodiceGestionale =
+          oModelClassificazione.getProperty("/CodiceGestionale");
+        var aListCpv = oModelClassificazione.getProperty("/Cpv");
+        var aListCig = oModelClassificazione.getProperty("/Cig");
+        var aListCup = oModelClassificazione.getProperty("/Cup");
+
+        var aListClassificazione = [];
+
+        aListCodiceGestionale.map((oCodiceGestionale) => {
+          delete oCodiceGestionale.Index;
+          aListClassificazione.push(oCodiceGestionale);
+        });
+
+        aListCpv.map((oCpv) => {
+          delete oCpv.Index;
+          aListClassificazione.push(oCpv);
+        });
+
+        aListCig.map((oCig) => {
+          delete oCig.Index;
+          aListClassificazione.push(oCig);
+        });
+
+        aListCup.map((oCup) => {
+          delete oCup.Index;
+          aListClassificazione.push(oCup);
+        });
+
+        return aListClassificazione;
+      },
+
+      _checkCodiceClassificazione: function (aList, sCodice) {
+        var bCodiceEmpty = false;
+        if (aList.length !== 0) {
+          aList.map((oItem) => {
+            if (!oItem[sCodice]) {
+              bCodiceEmpty = true;
+            }
+          });
+        }
+
+        return bCodiceEmpty;
+      },
+
+      //#endregion
+
+      //#endregion
+
+      //#region WIZARD 4
+      onSave: function () {},
 
       //#endregion
     });
