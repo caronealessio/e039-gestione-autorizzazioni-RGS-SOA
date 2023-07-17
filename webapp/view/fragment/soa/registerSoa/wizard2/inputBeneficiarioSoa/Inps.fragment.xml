@@ -54,8 +54,8 @@
 					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
 				</Text>
 				<DatePicker				
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy"
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
 					editable="{Soa>/FlagInpsEditabile}"
 					value="{Soa>/Zperiodrifda}"
 					app:field="Zperiodrifda"
@@ -67,8 +67,8 @@
 					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Text>
 				<DatePicker				
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy"
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
 					editable="{Soa>/FlagInpsEditabile}"
 					value="{Soa>/Zperiodrifa}"
 					app:field="Zperiodrifa"

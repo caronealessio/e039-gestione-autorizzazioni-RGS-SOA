@@ -67,7 +67,6 @@
             <Text text="{SOASet>Fistl}"/>
             <Text text="{
                     path: 'SOASet>Zimptot',
-                    parts:[{path: 'SOASet>Zimptot'}],
                     formatter:'.formatter.convertFormattedNumber'
             }" />  
             <Text text="{SOASet>Zdesctipodisp3}"/> 

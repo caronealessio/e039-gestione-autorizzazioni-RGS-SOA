@@ -54,7 +54,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
         var oInputEsercizioGestione = self
@@ -130,12 +130,12 @@ sap.ui.define(
 
         if (!oSelectedItem) {
           oInput.resetProperty("value");
-          self.closeDialog();
+          self.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
-        self.closeDialog();
+        self.unloadFragment();
       },
       onNavForward: function () {
         var self = this;

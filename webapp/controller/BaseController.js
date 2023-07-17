@@ -200,13 +200,13 @@ sap.ui.define(
         if (!oSelectedItem) {
           oInput.resetProperty("value");
           oInput.data("key", null);
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
         oInput.data("key", sKey);
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpMultiDialogClose: function (oEvent) {
@@ -231,10 +231,12 @@ sap.ui.define(
             );
           }
         }
-        this.closeDialog();
+        this.unloadFragment();
       },
 
-      openDialog: function (dialogPath) {
+      loadFragment: function (dialogPath) {
+        this.unloadFragment();
+
         if (!sDialog) {
           sDialog = sap.ui.xmlfragment(dialogPath, this);
           this.getView().addDependent(sDialog);
@@ -242,7 +244,7 @@ sap.ui.define(
         return sDialog;
       },
 
-      closeDialog: function () {
+      unloadFragment: function () {
         if (sDialog) {
           if (sDialog.close) {
             sDialog.close();

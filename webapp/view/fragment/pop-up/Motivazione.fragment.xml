@@ -17,10 +17,10 @@
     
     />
   <beginButton>
-    <Button text="{i18n>btnOk}" press="onOk"/>
+    <Button text="{i18n>btnOk}" press="onOk" type="Emphasized"/>
   </beginButton>
   <endButton>
-    <Button text="{i18n>btnClose}" press="onClose"/>
+    <Button text="{i18n>btnClose}" press="onClose" type="Emphasized"/>
   </endButton>
 </Dialog>
 </c:FragmentDefinition>

@@ -112,7 +112,7 @@
         <Input editable="false" value="{ChiaveAutorizzazione>/ufficioOrdinante}"> 
           <layoutData><l:GridData span="XL1 L2 M4 S12" /></layoutData>
         </Input>
-        <Text text="{i18n>chiaveAutZvimDescrufficio}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+        <Text text="{i18n>inputDescrizione}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL2"/></layoutData>
         </Text>
         <Input editable="false" value="{ChiaveAutorizzazione>/descUfficioOrdinante}">
@@ -129,7 +129,7 @@
         <Input editable="false" value="{ChiaveAutorizzazione>/codiceFD}">
           <layoutData><l:GridData span="XL1 L2 M4 S12" /></layoutData>
         </Input>
-        <Text text="{i18n>chiaveAutZdescriz}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+        <Text text="{i18n>inputDescrizione}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL2"/></layoutData>
         </Text>
         <Input editable="false" value="{ChiaveAutorizzazione>/descCodiceFD}">

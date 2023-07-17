@@ -24,6 +24,7 @@
 					app:dialogName="sdModalitaPagamento"
 					app:fragmentName="ModalitaPagamento"
 					value="{Soa>/Zdescwels}"
+					
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
@@ -63,7 +64,9 @@
 					showValueHelp="true"
 					valueHelpOnly="true"
 					app:dialogName="sdIbanBeneficiario"
-					app:fragmentName="IbanBeneficiario">
+					app:fragmentName="IbanBeneficiario"
+					value="{Soa>/Iban}"
+					>
 				</Input>
 				<c:Icon
 					src="sap-icon://message-popup" class="messagePopup">

@@ -66,7 +66,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
 
@@ -99,7 +99,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
         var oInputRitenuta = self.getView().byId("fltRitenuta");

@@ -67,8 +67,8 @@
 				<DatePicker
 					id="fltDataEsigibilitaFrom"
 					app:searchPropertyModel="DataEsigibilita"								
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy"
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
 					change="onDataEseChange"
 				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
@@ -78,8 +78,8 @@
         </Text>
 				<DatePicker
 					id="fltDataEsigibilitaTo"								
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy"
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
 					change="onDataEseChange"	
 				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>

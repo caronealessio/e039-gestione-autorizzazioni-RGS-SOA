@@ -42,7 +42,7 @@
 				<l:GridData span="XL2 L3 M6 S12"/>
 			</layoutData>
 			<items>
-				<Label text="{i18n>soaFilterZcapitolo}" class="filterLabel"/>
+				<Label text="{i18n>inputCapitolo}" class="filterLabel"/>
 				<Input id="fltZcapitolo" app:searchPropertyModel="Zcapitolo"/>
 			</items>
 		</VBox>
@@ -207,8 +207,8 @@
 				<Label text="{i18n>soaFilterZdatasopFrom}" class="filterLabel"/>
 				<DatePicker
 					id="fltZdatasopFrom"								
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy"
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
 					app:searchPropertyModel="Zdatasop"
 				/>	
 			</items>
@@ -222,8 +222,8 @@
 				<Label text="{i18n>soaFilterZdatasopTo}" class="filterLabel"/>
 				<DatePicker
 					id="fltZdatasopTo"								
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy"/>	
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"/>	
 			</items>
 		</VBox>
 		
@@ -235,8 +235,8 @@
 				<Label text="{i18n>soaFilterZdataprot}" class="filterLabel"/>
 				<DatePicker
 					id="fltZdataprot"								
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy"
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
 					app:searchPropertyModel="Zdataprot"
 					/>	
 			</items>

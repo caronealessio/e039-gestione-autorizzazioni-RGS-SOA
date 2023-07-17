@@ -53,7 +53,7 @@
 							<OverflowToolbarLayoutData priority="NeverOverflow" />
 						</layoutData>
 				</Button>
-				<Button type="Emphasized" text="{i18n>btnSave}" press="onSave" visible="{StepScenario>/visibleBtnSave}">
+				<Button type="Emphasized" text="{i18n>btnSaveSoa}" press="onSave" visible="{StepScenario>/visibleBtnSave}">
 						<layoutData>
 							<OverflowToolbarLayoutData priority="NeverOverflow" />
 						</layoutData>

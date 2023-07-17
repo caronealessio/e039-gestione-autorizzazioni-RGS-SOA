@@ -147,6 +147,64 @@ sap.ui.define(
           ImpTotAssociareCup: "0.00",
         });
 
+        var oModelNewModalitaPagamento = new JSONModel({
+          SZwels: "",
+          Zdescwels: "",
+          SType: "",
+          SCountryRes: "",
+          SIban: "",
+          Ztipofirma: "",
+          DescZtipofirma: "",
+          Swift: "",
+          Zcoordest: "",
+          ValidFromDats: "",
+          ValidToDats: "",
+          Gjahr: "",
+          Zcapo: "",
+          Zcapitolo: "",
+          Zarticolo: "",
+          Zconto: "",
+          ZdescConto: "",
+          DescPaeseResidenza: "",
+          VisibleNewModalitaPagamento: true,
+          VisibleNewQuietanzante: false,
+          VisibleNewDestinatario: false,
+          titleDialog: "Inserisci Modalità di Pagamento",
+          Quietanzante: {
+            Zqnome: "",
+            Zqcognome: "",
+            Zqqualifica: "",
+            Stcd1: "",
+            Zqdatanasc: "",
+            Zqluogonasc: "",
+            Zqprovnasc: "",
+            Zqindiriz: "",
+            Zqcitta: "",
+            Zqcap: "",
+            Zqprovincia: "",
+            Zqtelefono: "",
+          },
+          Destinatario: {
+            Zqnomedest: "",
+            Zqcognomedest: "",
+            Zqqualificadest: "",
+            Stcd1Dest: "",
+            Zqdatanascdest: "",
+            Zqluogonascdest: "",
+            Zqprovnascdest: "",
+            Zqindirizdest: "",
+            Zqcittadest: "",
+            Zqcapdest: "",
+            Zqprovinciadest: "",
+            Zqtelefonodest: "",
+          },
+        });
+
+        var oModelNewBeneficiario = new JSONModel({
+          SCountry: "", //SCountryRes
+          SType: "",
+        });
+
         var oInputImpDaOrd = self.getView().byId("iptImpDaOrd");
         oInputImpDaOrd.attachBrowserEvent(
           "keypress",
@@ -165,11 +223,14 @@ sap.ui.define(
           formatter.acceptOnlyNumbers
         );
 
+        //TODO - Inserire l'acceptOnlyNumber anche per CIG e CUP
+
         self.setModel(oModelPaginator, PAGINATOR_MODEL);
         self.setModel(oModelSoa, "Soa");
         self.setModel(oStepScenario, "StepScenario");
         self.setModel(oModelTipoPersona, "TipoPersona");
         self.setModel(oModelClassificazione, "Classificazione");
+        self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
 
         this.getRouter()
           .getRoute("soaScenario1")
@@ -252,10 +313,13 @@ sap.ui.define(
         var bWizard3 = oStepScenarioModel.getProperty("/wizard3");
 
         if (bWizard1Step2) {
-          if (this._checkQuoteDocumenti()) {
-            oStepScenarioModel.setProperty("/wizard1Step2", false);
-            oStepScenarioModel.setProperty("/wizard1Step3", true);
-          }
+          //TODO - Riaggiungere
+          // if (this._checkQuoteDocumenti()) {
+          //   oStepScenarioModel.setProperty("/wizard1Step2", false);
+          //   oStepScenarioModel.setProperty("/wizard1Step3", true);
+          // }
+          oStepScenarioModel.setProperty("/wizard1Step2", false);
+          oStepScenarioModel.setProperty("/wizard1Step3", true);
         } else if (bWizard1Step3) {
           oStepScenarioModel.setProperty("/wizard1Step3", false);
           oStepScenarioModel.setProperty("/wizard2", true);
@@ -381,7 +445,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
 
@@ -413,7 +477,8 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        self.unloadFragment();
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
         var oInputRitenuta = self.getView().byId("fltRitenuta");
@@ -466,13 +531,13 @@ sap.ui.define(
         if (!oSelectedItem) {
           oInput.resetProperty("value");
           oInput.data("key", null);
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
         oInput.data("key", sKey);
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpEnteBeneficiarioClose: function (oEvent) {
@@ -497,13 +562,13 @@ sap.ui.define(
           oModelSoa.setProperty("/DescZspecieSop", null);
           oModelSoa.setProperty("/ZspecieSop", null);
           oInput.data("key", null);
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
         oInput.data("key", sKey);
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpBeneficiario: function (oEvent) {
@@ -512,7 +577,8 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        self.unloadFragment();
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
 
@@ -577,7 +643,7 @@ sap.ui.define(
           oModelSoa.setProperty("/DescZspecieSop", null);
           oModelSoa.setProperty("/ZspecieSop", null);
           self.clearModel("AnnoDocBeneficiario");
-          self.closeDialog();
+          self.unloadFragment();
           return;
         }
 
@@ -603,7 +669,7 @@ sap.ui.define(
             });
           });
 
-        self.closeDialog();
+        self.unloadFragment();
       },
 
       onValueHelpNProspLiquidazione: function (oEvent) {
@@ -612,7 +678,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
         var oSelectDialog = sap.ui.getCore().byId(dialogName);
@@ -640,7 +706,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
 
@@ -667,7 +733,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
 
@@ -694,7 +760,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
 
@@ -721,7 +787,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
 
@@ -748,7 +814,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
         var oSelectDialog = sap.ui.getCore().byId(dialogName);
@@ -784,7 +850,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
         );
         var oInputAnnoDocBene = self.getView().byId("fltAnnoDocBene");
@@ -1206,6 +1272,89 @@ sap.ui.define(
 
       //#region WIZARD 2
 
+      onNewModalitaPagamento: function () {
+        var self = this;
+        var oDialgoNewModalitaPagamento = self.loadFragment(
+          "rgssoa.view.fragment.pop-up.NewModalitaPagamento"
+        );
+
+        this._getNpmModalitaPagamento();
+
+        oDialgoNewModalitaPagamento.open();
+      },
+
+      onBackNewModalitaPagamento: function () {
+        var self = this;
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+        var oCore = sap.ui.getCore();
+        var oBundle = self.getResourceBundle();
+
+        if (oModelNewModPag.getProperty("/VisibleNewModalitaPagamento")) {
+          var oDialgoNewModPag = oCore.byId("dlgNewModalitaPagamento");
+          oDialgoNewModPag.close();
+          self.unloadFragment();
+          this._resetNewModalitaPagamento();
+          oModelNewModPag.setProperty("/SZwels", "");
+        } else if (oModelNewModPag.getProperty("/VisibleNewQuietanzante")) {
+          oModelNewModPag.setProperty("/VisibleNewQuietanzante", false);
+          oModelNewModPag.setProperty("/VisibleNewModalitaPagamento", true);
+          oModelNewModPag.setProperty(
+            "/titleDialog",
+            oBundle.getText("titleNewModalitaPagamento")
+          );
+        } else if (oModelNewModPag.getProperty("/VisibleNewDestinatario")) {
+          oModelNewModPag.setProperty("/VisibleNewDestinatario", false);
+          oModelNewModPag.setProperty("/VisibleNewModalitaPagamento", true);
+          oModelNewModPag.setProperty(
+            "/titleDialog",
+            oBundle.getText("titleNewModalitaPagamento")
+          );
+        }
+      },
+
+      onNewQuietanzante: function () {
+        var self = this;
+        var oBundle = self.getResourceBundle();
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+
+        oModelNewModPag.setProperty("/VisibleNewModalitaPagamento", false);
+        oModelNewModPag.setProperty("/VisibleNewQuietanzante", true);
+        oModelNewModPag.setProperty(
+          "/titleDialog",
+          oBundle.getText("titleNewQuietanzante")
+        );
+      },
+
+      onNewDestinatario: function () {
+        var self = this;
+        var oBundle = self.getResourceBundle();
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+
+        oModelNewModPag.setProperty("/VisibleNewModalitaPagamento", false);
+        oModelNewModPag.setProperty("/VisibleNewDestinatario", true);
+        oModelNewModPag.setProperty(
+          "/titleDialog",
+          oBundle.getText("titleNewDestinatario")
+        );
+      },
+
+      onNewBeneficiario: function () {
+        var self = this;
+        var oDialgoNewBeneficiario = self.loadFragment(
+          "rgssoa.view.fragment.pop-up.NewBeneficiario"
+        );
+
+        oDialgoNewBeneficiario.open();
+      },
+
+      onBackNewBeneficiario: function () {
+        var self = this;
+        var oCore = sap.ui.getCore();
+        var oDialgoNewBeneficiario = oCore.byId("dlgNewBeneficiario");
+        oDialgoNewBeneficiario.close();
+        self.unloadFragment();
+      },
+
       //#region VALUE HELP
 
       onValueHelpModPagamento: function (oEvent) {
@@ -1217,7 +1366,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
         var aFitlers = [];
@@ -1305,13 +1454,13 @@ sap.ui.define(
         if (!oSelectedItem) {
           oInput.resetProperty("value");
           oInput.data("key", null);
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
         oInput.data("key", sKey);
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpCausaleValutaria: function (oEvent) {
@@ -1322,7 +1471,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
 
@@ -1360,13 +1509,13 @@ sap.ui.define(
         if (!oSelectedItem) {
           oInput.resetProperty("value");
           oInput.data("key", null);
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
         oInput.data("key", sKey);
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpCoordEstere: function (oEvent) {
@@ -1378,7 +1527,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
         var aFilters = [];
@@ -1437,20 +1586,20 @@ sap.ui.define(
         if (!oSelectedItem) {
           oInput.resetProperty("value");
           oInput.data("swift", null);
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
         oInput.data("swift", sSwift);
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpIban: function (oEvent) {
         var self = this;
 
-        var oDialogMotivazione = self.openDialog(
-          "rgssoa.view.fragment.soa.registerSoa.wizard2.inputBeneficiarioSoa.PopupMotivazione"
+        var oDialogMotivazione = self.loadFragment(
+          "rgssoa.view.fragment.pop-up.Motivazione"
         );
         oDialogMotivazione.open();
       },
@@ -1461,13 +1610,13 @@ sap.ui.define(
         var oDialogMotivazione = sap.ui.getCore().byId("dlgMotivazione");
 
         oDialogMotivazione.close();
-        self.closeDialog();
+        self.unloadFragment();
 
         if (sMotivazione) {
           //Load Models
           var oDataModel = self.getModel();
           var oModelSoa = self.getModel("Soa");
-          var oDialog = self.openDialog(
+          var oDialog = self.loadFragment(
             "rgssoa.view.fragment.valueHelp.IbanBeneficiario"
           );
           var aFilters = [];
@@ -1506,8 +1655,10 @@ sap.ui.define(
       },
 
       onClose: function () {
+        var self = this;
         var oDialogMotivazione = sap.ui.getCore().byId("dlgMotivazione");
         oDialogMotivazione.close();
+        self.unloadFragment();
       },
 
       onValueHelpIbanClose: function (oEvent) {
@@ -1536,12 +1687,12 @@ sap.ui.define(
 
         if (!oSelectedItem) {
           oInput.resetProperty("value");
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oInput.setValue(oSelectedItem.getTitle());
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpCodiceFiscale1Close: function (oEvent) {
@@ -1559,7 +1710,7 @@ sap.ui.define(
 
         if (!oSelectedItem) {
           oInput.resetProperty("value");
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
@@ -1570,7 +1721,7 @@ sap.ui.define(
         }
 
         oInput.setValue(oSelectedItem.getTitle());
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpCodiceFiscale1: function (oEvent) {
@@ -1582,7 +1733,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
         var aFilters = [];
@@ -1649,14 +1800,14 @@ sap.ui.define(
 
         if (!oSelectedItem) {
           oInput.resetProperty("value");
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
         oModelSoa.setProperty("/Zstcd12", oSelectedItem?.getTitle());
 
         oInput.setValue(oSelectedItem.getTitle());
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpCodiceFiscale2: function (oEvent) {
@@ -1668,7 +1819,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
         var aFilters = [];
@@ -1719,7 +1870,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
 
@@ -1749,7 +1900,7 @@ sap.ui.define(
         var sValue = oSelectedItem?.getTitle() ? oSelectedItem?.getTitle() : "";
         oModelSoa.setProperty("/Zcodtrib", sValue);
 
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       //#endregion
@@ -1804,6 +1955,153 @@ sap.ui.define(
           "/" + oEvent.getSource().data().field,
           oEvent.getParameter("value")
         );
+      },
+
+      onNewModalitaPagamentoChange: function (oEvent) {
+        var self = this;
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+
+        oModelNewModPag.setProperty(
+          "/SZwels",
+          oEvent.getParameter("selectedItem").getKey()
+        );
+        oModelNewModPag.setProperty(
+          "/Zdescwels",
+          oEvent.getParameter("selectedItem").getText()
+        );
+        oModelNewModPag.setProperty(
+          "/SType",
+          oEvent.getParameter("selectedItem").data().SType
+        );
+
+        this._resetNewModalitaPagamento();
+        this._setNmpPrevalorizzato();
+      },
+
+      onNmpPaeseResidenzaChange: function (oEvent) {
+        this._setNpmPaeseResidenzaDesc(oEvent.getParameter("value"));
+      },
+
+      onNmpTipoFirmaChange: function (oEvent) {
+        var self = this;
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+
+        oModelNewModPag.setProperty(
+          "/Ztipofirma",
+          oEvent.getParameter("selectedItem")?.getKey()
+        );
+        oModelNewModPag.setProperty(
+          "/DescZtipofirma",
+          oEvent.getParameter("selectedItem")?.getText()
+        );
+      },
+
+      onSaveNewModalitaPagamento: function (oEvent) {
+        var self = this;
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+        var oModelSoa = self.getModel("Soa");
+        var oModel = self.getModel();
+
+        var oItem = {
+          Lifnr: oModelSoa.getProperty("/Lifnr"),
+          SType: oModelNewModPag.getProperty("/SType"),
+          Pagamento: {
+            SZwels: oModelNewModPag.getProperty("/SZwels"),
+            Zdescwels: oModelNewModPag.getProperty("/Zdescwels"),
+            Zarticolo: oModelNewModPag.getProperty("/Zarticolo"),
+            Zcapitolo: oModelNewModPag.getProperty("/Zcapitolo"),
+            Zcapo: oModelNewModPag.getProperty("/Zcapo"),
+            Gjahr: oModelNewModPag.getProperty("/Gjahr"),
+            ValidToDats: oModelNewModPag.getProperty("/ValidToDats")
+              ? new Date(oModelNewModPag.getProperty("/ValidToDats"))
+              : null,
+            ValidFromDats: oModelNewModPag.getProperty("/ValidFromDats")
+              ? new Date(oModelNewModPag.getProperty("/ValidFromDats"))
+              : null,
+            Zcoordest: oModelNewModPag.getProperty("/Zcoordest"),
+            Swift: oModelNewModPag.getProperty("/Swift"),
+            Ztipofirma: oModelNewModPag.getProperty("/Ztipofirma"),
+            SCountryRes: oModelNewModPag.getProperty("/SCountryRes"),
+            Seqnr: "",
+            SIban: oModelNewModPag.getProperty("/SIban"),
+          },
+          Quietanzante: {
+            Zqtelefono: oModelNewModPag.getProperty("/Quietanzante/Zqtelefono"),
+            Zqprovincia: oModelNewModPag.getProperty(
+              "/Quietanzante/Zqprovincia"
+            ),
+            Zqcap: oModelNewModPag.getProperty("/Quietanzante/Zqcap"),
+            Zqcitta: oModelNewModPag.getProperty("/Quietanzante/Zqcitta"),
+            Zqindiriz: oModelNewModPag.getProperty("/Quietanzante/Zqindiriz"),
+            Zqprovnasc: oModelNewModPag.getProperty("/Quietanzante/Zqprovnasc"),
+            Zqluogonasc: oModelNewModPag.getProperty(
+              "/Quietanzante/Zqluogonasc"
+            ),
+            Zqdatanasc: oModelNewModPag.getProperty("/Quietanzante/Zqdatanasc")
+              ? new Date(
+                  oModelNewModPag.getProperty("/Quietanzante/Zqdatanasc")
+                )
+              : null,
+            Stcd1: oModelNewModPag.getProperty("/Quietanzante/Stcd1"),
+            Zqqualifica: oModelNewModPag.getProperty(
+              "/Quietanzante/Zqqualifica"
+            ),
+            Zqcognome: oModelNewModPag.getProperty("/Quietanzante/Zqcognome"),
+            Zqnome: oModelNewModPag.getProperty("/Quietanzante/Zqnome"),
+          },
+          DestinatarioVaglia: {
+            Zqindirizdest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqindirizdest"
+            ),
+            Zqtelefonodest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqtelefonodest"
+            ),
+            Zqprovinciadest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqprovinciadest"
+            ),
+            Zqcapdest: oModelNewModPag.getProperty("/Destinatario/Zqcapdest"),
+            Zqcittadest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqcittadest"
+            ),
+            Zqprovnascdest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqprovnascdest"
+            ),
+            Zqluogonascdest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqluogonascdest"
+            ),
+            Zqdatanascdest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqdatanascdest"
+            )
+              ? new Date(
+                  oModelNewModPag.getProperty("/Destinatario/Zqdatanascdest")
+                )
+              : null,
+            Stcd1Dest: oModelNewModPag.getProperty("/Destinatario/Stcd1Dest"),
+            Zqqualificadest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqqualificadest"
+            ),
+            Zqcognomedest: oModelNewModPag.getProperty(
+              "/Destinatario/Zqcognomedest"
+            ),
+            Zqnomedest: oModelNewModPag.getProperty("/Destinatario/Zqnomedest"),
+          },
+        };
+
+        oModel.create("/InserisciModalitaPagamentoSet", oItem, {
+          success: function (data, oResponse) {
+            if (!self.setResponseMessage(oResponse)) {
+              oModelSoa.setProperty("/Zwels", data.Pagamento.SZwels);
+              oModelSoa.setProperty("/Iban", data.Pagamento.SIban);
+              oModelSoa.setProperty("/Zdescwels", data.Pagamento.Zdescwels);
+              oModelSoa.setProperty("/Zbanks", data.Pagamento.SCountryRes);
+              // if (oItem.Quietanzante.Zqcognome) {
+              //   //oModelSoa.setProperty("/", oValue)
+              // } else if (oItem.DestinatarioVaglia.Zqcognomedest) {
+              // }
+            }
+          },
+          error: function (err) {},
+        });
       },
 
       //#endregion
@@ -2181,6 +2479,156 @@ sap.ui.define(
         }
       },
 
+      _getNpmModalitaPagamento: function () {
+        var self = this;
+        var oModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+        var aFilters = [];
+
+        if (oModelSoa.getProperty("/Lifnr")) {
+          aFilters.push(
+            new Filter(
+              "Lifnr",
+              FilterOperator.EQ,
+              oModelSoa.getProperty("/Lifnr")
+            )
+          );
+
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oModel.read("/NmpModalitaPagamentoSet", {
+                filters: aFilters,
+                success: function (data, oResponse) {
+                  self.setModelCustom("NmpModalitaPagamento", data?.results);
+                },
+                error: function (error) {},
+              });
+            });
+        }
+      },
+
+      _resetNewModalitaPagamento: function () {
+        var self = this;
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+
+        oModelNewModPag.setProperty("/SCountryRes", "");
+        oModelNewModPag.setProperty("/SIban", "");
+        oModelNewModPag.setProperty("/Ztipofirma", "");
+        oModelNewModPag.setProperty("/DescZtipofirma", "");
+        oModelNewModPag.setProperty("/Swift", "");
+        oModelNewModPag.setProperty("/Zcoordest", "");
+        oModelNewModPag.setProperty("/ValidFromDats", "");
+        oModelNewModPag.setProperty("/ValidToDats", "");
+        oModelNewModPag.setProperty("/Gjahr", "");
+        oModelNewModPag.setProperty("/Zcapo", "");
+        oModelNewModPag.setProperty("/Zcapitolo", "");
+        oModelNewModPag.setProperty("/Zarticolo", "");
+        oModelNewModPag.setProperty("/Zconto", "");
+        oModelNewModPag.setProperty("/ZdescConto", "");
+        oModelNewModPag.setProperty("/DescPaeseResidenza", "");
+
+        this._resetQuietanzate();
+        this._resetDestinatario();
+      },
+
+      _resetQuietanzate: function () {
+        var self = this;
+
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+
+        var oQuietanzante = oModelNewModPag.getProperty("/Quietanzante");
+
+        oQuietanzante.Zqnome = "";
+        oQuietanzante.Zqcognome = "";
+        oQuietanzante.Zqqualifica = "";
+        oQuietanzante.Stcd1 = "";
+        oQuietanzante.Zqdatanasc = "";
+        oQuietanzante.Zqluogonasc = "";
+        oQuietanzante.Zqprovnasc = "";
+        oQuietanzante.Zqindiriz = "";
+        oQuietanzante.Zqcitta = "";
+        oQuietanzante.Zqcap = "";
+        oQuietanzante.Zqprovincia = "";
+        oQuietanzante.Zqtelefono = "";
+
+        oModelNewModPag.setProperty("/Quietanzante", oQuietanzante);
+      },
+
+      _resetDestinatario: function () {
+        var self = this;
+
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+
+        var oDestinatario = oModelNewModPag.getProperty("/Destinatario");
+
+        oDestinatario.Zqnomedest = "";
+        oDestinatario.Zqcognomedest = "";
+        oDestinatario.Zqqualificadest = "";
+        oDestinatario.Stcd1Dest = "";
+        oDestinatario.Zqdatanascdest = "";
+        oDestinatario.Zqluogonascdest = "";
+        oDestinatario.Zqprovnascdest = "";
+        oDestinatario.Zqindirizdest = "";
+        oDestinatario.Zqcittadest = "";
+        oDestinatario.Zqcapdest = "";
+        oDestinatario.Zqprovinciadest = "";
+        oDestinatario.Zqtelefonodest = "";
+
+        oModelNewModPag.setProperty("/Destinatario", oDestinatario);
+      },
+
+      _setNmpPrevalorizzato: function () {
+        var self = this;
+        var oModel = self.getModel();
+        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+        var sPath = self.getModel().createKey("/NmpPrevalorizzazioneSet", {
+          SZwels: oModelNewModPag.getProperty("/SZwels"),
+        });
+
+        oModel.read(sPath, {
+          success: function (data, oResponse) {
+            oModelNewModPag.setProperty("/SCountryRes", data.SCountryRes);
+            oModelNewModPag.setProperty(
+              "/DescPaeseResidenza",
+              data.SCountryResDesc
+            );
+            oModelNewModPag.setProperty("/ValidFromDats", data.ValidFromDats);
+            oModelNewModPag.setProperty("/ValidToDats", data.ValidToDats);
+          },
+          error: function (error) {},
+          async: false,
+        });
+      },
+
+      _setNpmPaeseResidenzaDesc: function (sPaeseResidenza) {
+        var self = this;
+        var oModelNewModPagamento = self.getModel("NewModalitaPagamento");
+
+        var oModel = self.getModel();
+
+        var sPath = self.getModel().createKey("NmpPaeseResidenzaDescSet", {
+          SCountryRes: sPaeseResidenza,
+        });
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oModel.read("/" + sPath, {
+              success: function (data, oResponse) {
+                oModelNewModPagamento.setProperty(
+                  "/DescPaeseResidenza",
+                  data?.Descrizione
+                );
+              },
+              error: function () {},
+              async: false,
+            });
+          });
+      },
+
       //#endregion
 
       //#endregion
@@ -2268,7 +2716,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
 
@@ -2302,7 +2750,7 @@ sap.ui.define(
         var sIndex = oSource.data().index;
 
         if (!oSelectedItem) {
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
@@ -2313,7 +2761,7 @@ sap.ui.define(
           aListClassificazione
         );
 
-        this.closeDialog();
+        this.unloadFragment();
       },
 
       onValueHelpCpv: function (oEvent) {
@@ -2324,7 +2772,7 @@ sap.ui.define(
         var oSourceData = oEvent.getSource().data();
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
-        var oDialog = self.openDialog(
+        var oDialog = self.loadFragment(
           "rgssoa.view.fragment.valueHelp." + sFragmentName
         );
 
@@ -2357,7 +2805,7 @@ sap.ui.define(
         var sIndex = oSource.data().index;
 
         if (!oSelectedItem) {
-          this.closeDialog();
+          this.unloadFragment();
           return;
         }
 
@@ -2365,7 +2813,7 @@ sap.ui.define(
         aListClassificazione[sIndex].ZcpvDesc = oSelectedItem.getDescription();
         oModelClassificazione.setProperty("/Cpv", aListClassificazione);
 
-        this.closeDialog();
+        this.unloadFragment();
       },
       //#endregion
 

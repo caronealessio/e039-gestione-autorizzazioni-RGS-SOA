@@ -146,8 +146,8 @@
         <DatePicker
 					id="fltScadenzaDocFrom"		
           app:searchPropertyModel="ScadenzaDoc"						
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy">
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </DatePicker>	
 				<Text text="{i18n>filterScadDocTo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
@@ -155,8 +155,8 @@
         </Text>
         <DatePicker
 					id="fltScadenzaDocTo"								
-					valueFormat="yyyy-MM-dd"
-					displayFormat="dd/MM/yyyy">
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy">
           <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
         </DatePicker>	
 			</l:Grid>

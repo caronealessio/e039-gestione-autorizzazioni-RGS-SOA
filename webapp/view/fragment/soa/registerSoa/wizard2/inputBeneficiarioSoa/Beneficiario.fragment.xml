@@ -5,8 +5,22 @@
 >
   <Panel backgroundDesign="Transparent">
 		<headerToolbar>
-      <OverflowToolbar>
+      <OverflowToolbar class="a">
         <Title text="{i18n>titleBeneficiario}" />
+				<ToolbarSpacer/>
+				<Button 
+					text="{i18n>btnNewModalitaPagamento}" 
+					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
+					type="Emphasized"
+					press="onNewModalitaPagamento"  
+				/>
+				<Button 
+					text="{i18n>btnNewBeneficiario}"
+					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
+					type="Emphasized"
+					press="onNewBeneficiario"  
+				/>
+				<Button/>
       </OverflowToolbar>
     </headerToolbar>
 
