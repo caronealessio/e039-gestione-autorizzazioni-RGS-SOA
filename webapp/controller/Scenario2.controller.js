@@ -6,13 +6,14 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
   ],
-
   function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
     "use strict";
 
+    var bPrevalLoaded = false;
     const PAGINATOR_MODEL = "paginatorModel";
-    return BaseController.extend("rgssoa.controller.SoaScenario1", {
+    return BaseController.extend("rgssoa.controller.Scenario2", {
       formatter: formatter,
+
       onInit: function () {
         var self = this;
         var oStepScenario = new JSONModel({
@@ -28,7 +29,10 @@ sap.ui.define(
         });
 
         var oModelSoa = new JSONModel({
-          //Dati SOA (Parte celeste in alto)
+          /**   Scenario    */
+          Ztipopag: "2", //Tipo Pagamento
+
+          /**   Dati SOA (Parte celeste in alto)   */
           Gjahr: "", //Esercizio di gestione
           Zimptot: "0.00", //Importo
           Zzamministr: "", //Amministrazione
@@ -58,13 +62,29 @@ sap.ui.define(
           Zdescriz: "", //TODO - Open Point - Descrizione Codice FD
           ZspecieSop: "", //Specie SOA
           DescZspecieSop: "", //Descrizione Specie SOA
+
+          data: [], //Quote Documenti
+
+          /**   WIZARD 2 - Beneficiario SOA   */
           Zidsede: "", //Sede
+          BuType: "", //Tipologia Persona
+          Taxnumxl: "", //Codice Fiscale Estero
+          Zdenominazione: "", //Descrizione Sede
+          Zdurc: "", //Numero identificativo Durc
+          ZfermAmm: "", //Fermo amministrativo
+
+          /**   WIZARD 2 - Modalità Pagamento   */
           Zwels: "", //Codice Modalità Pagamento
           ZCausaleval: "", //Causale Valutaria
           Swift: "", //BIC
           Zcoordest: "", //Cordinate Estere
           Iban: "", //IBAN
           Zmotivaz: "", //Motivazione cambio IBAN
+          Zdescwels: "", //Descrizione Modalità Pagamento
+          Zbanks: "", //Paese di Residenza (Primi 2 digit IBAN)
+          ZDesccauval: "", //Descrizione Causale Valutaria
+
+          /**   WIZARD 2 - Dati Quietanzante/Destinatario Vaglia    */
           Ztipofirma: "", //Tipologia Firma
           ZpersCognomeQuiet1: "", //Cognome primo quietanzante
           ZpersCognomeQuiet2: "", //Cognome secondo quietanzante
@@ -75,34 +95,6 @@ sap.ui.define(
           Zstcd1: "", //Codice Fiscale Utilizzatore
           Zstcd12: "", //Codice fiscale secondo quietanzante
           Zstcd13: "", //Codice fiscale destinatario vaglia
-          Zcodprov: "", //INPS - Codice Provenienza
-          Zcfcommit: "", //INPS - Codice Fiscale Committente
-          Zcodtrib: "", //INPS - Codice tributo
-          Zperiodrifda: "", //INPS - Periodo riferimento da
-          Zperiodrifa: "", //INPS - Periodo riferimento a
-          Zcodinps: "", //INPS - Matricola INPS/Codice INPS/Filiale azienda
-          Zcfvers: "", //INPS - Codice Fiscale Versante
-          Zcodvers: "", //INPS - Codice Versante
-          Ztipopag: "1", //Tipo Pagamento
-          Zcausale: "", //Causale di pagamento
-          ZE2e: "", //E2E ID
-          Zlocpag: "", //Località pagamento
-          Zzonaint: "", //Zona di intervento
-          Znumprot: "", //Numero protocollo
-          Zdataprot: "", //Data protocollo
-          Zdataesig: "", //TODO - Punto Aperto - Data esigibilità
-          data: [],
-          Classificazione: [], //Classificazioni
-
-          BuType: "", //Tipologia Persona
-          Taxnumxl: "", //Codice Fiscale Estero
-          Zdenominazione: "", //Descrizione Sede
-          Zdurc: "", //Numero identificativo Durc
-          ZfermAmm: "", //Fermo amministrativo
-          Zdescwels: "", //Descrizione Modalità Pagamento
-          Zbanks: "", //Paese di Residenza (Primi 2 digit IBAN)
-          ZDesccauval: "", //Descrizione Causale Valutaria
-
           Zqindiriz: "", //Indirizzo primo quietanzante
           Zqcitta: "", //Citta primo quietanzantez
           Zqcap: "", //Cap primo quietanzante
@@ -111,17 +103,36 @@ sap.ui.define(
           Zqcitta12: "", //Citta secondo quietanzante
           Zqcap12: "", //Cap secondo quietanzante
           Zqprovincia12: "", //Provincia secondo quietanzante
+
+          /**   WIZARD 2 - INPS    */
+          Zcodprov: "", //INPS - Codice Provenienza
+          Zcfcommit: "", //INPS - Codice Fiscale Committente
+          Zcodtrib: "", //INPS - Codice tributo
+          Zperiodrifda: "", //INPS - Periodo riferimento da
+          Zperiodrifa: "", //INPS - Periodo riferimento a
+          Zcodinps: "", //INPS - Matricola INPS/Codice INPS/Filiale azienda
+          Zcfvers: "", //INPS - Codice Fiscale Versante
+          Zcodvers: "", //INPS - Codice Versante
+          FlagInpsEditabile: false,
+
+          /**   WIZARD 2 - Sede Beneficiario */
           Stras: "", //Via,numero civico
           Ort01: "", //Località
           Regio: "", //Regione
           Pstlz: "", //Codice di avviamento postale
           Land1: "", //Codice paese
-          FlagInpsEditabile: false,
-        });
 
-        var oModelTipoPersona = new JSONModel({
-          PersonaFisica: false,
-          PersonaGiuridica: false,
+          /**   WIZARD 3    */
+          Classificazione: [], //Classificazioni
+
+          /**   WIZARD 4    */
+          Zcausale: "", //Causale di pagamento
+          ZE2e: "", //E2E ID
+          Zlocpag: "", //Località pagamento
+          Zzonaint: "", //Zona di intervento
+          Znumprot: "", //Numero protocollo
+          Zdataprot: "", //Data protocollo
+          Zdataesig: "", //TODO - Punto Aperto - Data esigibilità
         });
 
         var oModelPaginator = new JSONModel({
@@ -139,15 +150,9 @@ sap.ui.define(
           paginatorTotalPage: 1,
         });
 
-        var oModelClassificazione = new JSONModel({
-          CodiceGestionale: [],
-          Cpv: [],
-          Cig: [],
-          Cup: [],
-          ImpTotAssociareCodiceGestionale: "0.00",
-          ImpTotAssociareCpv: "0.00",
-          ImpTotAssociareCig: "0.00",
-          ImpTotAssociareCup: "0.00",
+        var oModelTipoPersona = new JSONModel({
+          PersonaFisica: false,
+          PersonaGiuridica: false,
         });
 
         var oModelNewModalitaPagamento = new JSONModel({
@@ -203,6 +208,24 @@ sap.ui.define(
           },
         });
 
+        var oModelClassificazione = new JSONModel({
+          CodiceGestionale: [],
+          Cpv: [],
+          Cig: [],
+          Cup: [],
+          ImpTotAssociareCodiceGestionale: "0.00",
+          ImpTotAssociareCpv: "0.00",
+          ImpTotAssociareCig: "0.00",
+          ImpTotAssociareCup: "0.00",
+        });
+
+        self.setModel(oModelSoa, "Soa");
+        self.setModel(oModelPaginator, PAGINATOR_MODEL);
+        self.setModel(oStepScenario, "StepScenario");
+        self.setModel(oModelTipoPersona, "TipoPersona");
+        self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
+        self.setModel(oModelClassificazione, "Classificazione");
+
         var oInputImpDaOrd = self.getView().byId("iptImpDaOrd");
         oInputImpDaOrd.attachBrowserEvent(
           "keypress",
@@ -222,16 +245,8 @@ sap.ui.define(
         );
 
         //TODO - Inserire l'acceptOnlyNumber anche per CIG e CUP
-
-        self.setModel(oModelPaginator, PAGINATOR_MODEL);
-        self.setModel(oModelSoa, "Soa");
-        self.setModel(oStepScenario, "StepScenario");
-        self.setModel(oModelTipoPersona, "TipoPersona");
-        self.setModel(oModelClassificazione, "Classificazione");
-        self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
-
         this.getRouter()
-          .getRoute("soaScenario1")
+          .getRoute("soa.create.scenario.Scenario2")
           .attachPatternMatched(this._onObjectMatched, this);
       },
 
@@ -241,26 +256,29 @@ sap.ui.define(
         var oInputUffContabile = self.getView().byId("fltUfficioContabile");
         var oInputUffPagatore = self.getView().byId("fltUfficioPagatore");
 
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "PrevalUfficioContabileSet", {
-              success: function (data) {
-                oInputUffContabile.setValue(data?.results[0]?.Fkber);
-                oInputUffPagatore.setValue(data?.results[0]?.Fkber);
-                oInputUffContabile.data("key", data?.results[0]?.Fkber);
-                oInputUffPagatore.data("key", data?.results[0]?.Fkber);
-              },
-              error: function (error) {},
+        if (!bPrevalLoaded) {
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oDataModel.read("/" + "PrevalUfficioContabileSet", {
+                success: function (data) {
+                  oInputUffContabile.setValue(data?.results[0]?.Fkber);
+                  oInputUffPagatore.setValue(data?.results[0]?.Fkber);
+                  oInputUffContabile.data("key", data?.results[0]?.Fkber);
+                  oInputUffPagatore.data("key", data?.results[0]?.Fkber);
+                  bPrevalLoaded = true;
+                },
+                error: function (error) {},
+              });
             });
-          });
+        }
       },
 
       onNavBack: function () {
         var self = this;
         var oView = self.getView();
-        var oWizard = oView.byId("wizScenario1");
+        var oWizard = oView.byId("wizScenario2");
         //Load Models
         var oStepScenarioModel = self.getModel("StepScenario");
         var oModelSoa = self.getModel("Soa");
@@ -302,7 +320,7 @@ sap.ui.define(
 
       onNavForward: function () {
         var self = this;
-        var oWizard = self.getView().byId("wizScenario1");
+        var oWizard = self.getView().byId("wizScenario2");
         var oStepScenarioModel = self.getModel("StepScenario");
 
         var bWizard1Step2 = oStepScenarioModel.getProperty("/wizard1Step2");
@@ -312,6 +330,7 @@ sap.ui.define(
 
         if (bWizard1Step2) {
           //TODO - Riaggiungere
+
           // if (this._checkQuoteDocumenti()) {
           //   oStepScenarioModel.setProperty("/wizard1Step2", false);
           //   oStepScenarioModel.setProperty("/wizard1Step3", true);
@@ -437,6 +456,29 @@ sap.ui.define(
         oModelSoa.setProperty("/Zimptot", fTotal.toFixed(2));
       },
 
+      //#region PAGINATOR
+      onFirstPaginator: function () {
+        var self = this;
+
+        self.getFirstPaginator(PAGINATOR_MODEL);
+        this._getQuoteDocumentiList();
+      },
+
+      onLastPaginator: function () {
+        var self = this;
+
+        self.getLastPaginator(PAGINATOR_MODEL);
+        this._getQuoteDocumentiList();
+      },
+
+      onChangePage: function (oEvent) {
+        var self = this;
+
+        self.getChangePage(oEvent, PAGINATOR_MODEL);
+        this._getQuoteDocumentiList();
+      },
+      //#endregion PAGINATOR
+
       //#region VALUE HELP
 
       onValueHelpRitenuta: function (oEvent) {
@@ -469,6 +511,33 @@ sap.ui.define(
               error: function (error) {},
             });
           });
+      },
+
+      onValueHelpRitenutaClose: function (oEvent) {
+        var self = this;
+        //Load Models
+        var oModelSoa = self.getModel("Soa");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+        var oSource = oEvent.getSource();
+        var sInput = oSource.data().input;
+        var oInput = self.getView().byId(sInput);
+        var sKey = oSelectedItem?.data("key");
+
+        this._setEditableBeneficiario(oSelectedItem);
+        oModelSoa.setProperty("/Text40", oSelectedItem?.getTitle());
+        oModelSoa.setProperty("/Witht", sKey);
+
+        if (!oSelectedItem) {
+          oInput.resetProperty("value");
+          oInput.data("key", null);
+          this.unloadFragment();
+          return;
+        }
+
+        oInput.setValue(oSelectedItem.getTitle());
+        oInput.data("key", sKey);
+        this.unloadFragment();
       },
 
       onValueHelpEnteBeneficiario: function (oEvent) {
@@ -511,33 +580,6 @@ sap.ui.define(
               error: function (error) {},
             });
           });
-      },
-
-      onValueHelpRitenutaClose: function (oEvent) {
-        var self = this;
-        //Load Models
-        var oModelSoa = self.getModel("Soa");
-
-        var oSelectedItem = oEvent.getParameter("selectedItem");
-        var oSource = oEvent.getSource();
-        var sInput = oSource.data().input;
-        var oInput = self.getView().byId(sInput);
-        var sKey = oSelectedItem?.data("key");
-
-        this._setEditableBeneficiario(oSelectedItem);
-        oModelSoa.setProperty("/Text40", oSelectedItem?.getTitle());
-        oModelSoa.setProperty("/Witht", sKey);
-
-        if (!oSelectedItem) {
-          oInput.resetProperty("value");
-          oInput.data("key", null);
-          this.unloadFragment();
-          return;
-        }
-
-        oInput.setValue(oSelectedItem.getTitle());
-        oInput.data("key", sKey);
-        this.unloadFragment();
       },
 
       onValueHelpEnteBeneficiarioClose: function (oEvent) {
@@ -672,88 +714,6 @@ sap.ui.define(
         self.unloadFragment();
       },
 
-      onValueHelpNProspLiquidazione: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
-        );
-        var oSelectDialog = sap.ui.getCore().byId(dialogName);
-        oSelectDialog?.data("input", oSourceData.input);
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "RicercaNProspLiqSet", {
-              success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                oSelectDialog?.setModel(oModelJson, "NProspLiquidazione");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
-      },
-
-      onValueHelpDescProspLiquidazione: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
-        );
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "RicercaDescProspLiqSet", {
-              success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "DescProspLiquidazione");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
-      },
-
-      onValueHelpUffLiquidatore: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
-        );
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "RicercaUffLiquidatoreSet", {
-              success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "UfficioLiquidatore");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
-      },
-
       onValueHelpUffContabile: function (oEvent) {
         var self = this;
         var oDataModel = self.getModel();
@@ -882,6 +842,20 @@ sap.ui.define(
       //#endregion
 
       //#region SELECTION CHANGE
+
+      onTipoBeneficiarioChange: function (oEvent) {
+        var self = this;
+        var oInput = self.getView().byId("fltTipoBeneficiario");
+        var oModelSoa = self.getModel("Soa");
+
+        this._setEditableRitenuta(oEvent.getParameter("value"));
+        oModelSoa.setProperty("/BuType", oInput.getSelectedKey());
+      },
+
+      onDataEseChange: function (oEvent) {
+        this._setEditableBeneficiario(oEvent.getParameter("value"));
+      },
+
       onChangeAnnoRegDoc: function () {
         var self = this;
         self.clearModel("NRegDocumento");
@@ -900,19 +874,6 @@ sap.ui.define(
         oInputNDocBeneficiario.resetProperty("value");
       },
 
-      onTipoBeneficiarioChange: function (oEvent) {
-        var self = this;
-        var oInput = self.getView().byId("fltTipoBeneficiario");
-        var oModelSoa = self.getModel("Soa");
-
-        this._setEditableRitenuta(oEvent.getParameter("value"));
-        oModelSoa.setProperty("/BuType", oInput.getSelectedKey());
-      },
-
-      onDataEseChange: function (oEvent) {
-        this._setEditableBeneficiario(oEvent.getParameter("value"));
-      },
-
       onImpDaOrdinareChange: function (oEvent) {
         var self = this;
         //Load Component
@@ -929,115 +890,9 @@ sap.ui.define(
         ).ImpDaOrd = parseFloat(sValue).toFixed(2);
       },
 
-      //#endregion SELECTION CHANGE
-
-      //#region PAGINATOR
-      onFirstPaginator: function () {
-        var self = this;
-
-        self.getFirstPaginator(PAGINATOR_MODEL);
-        this._getQuoteDocumentiList();
-      },
-
-      onLastPaginator: function () {
-        var self = this;
-
-        self.getLastPaginator(PAGINATOR_MODEL);
-        this._getQuoteDocumentiList();
-      },
-
-      onChangePage: function (oEvent) {
-        var self = this;
-
-        self.getChangePage(oEvent, PAGINATOR_MODEL);
-        this._getQuoteDocumentiList();
-      },
-      //#endregion PAGINATOR
+      //#endregion
 
       //#region PRIVATE METHODS
-      _getPositionsFilters: function () {
-        var self = this;
-        var aFilters = [];
-        var oView = self.getView();
-        var oModelSoa = self.getModel("Soa");
-
-        var oRitenuta = oView.byId("fltRitenuta");
-        var oEnteBeneficiario = oView.byId("fltEnteBeneficiario");
-        var oQuoteEsigibili = oView.byId("fltQuoteEsigibili");
-        var oDataEsigibilitaFrom = oView.byId("fltDataEsigibilitaFrom");
-        var oDataEsigibilitaTo = oView.byId("fltDataEsigibilitaTo");
-        var oTipoBeneficiario = oView.byId("fltTipoBeneficiario");
-        var oBeneficiario = oView.byId("fltBeneficiario");
-        var oEseContabile = oView.byId("fltEseContabile");
-        var oUffLiquidatore = oView.byId("fltUffLiquidatore");
-        var oNProspLiquidazioneFrom = oView.byId("fltNProspLiquidazioneFrom");
-        var oNProspLiquidazioneTo = oView.byId("fltNProspLiquidazioneTo");
-        var oDescProspLiquidazione = oView.byId("fltZdescProsp");
-        var oUfficioContabile = oView.byId("fltUfficioContabile");
-        var oUfficioPagatore = oView.byId("fltUfficioPagatore");
-        var oAnnoRegDocumento = oView.byId("fltAnnoRegDoc");
-        var oNRegDocumentoFrom = oView.byId("fltNRegDocFrom");
-        var oNRegDocumentoTo = oView.byId("fltNRegDocTo");
-        var oAnnoDocBeneficiario = oView.byId("fltAnnoDocBene");
-        var oNDocBeneficiario = oView.byId("fltNDocBene");
-        var oCIG = oView.byId("fltCIG");
-        var oCUP = oView.byId("fltCUP");
-        var oScadenzaDocFrom = oView.byId("fltScadenzaDocFrom");
-        var oScadenzaDocTo = oView.byId("fltScadenzaDocTo");
-
-        self.setFilterEQKeyMC(aFilters, oRitenuta);
-        self.setFilterEQKeyMC(aFilters, oEnteBeneficiario);
-        if (oQuoteEsigibili.getSelected()) {
-          aFilters.push(
-            new Filter(
-              oQuoteEsigibili.data("searchPropertyModel"),
-              FilterOperator.EQ,
-              true
-            )
-          );
-        }
-        self.setFilterMultiInputEQText(aFilters, oUffLiquidatore);
-        self.setFilterEQValue(aFilters, oDescProspLiquidazione);
-        self.setFilterBTValue(
-          aFilters,
-          oDataEsigibilitaFrom,
-          oDataEsigibilitaTo
-        );
-        self.setFilterEQKey(aFilters, oTipoBeneficiario);
-        self.setFilterEQValue(aFilters, oBeneficiario);
-        self.setFilterEQKey(aFilters, oEseContabile);
-        self.setFilterBTValue(
-          aFilters,
-          oNProspLiquidazioneFrom,
-          oNProspLiquidazioneTo
-        );
-        self.setFilterEQKeyMC(aFilters, oUfficioContabile);
-        self.setFilterEQKeyMC(aFilters, oUfficioPagatore);
-        self.setFilterBTValue(aFilters, oNRegDocumentoFrom, oNRegDocumentoTo);
-        self.setFilterMultiInputEQText(aFilters, oNDocBeneficiario);
-        self.setFilterEQValue(aFilters, oCIG);
-        self.setFilterEQValue(aFilters, oCUP);
-        self.setFilterBTValue(aFilters, oScadenzaDocFrom, oScadenzaDocTo);
-        self.setFilterMultiComboBoxEQKey(aFilters, oAnnoRegDocumento);
-        self.setFilterMultiComboBoxEQKey(aFilters, oAnnoDocBeneficiario);
-
-        aFilters.push(
-          new Filter(
-            "Fipex",
-            FilterOperator.EQ,
-            oModelSoa?.getProperty("/Fipos")
-          )
-        );
-        aFilters.push(
-          new Filter(
-            "Fistl",
-            FilterOperator.EQ,
-            oModelSoa?.getProperty("/Fistl")
-          )
-        );
-
-        return aFilters;
-      },
 
       _onObjectMatched: function (oEvent) {
         var self = this;
@@ -1089,6 +944,30 @@ sap.ui.define(
         oInputBeneficiario.setEditable(bEditable);
       },
 
+      _setSpecieSoaDesc: function (sValue) {
+        var self = this;
+        //Load Models
+        var oModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+
+        var oParameters = {
+          ZspecieSoa: sValue,
+        };
+        var sPath = self.getModel().createKey("SpecieSOASet", oParameters);
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oModel.read("/" + sPath, {
+              success: function (data, oResponse) {
+                oModelSoa.setProperty("/DescZspecieSop", data?.ZdescSpecieSoa);
+                oModelSoa.setProperty("/ZspecieSop", data?.ZspecieSoa);
+              },
+              error: function () {},
+            });
+          });
+      },
+
       _setEditableRitenuta: function (item) {
         var self = this;
         var oView = self.getView();
@@ -1109,6 +988,77 @@ sap.ui.define(
 
         //Resetto eventuali valori già inseriti
         oInputQuoteEsibigili.setSelected(bEditable);
+      },
+
+      _getPositionsFilters: function () {
+        var self = this;
+        var aFilters = [];
+        var oView = self.getView();
+        var oModelSoa = self.getModel("Soa");
+
+        var oRitenuta = oView.byId("fltRitenuta");
+        var oEnteBeneficiario = oView.byId("fltEnteBeneficiario");
+        var oQuoteEsigibili = oView.byId("fltQuoteEsigibili");
+        var oDataEsigibilitaFrom = oView.byId("fltDataEsigibilitaFrom");
+        var oDataEsigibilitaTo = oView.byId("fltDataEsigibilitaTo");
+        var oTipoBeneficiario = oView.byId("fltTipoBeneficiario");
+        var oBeneficiario = oView.byId("fltBeneficiario");
+        var oUfficioContabile = oView.byId("fltUfficioContabile");
+        var oUfficioPagatore = oView.byId("fltUfficioPagatore");
+        var oAnnoRegDocumento = oView.byId("fltAnnoRegDoc");
+        var oNRegDocumentoFrom = oView.byId("fltNRegDocFrom");
+        var oNRegDocumentoTo = oView.byId("fltNRegDocTo");
+        var oAnnoDocBeneficiario = oView.byId("fltAnnoDocBene");
+        var oNDocBeneficiario = oView.byId("fltNDocBene");
+        var oCIG = oView.byId("fltCIG");
+        var oCUP = oView.byId("fltCUP");
+        var oScadenzaDocFrom = oView.byId("fltScadenzaDocFrom");
+        var oScadenzaDocTo = oView.byId("fltScadenzaDocTo");
+
+        self.setFilterEQKeyMC(aFilters, oRitenuta);
+        self.setFilterEQKeyMC(aFilters, oEnteBeneficiario);
+        if (oQuoteEsigibili.getSelected()) {
+          aFilters.push(
+            new Filter(
+              oQuoteEsigibili.data("searchPropertyModel"),
+              FilterOperator.EQ,
+              true
+            )
+          );
+        }
+        self.setFilterBTValue(
+          aFilters,
+          oDataEsigibilitaFrom,
+          oDataEsigibilitaTo
+        );
+        self.setFilterEQKey(aFilters, oTipoBeneficiario);
+        self.setFilterEQValue(aFilters, oBeneficiario);
+        self.setFilterEQKeyMC(aFilters, oUfficioContabile);
+        self.setFilterEQKeyMC(aFilters, oUfficioPagatore);
+        self.setFilterBTValue(aFilters, oNRegDocumentoFrom, oNRegDocumentoTo);
+        self.setFilterMultiInputEQText(aFilters, oNDocBeneficiario);
+        self.setFilterEQValue(aFilters, oCIG);
+        self.setFilterEQValue(aFilters, oCUP);
+        self.setFilterBTValue(aFilters, oScadenzaDocFrom, oScadenzaDocTo);
+        self.setFilterMultiComboBoxEQKey(aFilters, oAnnoRegDocumento);
+        self.setFilterMultiComboBoxEQKey(aFilters, oAnnoDocBeneficiario);
+
+        aFilters.push(
+          new Filter(
+            "Fipex",
+            FilterOperator.EQ,
+            oModelSoa?.getProperty("/Fipos")
+          )
+        );
+        aFilters.push(
+          new Filter(
+            "Fistl",
+            FilterOperator.EQ,
+            oModelSoa?.getProperty("/Fistl")
+          )
+        );
+
+        return aFilters;
       },
 
       _setPaginatorProperties: function () {
@@ -1216,30 +1166,6 @@ sap.ui.define(
           });
       },
 
-      _setSpecieSoaDesc: function (sValue) {
-        var self = this;
-        //Load Models
-        var oModel = self.getModel();
-        var oModelSoa = self.getModel("Soa");
-
-        var oParameters = {
-          ZspecieSoa: sValue,
-        };
-        var sPath = self.getModel().createKey("SpecieSOASet", oParameters);
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oModel.read("/" + sPath, {
-              success: function (data, oResponse) {
-                oModelSoa.setProperty("/DescZspecieSop", data?.ZdescSpecieSoa);
-                oModelSoa.setProperty("/ZspecieSop", data?.ZspecieSoa);
-              },
-              error: function () {},
-            });
-          });
-      },
-
       _checkQuoteDocumenti: function () {
         var self = this;
         var oModelSoa = self.getModel("Soa");
@@ -1266,7 +1192,7 @@ sap.ui.define(
         return true;
       },
 
-      //#endregion PRIVATE METHODS
+      //#endregion
 
       //#endregion
 
@@ -1274,13 +1200,20 @@ sap.ui.define(
 
       onNewModalitaPagamento: function () {
         var self = this;
-        var oDialgoNewModalitaPagamento = self.loadFragment(
+        var oFragmentNewModPag = self.loadFragment(
           "rgssoa.view.fragment.pop-up.NewModalitaPagamento"
         );
 
         this._getNpmModalitaPagamento();
 
-        oDialgoNewModalitaPagamento.open();
+        oFragmentNewModPag.open();
+
+        var oDialogNewModPag = sap.ui.getCore().byId("dlgNewModalitaPagamento");
+        oDialogNewModPag.attachBrowserEvent("keydown", function (oEvent) {
+          if (oEvent.key === "Escape") {
+            oEvent.stopPropagation();
+          }
+        });
       },
 
       onBackNewModalitaPagamento: function () {
@@ -1290,8 +1223,8 @@ sap.ui.define(
         var oBundle = self.getResourceBundle();
 
         if (oModelNewModPag.getProperty("/VisibleNewModalitaPagamento")) {
-          var oDialgoNewModPag = oCore.byId("dlgNewModalitaPagamento");
-          oDialgoNewModPag.close();
+          var oDialogNewModPag = oCore.byId("dlgNewModalitaPagamento");
+          oDialogNewModPag.close();
           self.unloadFragment();
           this._resetNewModalitaPagamento();
           oModelNewModPag.setProperty("/SZwels", "");
@@ -1584,6 +1517,7 @@ sap.ui.define(
         var oDialogMotivazione = self.loadFragment(
           "rgssoa.view.fragment.pop-up.Motivazione"
         );
+
         oDialogMotivazione.open();
       },
 
@@ -1931,16 +1865,6 @@ sap.ui.define(
         oModelSoa.setProperty("/Land1", oInputData?.Land1);
       },
 
-      onInpsChange: function (oEvent) {
-        var self = this;
-        var oModelSoa = self.getModel("Soa");
-
-        oModelSoa.setProperty(
-          "/" + oEvent.getSource().data().field,
-          oEvent.getParameter("value")
-        );
-      },
-
       onNewModalitaPagamentoChange: function (oEvent) {
         var self = this;
         var oModelNewModPag = self.getModel("NewModalitaPagamento");
@@ -1983,6 +1907,8 @@ sap.ui.define(
       onSaveNewModalitaPagamento: function (oEvent) {
         var self = this;
         var oModelNewModPag = self.getModel("NewModalitaPagamento");
+        var oCore = sap.ui.getCore();
+        var oDialogNewModPag = oCore.byId("dlgNewModalitaPagamento");
         var oModelSoa = self.getModel("Soa");
         var oModel = self.getModel();
 
@@ -2078,13 +2004,12 @@ sap.ui.define(
               oModelSoa.setProperty("/Iban", data.Pagamento.SIban);
               oModelSoa.setProperty("/Zdescwels", data.Pagamento.Zdescwels);
               oModelSoa.setProperty("/Zbanks", data.Pagamento.SCountryRes);
-              // if (oItem.Quietanzante.Zqcognome) {
-              //   //oModelSoa.setProperty("/", oValue)
-              // } else if (oItem.DestinatarioVaglia.Zqcognomedest) {
-              // }
+              oDialogNewModPag.close();
             }
           },
-          error: function (err) {},
+          error: function (err) {
+            oDialogNewModPag.close();
+          },
         });
       },
 
@@ -2825,28 +2750,6 @@ sap.ui.define(
         this._setImpTotAssociare(oSourceData?.etichetta);
       },
 
-      //#region PRIVATE METHODS
-      _setImpTotAssociare: function (sEtichetta) {
-        var self = this;
-        //Load Models
-        var oModelClassificazione = self.getModel("Classificazione");
-
-        var aListClassificazione = oModelClassificazione.getProperty(
-          "/" + sEtichetta
-        );
-
-        var iTotalImpDaAssociare = 0;
-        aListClassificazione.map((oItem) => {
-          iTotalImpDaAssociare += parseFloat(oItem.ZimptotClass);
-        });
-
-        oModelClassificazione.setProperty(
-          "/ImpTotAssociare" + sEtichetta,
-          parseFloat(iTotalImpDaAssociare).toFixed(2)
-        );
-      },
-      //#endregion
-
       //#endregion
 
       //#region PRIVATE METHODS
@@ -2989,6 +2892,26 @@ sap.ui.define(
         }
 
         return bCodiceEmpty;
+      },
+
+      _setImpTotAssociare: function (sEtichetta) {
+        var self = this;
+        //Load Models
+        var oModelClassificazione = self.getModel("Classificazione");
+
+        var aListClassificazione = oModelClassificazione.getProperty(
+          "/" + sEtichetta
+        );
+
+        var iTotalImpDaAssociare = 0;
+        aListClassificazione.map((oItem) => {
+          iTotalImpDaAssociare += parseFloat(oItem.ZimptotClass);
+        });
+
+        oModelClassificazione.setProperty(
+          "/ImpTotAssociare" + sEtichetta,
+          parseFloat(iTotalImpDaAssociare).toFixed(2)
+        );
       },
 
       //#endregion

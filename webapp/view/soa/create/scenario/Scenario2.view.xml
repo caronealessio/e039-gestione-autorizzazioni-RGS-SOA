@@ -1,0 +1,67 @@
+<mvc:View
+	controllerName="rgssoa.controller.Scenario2"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+	<Page showHeader="false" class="bgWhite" >
+		<content>
+			<c:Fragment fragmentName="rgssoa.view.fragment.soa.HeaderSoa" type="XML"/>	
+			<NavContainer>
+				<pages>
+					<Page showHeader="false">
+						<content>
+							<Wizard id="wizScenario2" showNextButton="false" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
+								<WizardStep title="{i18n>wizard1Title}" >
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.FiltersDocumentiCosto" type="XML"/>
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.ListDocumentiCosto" type="XML"/>
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.RiepilogoDocumentiCosto" type="XML"/>		
+								</WizardStep>
+								<WizardStep title="{i18n>wizard2Title}" >
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard2.BeneficiarioSoa" type="XML"/>
+								</WizardStep>
+								<WizardStep title="{i18n>wizard3Title}" >
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.Classificazione" type="XML"/>	
+								</WizardStep>	
+								<WizardStep title="{i18n>wizard4Title}" >
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard4.DatiSoa" type="XML"/>	
+								</WizardStep>													
+							</Wizard>
+							</content>
+						</Page>
+					</pages>
+			</NavContainer>
+		</content>
+		
+    <footer>
+			<OverflowToolbar>
+				<Button type="Emphasized" text="{i18n>btnBack}" press="onNavBack" >
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+				</Button>
+				<Button type="Emphasized" text="{i18n>btnForward}" press="onNavForward" visible="{StepScenario>/visibleBtnForward}">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+				</Button>
+				<ToolbarSpacer/>
+				<Button type="Emphasized" text="{i18n>btnStart}" press="onStart" visible="{StepScenario>/visibleBtnStart}">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+				</Button>
+				<Button type="Emphasized" text="{i18n>btnSaveSoa}" press="onSave" visible="{StepScenario>/visibleBtnSave}">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" />
+						</layoutData>
+				</Button>
+			</OverflowToolbar>
+		</footer>
+	
+  </Page>
+
+</mvc:View>

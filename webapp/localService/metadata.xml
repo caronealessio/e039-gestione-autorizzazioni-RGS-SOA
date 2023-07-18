@@ -790,6 +790,12 @@
                 <Property Name="SStcd2" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="SStcd3" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="Message" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Text"/>
+                </Key>
+                <Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="220" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <ComplexType Name="Pagamento">
                 <Property Name="SZwels" Type="Edm.String" MaxLength="10" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Zdescwels" Type="Edm.String" MaxLength="50" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -856,6 +862,7 @@
                 <EntitySet Name="NmpPaeseResidenzaDescSet" EntityType="ZS4_SOA_SRV.NmpPaeseResidenzaDesc" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="NmpZtipofirmaSet" EntityType="ZS4_SOA_SRV.NmpZtipofirma" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="InserisciAnagraficaBeneficiarioSet" EntityType="ZS4_SOA_SRV.InserisciAnagraficaBeneficiario" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="MessageSet" EntityType="ZS4_SOA_SRV.Message" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="DescFistlSet" EntityType="ZS4_SOA_SRV.DescFistl" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="WFStateAutSet" EntityType="ZS4_SOA_SRV.WFStateAut" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="StateSOASet" EntityType="ZS4_SOA_SRV.StateSOA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
@@ -927,6 +934,14 @@
                     <Parameter Name="Text40" Type="Edm.String" Mode="In" MaxLength="40"/>
                     <Parameter Name="CodEnte" Type="Edm.String" Mode="In" MaxLength="5"/>
                     <Parameter Name="Witht" Type="Edm.String" Mode="In" MaxLength="2"/>
+                </FunctionImport>
+                <FunctionImport Name="AutorityCheckOnAutorizzazione" ReturnType="ZS4_SOA_SRV.Message" EntitySet="MessageSet" m:HttpMethod="GET">
+                    <Parameter Name="Fistl" Type="Edm.String" Mode="In" MaxLength="16"/>
+                    <Parameter Name="Fipos" Type="Edm.String" Mode="In" MaxLength="24"/>
+                    <Parameter Name="Gjahr" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Prctr" Type="Edm.String" Mode="In" MaxLength="10"/>
+                    <Parameter Name="Fikrs" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="AgrName" Type="Edm.String" Mode="In" MaxLength="30"/>
                 </FunctionImport>
             </EntityContainer>
             <atom:link rel="self" href="http://l2vs2slass01.mef.gov.it:8000/sap/opu/odata/sap/ZS4_SOA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>

@@ -5,7 +5,7 @@
 >
   <Panel backgroundDesign="Transparent">
 		<headerToolbar>
-      <OverflowToolbar class="a">
+      <OverflowToolbar>
         <Title text="{i18n>titleBeneficiario}" />
 				<ToolbarSpacer/>
 				<Button 
@@ -13,15 +13,14 @@
 					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
 					type="Emphasized"
 					press="onNewModalitaPagamento"
-					enabled="{= ${Soa>/ZspecieSop} === 1 ? true : false}"  
+					enabled="{= ${Soa>/ZspecieSop} === '1' &amp;&amp; (${Soa>/Ztipopag} === '1' || ${Soa>/Ztipopag} === '2' || ${Soa>/Ztipopag} === '3') ? true : false}"  
 				/>
 				<Button 
 					text="{i18n>btnNewBeneficiario}"
 					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
 					type="Emphasized"
-					enabled="false"
+					enabled="{= ${Soa>/ZspecieSop} === '1' &amp;&amp; (${Soa>/Ztipopag} === '2') ? true : false}"
 				/>
-				<Button/>
       </OverflowToolbar>
     </headerToolbar>
 

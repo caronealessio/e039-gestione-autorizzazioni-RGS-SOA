@@ -74,6 +74,7 @@
         <layoutData><l:GridData span="XL8 L7 M8 S12"/></layoutData>
       </TextArea>
 
+      <!-- TODO - Open point -->
       <Text text="{i18n>inputDataEsigibilita}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL2 L3 M4 S12" linebreak="true"/></layoutData>
       </Text>

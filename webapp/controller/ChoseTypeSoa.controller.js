@@ -1,19 +1,23 @@
 sap.ui.define(["./BaseController"], function (BaseController) {
   "use strict";
 
-  return BaseController.extend("rgssoa.controller.RegisterSoa", {
+  return BaseController.extend("rgssoa.controller.ChoseTypeSoa", {
     onNavBack: function () {
       history.go(-1);
     },
 
     onDocumentiCosto: function () {
       var self = this;
-      self.getRouter().navTo("documentiCosto");
+      self.getRouter().navTo("soa.create.InputAutorizzazione", {
+        SoaType: 1,
+      });
     },
 
     onNoDocumentiCosto: function () {
       var self = this;
-      self.getRouter().navTo("noDocumentiCosto");
+      self.getRouter().navTo("soa.create.InputAutorizzazione", {
+        SoaType: 2,
+      });
     },
   });
 });

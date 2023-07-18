@@ -17,10 +17,38 @@ sap.ui.define(
   ) {
     "use strict";
 
-    return BaseController.extend("rgssoa.controller.DocumentiCosto", {
+    return BaseController.extend("rgssoa.controller.InputAutorizzazione", {
       formatter: formatter,
+      /**
+       * @override
+       */
+      onInit: function () {
+        var self = this;
+        var oModelInputAutorizzazione = new JSONModel({
+          SoaType: "",
+        });
+
+        self.setModel(oModelInputAutorizzazione, "InputAutorizzazione");
+
+        this.getRouter()
+          .getRoute("soa.create.InputAutorizzazione")
+          .attachPatternMatched(this._onObjectMatched, this);
+      },
+
+      _onObjectMatched: function (oEvent) {
+        var self = this;
+        var oModelInputAutorizzazione = self.getModel("InputAutorizzazione");
+
+        var oArguments = oEvent.getParameter("arguments");
+
+        oModelInputAutorizzazione.setProperty("/SoaType", oArguments?.SoaType);
+      },
+
       onNavBack: function () {
+        var self = this;
         history.go(-1);
+
+        self.setModel(new JSONModel({}), "ChiaveAutorizzazione");
       },
       onSelectEsercizioGestione: function (oEvent) {
         var self = this;
@@ -141,7 +169,11 @@ sap.ui.define(
         var self = this;
         var oView = self.getView();
         var oChiaveAutorizzazioneModel = oView.getModel("ChiaveAutorizzazione");
+        var oModelInputAutorizzazione = self.getModel("InputAutorizzazione");
+        var oRbTipoDocumenti = self.getView().byId("rbTipoDoumenti");
 
+        var sSoaType = oModelInputAutorizzazione.getProperty("/SoaType");
+        var sRbTipoDocumenti = oRbTipoDocumenti.getSelectedIndex();
         var oParameters = {
           Zchiaveaut: oChiaveAutorizzazioneModel?.getProperty("/zChiaveAut"),
           Bukrs: oChiaveAutorizzazioneModel?.getProperty("/bukrs"),
@@ -156,7 +188,13 @@ sap.ui.define(
           MessageBox.error("Inserire una Autorizzazione valida");
           return;
         }
-        self.getRouter().navTo("soaScenario1", oParameters);
+
+        if (sSoaType === "1" && sRbTipoDocumenti === 0) {
+          self.getRouter().navTo("soa.create.scenario.Scenario1", oParameters);
+        }
+        if (sSoaType === "1" && sRbTipoDocumenti === 1) {
+          self.getRouter().navTo("soa.create.scenario.Scenario2", oParameters);
+        }
       },
     });
   }

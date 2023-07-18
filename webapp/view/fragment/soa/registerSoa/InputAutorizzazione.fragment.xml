@@ -39,7 +39,8 @@
 					showValueHelp="true"
 					valueHelpOnly="true"
 					app:dialogName="sdChiaveAutorizzazione"
-					app:fragmentName="ChiaveAutorizzazione">
+					app:fragmentName="ChiaveAutorizzazione"
+          value="{ChiaveAutorizzazione>/zChiaveAut}">
           <layoutData><l:GridData span="XL2 L2 M4 S12" /></layoutData>
         </Input>
         <Text text="{i18n>chiaveAutDataStato}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
@@ -191,7 +192,9 @@
       </OverflowToolbar>
     </headerToolbar>
     <FlexBox class="labelWidth sapUiTinyMarginTop sapUiTinyMarginBottom" >
-        <RadioButtonGroup columns="2">
+        <RadioButtonGroup 
+          id="rbTipoDoumenti"
+          columns="2">
           <RadioButton text="{i18n>documentiLiquidati}" selected="true" />
           <RadioButton text="{i18n>documentiNonLiquidati}" />
 		    </RadioButtonGroup>

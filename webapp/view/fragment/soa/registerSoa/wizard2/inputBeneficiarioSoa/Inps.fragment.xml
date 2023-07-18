@@ -18,9 +18,7 @@
 				</Text>
 				<Input 
 					editable="false"
-					value="{Soa>/Zcodprov}"
-					app:field="Zcodprov"
-					change="onInpsChange"	
+					value="{Soa>/Zcodprov}"	
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
@@ -29,9 +27,7 @@
 				</Text>
 				<Input
 					editable="{Soa>/FlagInpsEditabile}"
-					value="{Soa>/Zcfcommit}"
-					app:field="Zcfcommit"
-					change="onInpsChange"			
+					value="{Soa>/Zcfcommit}"		
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
@@ -58,8 +54,6 @@
           displayFormat="dd.MM.yyyy"
 					editable="{Soa>/FlagInpsEditabile}"
 					value="{Soa>/Zperiodrifda}"
-					app:field="Zperiodrifda"
-					change="onInpsChange"	
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</DatePicker>
@@ -71,8 +65,6 @@
           displayFormat="dd.MM.yyyy"
 					editable="{Soa>/FlagInpsEditabile}"
 					value="{Soa>/Zperiodrifa}"
-					app:field="Zperiodrifa"
-					change="onInpsChange"	
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</DatePicker>
@@ -82,8 +74,6 @@
 				<Input
 					editable="{Soa>/FlagInpsEditabile}"
 					value="{Soa>/Zcodinps}"
-					app:field="Zcodinps"
-					change="onInpsChange"	
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
@@ -94,8 +84,6 @@
 				<Input
 					editable="{Soa>/FlagInpsEditabile}"
 					value="{Soa>/Zcodvers}"
-					app:field="Zcodvers"
-					change="onInpsChange"	
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
@@ -105,8 +93,6 @@
 				<Input
 					editable="{Soa>/FlagInpsEditabile}"
 					value="{Soa>/Zcfvers}"
-					app:field="Zcfvers"
-					change="onInpsChange"	
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>

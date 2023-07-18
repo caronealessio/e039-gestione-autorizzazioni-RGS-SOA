@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="rgssoa.controller.SoaScenario1"
+	controllerName="rgssoa.controller.Scenario1"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"

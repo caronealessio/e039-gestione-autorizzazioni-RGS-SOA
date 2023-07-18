@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="rgssoa.controller.DocumentiCosto"
+	controllerName="rgssoa.controller.InputAutorizzazione"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	displayBlock="true"

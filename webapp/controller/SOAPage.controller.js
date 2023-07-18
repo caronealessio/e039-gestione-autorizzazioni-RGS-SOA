@@ -200,7 +200,7 @@ sap.ui.define(
 
       onRegisterSoa: function () {
         var self = this;
-        self.getRouter().navTo("registerSoa");
+        self.getRouter().navTo("soa.create.ChoseTypeSoa");
       },
 
       /** -----------------PRIVATE METHODS------------------- */

@@ -126,9 +126,9 @@
           "target": ["authPage"]
         },
         {
-          "pattern": "SOAPage",
-          "name": "SOAPage",
-          "target": ["SOAPage"]
+          "pattern": "soa.SOAPage",
+          "name": "soa.SOAPage",
+          "target": ["soa.SOAPage"]
         },
         {
           "pattern": "AutorizzazioneSet/{objectId}",
@@ -141,24 +141,24 @@
           "target": ["authDetail"]
         },
         {
-          "pattern": "RegisterSoa",
-          "name": "registerSoa",
-          "target": ["registerSoa"]
+          "pattern": "soa.create.ChoseTypeSoa",
+          "name": "soa.create.ChoseTypeSoa",
+          "target": ["soa.create.ChoseTypeSoa"]
         },
         {
-          "pattern": "DocumentiCosto",
-          "name": "documentiCosto",
-          "target": ["documentiCosto"]
+          "pattern": "soa.create.InputAutorizzazione/{SoaType}",
+          "name": "soa.create.InputAutorizzazione",
+          "target": ["soa.create.InputAutorizzazione"]
         },
         {
-          "pattern": "NoDocumentiCosto",
-          "name": "noDocumentiCosto",
-          "target": ["noDocumentiCosto"]
+          "pattern": "soa.create.scenario.Scenario1/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenario.Scenario1",
+          "target": ["soa.create.scenario.Scenario1"]
         },
         {
-          "pattern": "SoaScenario1/{Bukrs},{Gjahr},{Zchiaveaut}",
-          "name": "soaScenario1",
-          "target": ["soaScenario1"]
+          "pattern": "soa.create.scenario.Scenario2/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenario.Scenario2",
+          "target": ["soa.create.scenario.Scenario2"]
         }
       ],
       "targets": {
@@ -174,8 +174,8 @@
           "viewLevel": 2,
           "title": "{i18n>authPageViewTitle}"
         },
-        "SOAPage": {
-          "viewName": "SOAPage",
+        "soa.SOAPage": {
+          "viewName": "soa.SOAPage",
           "viewId": "soaPage",
           "viewLevel": 2,
           "title": "{i18n>soaPageViewTitle}"
@@ -201,24 +201,24 @@
           "viewName": "NotFound",
           "viewId": "notFound"
         },
-        "registerSoa": {
-          "viewName": "RegisterSoa",
-          "viewId": "registerSoa",
+        "soa.create.ChoseTypeSoa": {
+          "viewName": "soa.create.ChoseTypeSoa",
+          "viewId": "ChoseTypeSoa",
           "viewLevel": 3
         },
-        "documentiCosto": {
-          "viewName": "DocumentiCosto",
-          "viewId": "documentiCosto",
+        "soa.create.InputAutorizzazione": {
+          "viewName": "soa.create.InputAutorizzazione",
+          "viewId": "InputAutorizzazione",
           "viewLevel": 4
         },
-        "noDocumentiCosto": {
-          "viewName": "NoDocumentiCosto",
-          "viewId": "noDocumentiCosto",
-          "viewLevel": 4
+        "soa.create.scenario.Scenario1": {
+          "viewName": "soa.create.scenario.Scenario1",
+          "viewId": "Scenario1",
+          "viewLevel": 5
         },
-        "soaScenario1": {
-          "viewName": "SoaScenario1",
-          "viewId": "soaScenario1",
+        "soa.create.scenario.Scenario2": {
+          "viewName": "soa.create.scenario.Scenario2",
+          "viewId": "Scenario2",
           "viewLevel": 5
         }
       }
