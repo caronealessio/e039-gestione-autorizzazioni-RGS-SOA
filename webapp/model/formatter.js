@@ -29,5 +29,28 @@ sap.ui.define([], function () {
         e.preventDefault();
       }
     },
+
+    dateWithPoints: function (oDate) {
+      {
+        if (oDate) {
+          oDate = new Date(oDate);
+          var sDay = oDate.getDate().toString();
+          var sMonth = (oDate.getMonth() + 1).toString();
+          var sYear = oDate.getFullYear().toString();
+
+          if (sDay.length === 1) {
+            sDay = "0" + sDay;
+          }
+
+          if (sMonth.length === 1) {
+            sMonth = "0" + sMonth;
+          }
+
+          return sDay + "." + sMonth + "." + sYear;
+        }
+
+        return null;
+      }
+    },
   };
 });

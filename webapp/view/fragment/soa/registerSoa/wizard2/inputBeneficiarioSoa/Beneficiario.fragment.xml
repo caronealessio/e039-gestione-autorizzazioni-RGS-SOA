@@ -12,13 +12,14 @@
 					text="{i18n>btnNewModalitaPagamento}" 
 					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
 					type="Emphasized"
-					press="onNewModalitaPagamento"  
+					press="onNewModalitaPagamento"
+					enabled="{= ${Soa>/ZspecieSop} === 1 ? true : false}"  
 				/>
 				<Button 
 					text="{i18n>btnNewBeneficiario}"
 					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
 					type="Emphasized"
-					press="onNewBeneficiario"  
+					enabled="false"
 				/>
 				<Button/>
       </OverflowToolbar>

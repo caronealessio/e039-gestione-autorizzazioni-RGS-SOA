@@ -53,7 +53,7 @@ sap.ui.define(
 
       onTipologiaAutorizzazioneChange: function (oEvent) {
         var aFilters = [];
-        var iKey = oEvent.getParameters().selectedItem.getKey();
+        var iKey = oEvent.getParameters().selectedItem?.getKey();
 
         aFilters.push(new Filter("Ztipodisp2", EQ, iKey));
 

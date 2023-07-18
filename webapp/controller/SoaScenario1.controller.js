@@ -70,7 +70,7 @@ sap.ui.define(
           ZpersCognomeQuiet2: "", //Cognome secondo quietanzante
           ZpersNomeQuiet1: "", //Nome primo quietanzante
           ZpersNomeQuiet2: "", //Nome secondo quietanzante
-          ZpersNomeVaglia: "", //Nome persona vaglia
+          ZpersNomeVaglia: "", //Nome persona vagliaesigibilità
           ZpersCognomeVaglia: "", //Cognome persona vaglia
           Zstcd1: "", //Codice Fiscale Utilizzatore
           Zstcd12: "", //Codice fiscale secondo quietanzante
@@ -88,6 +88,9 @@ sap.ui.define(
           ZE2e: "", //E2E ID
           Zlocpag: "", //Località pagamento
           Zzonaint: "", //Zona di intervento
+          Znumprot: "", //Numero protocollo
+          Zdataprot: "", //Data protocollo
+          Zdataesig: "", //TODO - Punto Aperto - Data esigibilità
           data: [],
           Classificazione: [], //Classificazioni
 
@@ -198,11 +201,6 @@ sap.ui.define(
             Zqprovinciadest: "",
             Zqtelefonodest: "",
           },
-        });
-
-        var oModelNewBeneficiario = new JSONModel({
-          SCountry: "", //SCountryRes
-          SType: "",
         });
 
         var oInputImpDaOrd = self.getView().byId("iptImpDaOrd");
@@ -335,13 +333,15 @@ sap.ui.define(
           oStepScenarioModel.setProperty("/wizard3", true);
           oWizard.nextStep();
         } else if (bWizard3) {
-          if (this._checkClassificazione()) {
-            oStepScenarioModel.setProperty("/wizard3", false);
-            oStepScenarioModel.setProperty("/wizard4", true);
-            oStepScenarioModel.setProperty("/visibleBtnForward", false);
-            oStepScenarioModel.setProperty("/visibleBtnSave", true);
-            oWizard.nextStep();
-          }
+          // TODO - Decommentare
+          // if (this._checkClassificazione()) {
+          oStepScenarioModel.setProperty("/wizard3", false);
+          oStepScenarioModel.setProperty("/wizard4", true);
+          oStepScenarioModel.setProperty("/visibleBtnForward", false);
+          oStepScenarioModel.setProperty("/visibleBtnSave", true);
+          this._setCausalePagamento();
+          oWizard.nextStep();
+          // }
         }
       },
 
@@ -1338,23 +1338,6 @@ sap.ui.define(
         );
       },
 
-      onNewBeneficiario: function () {
-        var self = this;
-        var oDialgoNewBeneficiario = self.loadFragment(
-          "rgssoa.view.fragment.pop-up.NewBeneficiario"
-        );
-
-        oDialgoNewBeneficiario.open();
-      },
-
-      onBackNewBeneficiario: function () {
-        var self = this;
-        var oCore = sap.ui.getCore();
-        var oDialgoNewBeneficiario = oCore.byId("dlgNewBeneficiario");
-        oDialgoNewBeneficiario.close();
-        self.unloadFragment();
-      },
-
       //#region VALUE HELP
 
       onValueHelpModPagamento: function (oEvent) {
@@ -1943,6 +1926,7 @@ sap.ui.define(
 
         oModelSoa.setProperty("/Ort01", oInputData?.Ort01);
         oModelSoa.setProperty("/Regio", oInputData?.Regio);
+        oModelSoa.setProperty("/Zlocpag", oInputData?.Regio);
         oModelSoa.setProperty("/Pstlz", oInputData?.Pstlz);
         oModelSoa.setProperty("/Land1", oInputData?.Land1);
       },
@@ -3013,6 +2997,34 @@ sap.ui.define(
 
       //#region WIZARD 4
       onSave: function () {},
+
+      //#region PRIVATE METHODS
+
+      _setCausalePagamento: function () {
+        var self = this;
+        var oModelSoa = self.getModel("Soa");
+
+        var aListDocumenti = oModelSoa.getProperty("/data");
+        var sZtipopag = oModelSoa.getProperty("/Ztipopag");
+
+        var sZcausale = "";
+        if (sZtipopag === "1" || sZtipopag === "2") {
+          console.log(aListDocumenti);
+
+          aListDocumenti.map((oDocumento) => {
+            sZcausale =
+              sZcausale +
+              " " +
+              oDocumento.NumRegDoc +
+              " " +
+              formatter.dateWithPoints(oDocumento.DataDocBen);
+          });
+        }
+
+        oModelSoa.setProperty("/Zcausale", sZcausale);
+      },
+
+      //#endregion
 
       //#endregion
     });

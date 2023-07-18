@@ -7,50 +7,95 @@
   <content>
     <l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5" >
       <Text text="{i18n>inputNumeroProtocollo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-					<layoutData ><l:GridData span="XL2 L3 M5 S12" /></layoutData>
+					<layoutData ><l:GridData span="XL2 L3 M4 S12" /></layoutData>
       </Text>
-      <Input>
-        <layoutData><l:GridData span="XL1 L1 M2 S12"/></layoutData>
+      <Input
+        value="{Soa>/Znumprot}"
+        maxLength="6"
+        type="Number"
+      >
+        <layoutData><l:GridData span="XL1 L2 M2 S12"/></layoutData>
       </Input>
       <Text text="{i18n>inputDataProtocollo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-					<layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL4"/></layoutData>
+					<layoutData><l:GridData span="XL2 L3 M4 S12" indent="XL4"/></layoutData>
       </Text>
-      <Input>
-        <layoutData><l:GridData span="XL1 L1 M2 S12"/></layoutData>
-      </Input>
+      <DatePicker							
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
+          value="{Soa>/Zdataprot}"
+        >
+        <layoutData><l:GridData span="XL1 L2 M2 S12"/></layoutData>
+      </DatePicker>
+        <Button
+          icon="sap-icon://documents"
+          width="100%"
+        >
+        <layoutData><l:GridData span="XL1 L2 M2 S12" indentXL="1"/></layoutData>
+      </Button>
       
-      <Text text="{i18n>inputLocalitaPagamento}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
-      </Text>
-      <Input>
-        <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
+      <Label 
+        text="{i18n>inputLocalitaPagamento}" 
+        class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        required="true"
+        >
+					<layoutData><l:GridData span="XL2 L3 M4 S12" linebreak="true"/></layoutData>
+      </Label>
+      <Input
+        value="{Soa>/Zlocpag}"
+      >
+        <layoutData><l:GridData span="XL2 L2 M8 S12"/></layoutData>
       </Input>
 
-      <Text text="{i18n>inputCausalePagamento}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
-      </Text>
-      <Input>
-        <layoutData><l:GridData span="XL8 L3 M5 S12"/></layoutData>
-      </Input>
+      <Label 
+        text="{i18n>inputCausalePagamento}" 
+        class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        required="true"
+      >
+					<layoutData><l:GridData span="XL2 L3 M4 S12" linebreak="true"/></layoutData>
+      </Label>
+      <TextArea
+        maxLength="100"
+        value="{Soa>/Zcausale}"
+        width="100%"
+        cols="100"
+      >
+        <layoutData><l:GridData span="XL8 L7 M8 S12"/></layoutData>
+      </TextArea>
 
       <Text text="{i18n>inputE2EID}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
+					<layoutData><l:GridData span="XL2 L3 M4 S12" linebreak="true"/></layoutData>
       </Text>
-      <Input>
-        <layoutData><l:GridData span="XL8 L3 M5 S12"/></layoutData>
-      </Input>
+      <TextArea
+        maxLength="35"
+        value="{Soa>/ZE2e}"
+        width="100%"
+        cols="100"
+      >
+        <layoutData><l:GridData span="XL8 L7 M8 S12"/></layoutData>
+      </TextArea>
 
       <Text text="{i18n>inputDataEsigibilita}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
+					<layoutData><l:GridData span="XL2 L3 M4 S12" linebreak="true"/></layoutData>
       </Text>
-      <Input>
-        <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
-      </Input>
-      <Text text="{i18n>inputZonaIntervento}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-					<layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL4"/></layoutData>
-      </Text>
-      <Input>
-        <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
+      <DatePicker							
+        valueFormat="yyyy-MM-dd"
+        displayFormat="dd.MM.yyyy"
+        value="{Soa>/Zdataesig}"
+			>
+				<layoutData><l:GridData span="XL1 L2 M2 S12"/></layoutData>
+			</DatePicker>
+
+      <Label 
+        text="{i18n>inputZonaIntervento}" 
+        class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        required="true"
+      >
+					<layoutData><l:GridData span="XL2 L3 M4 S12" indent="XL4"/></layoutData>
+      </Label>
+      <Input
+        value="{Soa>/Zzonaint}"
+      >
+        <layoutData><l:GridData span="XL1 L2 M2 S12"/></layoutData>
       </Input>
 
     </l:Grid>

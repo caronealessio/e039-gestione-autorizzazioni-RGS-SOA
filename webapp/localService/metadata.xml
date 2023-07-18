@@ -431,6 +431,16 @@
                 <Property Name="SCountry" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="SRegion" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="NmpPrevalorizzazione" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SZwels"/>
+                </Key>
+                <Property Name="ValidFromDats" Type="Edm.DateTime" Precision="11" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValidToDats" Type="Edm.DateTime" Precision="11" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SCountryRes" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Bank Country" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SCountryResDesc" Type="Edm.String" MaxLength="15" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SZwels" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Payment Methods" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
             <EntityType Name="Autorizzazione" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="Bukrs"/>
@@ -726,11 +736,13 @@
             </EntityType>
             <EntityType Name="InserisciModalitaPagamento" sap:content-version="1">
                 <Key>
+                    <PropertyRef Name="SType"/>
                     <PropertyRef Name="Lifnr"/>
                 </Key>
                 <Property Name="Pagamento" Type="ZS4_SOA_SRV.Pagamento" Nullable="false"/>
                 <Property Name="Quietanzante" Type="ZS4_SOA_SRV.Quietanzante" Nullable="false"/>
                 <Property Name="DestinatarioVaglia" Type="ZS4_SOA_SRV.DestinatarioVaglia" Nullable="false"/>
+                <Property Name="SType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Lifnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
             <EntityType Name="NmpModalitaPagamento" sap:content-version="1">
@@ -757,34 +769,26 @@
                 <Property Name="Descrizione" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Ztipofirma" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
-            <EntityType Name="NmpPrevalarizzazione" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="SZwels"/>
-                </Key>
-                <Property Name="ValidFromDats" Type="Edm.DateTime" Precision="11" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ValidToDats" Type="Edm.DateTime" Precision="11" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SCountryRes" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Bank Country" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SZwels" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Payment Methods" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
-            </EntityType>
             <EntityType Name="InserisciAnagraficaBeneficiario" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="Lifnr"/>
                 </Key>
-                <Property Name="Lifnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Vendor" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SCountry" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SType" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Partn.Cat." sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SRagsoc" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Ragione Sociale" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="First name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SSurname" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Last name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SStreet" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SHousenum" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SCity" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SRegion" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SPstlz" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FlagSife" Type="Edm.Boolean" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lifnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SCountry" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SType" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SRagsoc" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SSurname" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SStreet" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SHousenum" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SCity" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SRegion" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SPstlz" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="SSedelegale" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SStcd1" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Tax Number" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SStcd2" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Tax Number" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="SStcd3" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Tax Number" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SStcd1" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SStcd2" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SStcd3" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
             <ComplexType Name="Pagamento">
                 <Property Name="SZwels" Type="Edm.String" MaxLength="10" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -851,7 +855,6 @@
                 <EntitySet Name="NmpModalitaPagamentoSet" EntityType="ZS4_SOA_SRV.NmpModalitaPagamento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="NmpPaeseResidenzaDescSet" EntityType="ZS4_SOA_SRV.NmpPaeseResidenzaDesc" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="NmpZtipofirmaSet" EntityType="ZS4_SOA_SRV.NmpZtipofirma" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-                <EntitySet Name="NmpPrevalarizzazioneSet" EntityType="ZS4_SOA_SRV.NmpPrevalarizzazione" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="InserisciAnagraficaBeneficiarioSet" EntityType="ZS4_SOA_SRV.InserisciAnagraficaBeneficiario" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="DescFistlSet" EntityType="ZS4_SOA_SRV.DescFistl" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="WFStateAutSet" EntityType="ZS4_SOA_SRV.WFStateAut" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
@@ -892,6 +895,7 @@
                 <EntitySet Name="PrevalUfficioContabileSet" EntityType="ZS4_SOA_SRV.PrevalUfficioContabile" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="NabCategoriaBeneficiarioSet" EntityType="ZS4_SOA_SRV.NabCategoriaBeneficiario" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="NabProvinciaDescSet" EntityType="ZS4_SOA_SRV.NabProvinciaDesc" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="NmpPrevalorizzazioneSet" EntityType="ZS4_SOA_SRV.NmpPrevalorizzazione" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="AutorizzazioneSet" EntityType="ZS4_SOA_SRV.Autorizzazione" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="TipoDisp2Set" EntityType="ZS4_SOA_SRV.TipoDisp2" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="TipoDisp3Set" EntityType="ZS4_SOA_SRV.TipoDisp3" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
