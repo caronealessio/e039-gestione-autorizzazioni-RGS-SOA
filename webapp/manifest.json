@@ -159,6 +159,16 @@
           "pattern": "soa.create.scenario.Scenario2/{Bukrs},{Gjahr},{Zchiaveaut}",
           "name": "soa.create.scenario.Scenario2",
           "target": ["soa.create.scenario.Scenario2"]
+        },
+        {
+          "pattern": "soa.create.scenario.Scenario3/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenario.Scenario3",
+          "target": ["soa.create.scenario.Scenario3"]
+        },
+        {
+          "pattern": "soa.create.scenario.Scenario4/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenario.Scenario4",
+          "target": ["soa.create.scenario.Scenario4"]
         }
       ],
       "targets": {
@@ -219,6 +229,16 @@
         "soa.create.scenario.Scenario2": {
           "viewName": "soa.create.scenario.Scenario2",
           "viewId": "Scenario2",
+          "viewLevel": 5
+        },
+        "soa.create.scenario.Scenario3": {
+          "viewName": "soa.create.scenario.Scenario3",
+          "viewId": "Scenario3",
+          "viewLevel": 5
+        },
+        "soa.create.scenario.Scenario4": {
+          "viewName": "soa.create.scenario.Scenario4",
+          "viewId": "Scenario4",
           "viewLevel": 5
         }
       }

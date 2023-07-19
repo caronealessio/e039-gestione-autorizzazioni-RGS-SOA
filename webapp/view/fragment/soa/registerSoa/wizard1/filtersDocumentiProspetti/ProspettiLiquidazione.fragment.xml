@@ -4,7 +4,7 @@
   xmlns:l="sap.ui.layout"
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
-  <Panel backgroundDesign="Transparent" visible="{= ${Soa>/Ztipopag} === '2' ? false : true}">
+  <Panel backgroundDesign="Transparent" visible="{= ${Soa>/Ztipopag} === '3' || ${Soa>/Ztipopag} === '4' ? true : false}">
 		<headerToolbar>
       <OverflowToolbar>
         <Title text="{i18n>searchProspettiLiquidazione}" />

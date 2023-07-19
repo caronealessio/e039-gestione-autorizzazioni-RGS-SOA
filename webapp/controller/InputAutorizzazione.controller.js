@@ -195,6 +195,12 @@ sap.ui.define(
         if (sSoaType === "1" && sRbTipoDocumenti === 1) {
           self.getRouter().navTo("soa.create.scenario.Scenario2", oParameters);
         }
+        if (sSoaType === "2" && sRbTipoDocumenti === 0) {
+          self.getRouter().navTo("soa.create.scenario.Scenario3", oParameters);
+        }
+        if (sSoaType === "2" && sRbTipoDocumenti === 1) {
+          self.getRouter().navTo("soa.create.scenario.Scenario4", oParameters);
+        }
       },
     });
   }

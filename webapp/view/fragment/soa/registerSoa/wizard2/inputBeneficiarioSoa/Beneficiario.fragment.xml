@@ -29,7 +29,7 @@
 				<Text text="{i18n>inputBeneficiario}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-				<Input editable="false" value="{Soa>/Lifnr}">
+				<Input editable="{= ${Soa>/Ztipopag} === '2' ? true : false}" value="{Soa>/Lifnr}">
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 				<RadioButtonGroup columns="2" editable="false">

@@ -449,7 +449,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         //Resetto l'input dell'Ente Beneficiario ogni qual volta imposto una Ritenuta
@@ -482,7 +483,8 @@ sap.ui.define(
         var dialogName = oSourceData.dialogName;
         self.unloadFragment();
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
         var oInputRitenuta = self.getView().byId("fltRitenuta");
 
@@ -582,7 +584,8 @@ sap.ui.define(
         var dialogName = oSourceData.dialogName;
         self.unloadFragment();
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         self
@@ -675,88 +678,6 @@ sap.ui.define(
         self.unloadFragment();
       },
 
-      onValueHelpNProspLiquidazione: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
-        );
-        var oSelectDialog = sap.ui.getCore().byId(dialogName);
-        oSelectDialog?.data("input", oSourceData.input);
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "RicercaNProspLiqSet", {
-              success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                oSelectDialog?.setModel(oModelJson, "NProspLiquidazione");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
-      },
-
-      onValueHelpDescProspLiquidazione: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
-        );
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "RicercaDescProspLiqSet", {
-              success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "DescProspLiquidazione");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
-      },
-
-      onValueHelpUffLiquidatore: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
-        );
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "RicercaUffLiquidatoreSet", {
-              success: function (data, oResponse) {
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "UfficioLiquidatore");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
-      },
-
       onValueHelpUffContabile: function (oEvent) {
         var self = this;
         var oDataModel = self.getModel();
@@ -764,7 +685,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         self
@@ -791,7 +713,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         self
@@ -818,7 +741,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
         var oSelectDialog = sap.ui.getCore().byId(dialogName);
         oSelectDialog.data("input", oSourceData.input);
@@ -854,7 +778,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
         var oInputAnnoDocBene = self.getView().byId("fltAnnoDocBene");
         var aKeys = oInputAnnoDocBene.getSelectedKeys();

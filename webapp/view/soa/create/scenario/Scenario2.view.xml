@@ -15,18 +15,18 @@
 					<Page showHeader="false">
 						<content>
 							<Wizard id="wizScenario2" showNextButton="false" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
-								<WizardStep title="{i18n>wizard1Title}" >
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.FiltersDocumentiCosto" type="XML"/>
+								<WizardStep title="{i18n>wizard1TitleDocContabili}" >
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.FiltersDocumentiProspetti" type="XML"/>
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.ListDocumentiCosto" type="XML"/>
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.RiepilogoDocumentiCosto" type="XML"/>		
 								</WizardStep>
-								<WizardStep title="{i18n>wizard2Title}" >
+								<WizardStep title="{i18n>titleWizard2}" >
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard2.BeneficiarioSoa" type="XML"/>
 								</WizardStep>
-								<WizardStep title="{i18n>wizard3Title}" >
+								<WizardStep title="{i18n>titleWizard3}" >
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.Classificazione" type="XML"/>	
 								</WizardStep>	
-								<WizardStep title="{i18n>wizard4Title}" >
+								<WizardStep title="{i18n>titleWizard4}" >
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard4.DatiSoa" type="XML"/>	
 								</WizardStep>													
 							</Wizard>

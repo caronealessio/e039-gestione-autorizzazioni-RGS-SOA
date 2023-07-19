@@ -488,7 +488,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         //Resetto l'input dell'Ente Beneficiario ogni qual volta imposto una Ritenuta
@@ -548,7 +549,8 @@ sap.ui.define(
         var dialogName = oSourceData.dialogName;
         self.unloadFragment();
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
         var oInputRitenuta = self.getView().byId("fltRitenuta");
 
@@ -621,7 +623,8 @@ sap.ui.define(
         var dialogName = oSourceData.dialogName;
         self.unloadFragment();
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         self
@@ -721,7 +724,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         self
@@ -748,7 +752,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
 
         self
@@ -775,7 +780,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
         var oSelectDialog = sap.ui.getCore().byId(dialogName);
         oSelectDialog.data("input", oSourceData.input);
@@ -811,7 +817,8 @@ sap.ui.define(
         var sFragmentName = oSourceData.fragmentName;
         var dialogName = oSourceData.dialogName;
         var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp.searchDocumenti." + sFragmentName
+          "rgssoa.view.fragment.valueHelp.filtersDocumentiProspetti." +
+            sFragmentName
         );
         var oInputAnnoDocBene = self.getView().byId("fltAnnoDocBene");
         var aKeys = oInputAnnoDocBene.getSelectedKeys();
