@@ -9,7 +9,7 @@
 >
 	<Page showHeader="false" class="bgWhite">
     <content>
-			<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.InputAutorizzazione" type="XML"/>	
+			<c:Fragment fragmentName="rgssoa.view.fragment.soa.create.InputAutorizzazione" type="XML"/>	
 		</content>
 		<footer>
 			<OverflowToolbar>

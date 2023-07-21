@@ -16,10 +16,10 @@
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Input>
       </l:Grid>
-      <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.table.CodiceGestionale" type="XML"/>
-      <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.table.Cpv" type="XML"/>
-      <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.table.Cig" type="XML"/>
-      <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.table.Cup" type="XML"/>
+      <c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard3.table.CodiceGestionale" type="XML"/>
+      <c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard3.table.Cpv" type="XML"/>
+      <c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard3.table.Cig" type="XML"/>
+      <c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard3.table.Cup" type="XML"/>
     </content>
 	</Panel>
 </c:FragmentDefinition>
