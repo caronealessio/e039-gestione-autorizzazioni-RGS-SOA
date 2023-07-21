@@ -1,8 +1,8 @@
 sap.ui.define(
   [
-    "./BaseController",
+    "../../BaseController",
     "sap/ui/model/json/JSONModel",
-    "../model/formatter",
+    "../../../model/formatter",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
   ],
@@ -16,7 +16,7 @@ sap.ui.define(
     const SOA_MODEL = "SoaModel";
     const PAGINATOR_MODEL = "paginatorModel";
 
-    return BaseController.extend("rgssoa.controller.SOAPage", {
+    return BaseController.extend("rgssoa.controller.soa.list.ListSoa", {
       formatter: formatter,
       /**
        * @override

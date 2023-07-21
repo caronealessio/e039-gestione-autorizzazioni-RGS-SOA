@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="rgssoa.controller.Scenario4"
+	controllerName="rgssoa.controller.soa.create.scenery.Scenario2"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
@@ -7,27 +7,27 @@
 	height="100%"
 	busyIndicatorDelay="0"
 >
-
-<Page showHeader="false" class="bgWhite" >
+	<Page showHeader="false" class="bgWhite" >
 		<content>
 			<c:Fragment fragmentName="rgssoa.view.fragment.soa.HeaderSoa" type="XML"/>	
 			<NavContainer>
 				<pages>
 					<Page showHeader="false">
 						<content>
-							<Wizard id="wizScenario4" showNextButton="false" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
-								<WizardStep title="{i18n>titleWizard1NewProspLiquidazione}" >
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.NewProspettoLiquidazione" type="XML"/>
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.riepilogo.RiepilogoProspettoLiquidazione" type="XML"/>
+							<Wizard id="wizScenario2" showNextButton="false" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
+								<WizardStep title="{i18n>titleWizard1DocContabili}" >
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.FiltersDocumentiProspetti" type="XML"/>
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.list.QuoteDocumentiScen2" type="XML"/>
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.riepilogo.QuoteDocumentiScen2" type="XML"/>		
 								</WizardStep>
 								<WizardStep title="{i18n>titleWizard2}" >
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard2.BeneficiarioSoa" type="XML"/>
 								</WizardStep>
 								<WizardStep title="{i18n>titleWizard3}" >
-									<!-- <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.Classificazione" type="XML"/>	 -->
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard3.Classificazione" type="XML"/>	
 								</WizardStep>	
 								<WizardStep title="{i18n>titleWizard4}" >
-									<!-- <c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard4.DatiSoa" type="XML"/>	 -->
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard4.DatiSoa" type="XML"/>	
 								</WizardStep>													
 							</Wizard>
 							</content>
@@ -49,7 +49,7 @@
 						</layoutData>
 				</Button>
 				<ToolbarSpacer/>
-				<Button type="Emphasized" text="{i18n>btnInserisciProspettoLiquidazione}" press="onInserisciProspettoLiquidazione" visible="{StepScenario>/visibleBtnInserisciProspLiquidazione}">
+				<Button type="Emphasized" text="{i18n>btnStart}" press="onStart" visible="{StepScenario>/visibleBtnStart}">
 						<layoutData>
 							<OverflowToolbarLayoutData priority="NeverOverflow" />
 						</layoutData>
@@ -63,4 +63,5 @@
 		</footer>
 	
   </Page>
+
 </mvc:View>

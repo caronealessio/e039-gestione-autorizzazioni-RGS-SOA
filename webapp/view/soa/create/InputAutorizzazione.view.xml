@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="rgssoa.controller.InputAutorizzazione"
+	controllerName="rgssoa.controller.soa.create.InputAutorizzazione"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	displayBlock="true"

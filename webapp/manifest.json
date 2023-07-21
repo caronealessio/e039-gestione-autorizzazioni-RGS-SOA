@@ -126,11 +126,6 @@
           "target": ["authPage"]
         },
         {
-          "pattern": "soa.SOAPage",
-          "name": "soa.SOAPage",
-          "target": ["soa.SOAPage"]
-        },
-        {
           "pattern": "AutorizzazioneSet/{objectId}",
           "name": "object",
           "target": ["object"]
@@ -139,6 +134,11 @@
           "pattern": "AuthDetail/{Bukrs},{Gjahr},{Zchiaveaut},{ZstepAut}",
           "name": "authDetail",
           "target": ["authDetail"]
+        },
+        {
+          "pattern": "soa.list.ListSoa",
+          "name": "soa.list.ListSoa",
+          "target": ["soa.list.ListSoa"]
         },
         {
           "pattern": "soa.create.ChoseTypeSoa",
@@ -151,24 +151,24 @@
           "target": ["soa.create.InputAutorizzazione"]
         },
         {
-          "pattern": "soa.create.scenario.Scenario1/{Bukrs},{Gjahr},{Zchiaveaut}",
-          "name": "soa.create.scenario.Scenario1",
-          "target": ["soa.create.scenario.Scenario1"]
+          "pattern": "soa.create.scenery.Scenario1/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenery.Scenario1",
+          "target": ["soa.create.scenery.Scenario1"]
         },
         {
-          "pattern": "soa.create.scenario.Scenario2/{Bukrs},{Gjahr},{Zchiaveaut}",
-          "name": "soa.create.scenario.Scenario2",
-          "target": ["soa.create.scenario.Scenario2"]
+          "pattern": "soa.create.scenery.Scenario2/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenery.Scenario2",
+          "target": ["soa.create.scenery.Scenario2"]
         },
         {
-          "pattern": "soa.create.scenario.Scenario3/{Bukrs},{Gjahr},{Zchiaveaut}",
-          "name": "soa.create.scenario.Scenario3",
-          "target": ["soa.create.scenario.Scenario3"]
+          "pattern": "soa.create.scenery.Scenario3/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenery.Scenario3",
+          "target": ["soa.create.scenery.Scenario3"]
         },
         {
-          "pattern": "soa.create.scenario.Scenario4/{Bukrs},{Gjahr},{Zchiaveaut}",
-          "name": "soa.create.scenario.Scenario4",
-          "target": ["soa.create.scenario.Scenario4"]
+          "pattern": "soa.create.scenery.Scenario4/{Bukrs},{Gjahr},{Zchiaveaut}",
+          "name": "soa.create.scenery.Scenario4",
+          "target": ["soa.create.scenery.Scenario4"]
         }
       ],
       "targets": {
@@ -184,19 +184,12 @@
           "viewLevel": 2,
           "title": "{i18n>authPageViewTitle}"
         },
-        "soa.SOAPage": {
-          "viewName": "soa.SOAPage",
-          "viewId": "soaPage",
-          "viewLevel": 2,
-          "title": "{i18n>soaPageViewTitle}"
-        },
         "authDetail": {
           "viewName": "AuthDetail",
           "viewId": "authDetail",
           "viewLevel": 2,
           "title": "{i18n>authDetailTitle}"
         },
-
         "object": {
           "viewName": "Object",
           "viewId": "object",
@@ -211,6 +204,12 @@
           "viewName": "NotFound",
           "viewId": "notFound"
         },
+        "soa.list.ListSoa": {
+          "viewName": "soa.list.ListSoa",
+          "viewId": "listSoa",
+          "viewLevel": 2,
+          "title": "{i18n>soaPageViewTitle}"
+        },
         "soa.create.ChoseTypeSoa": {
           "viewName": "soa.create.ChoseTypeSoa",
           "viewId": "ChoseTypeSoa",
@@ -221,23 +220,23 @@
           "viewId": "InputAutorizzazione",
           "viewLevel": 4
         },
-        "soa.create.scenario.Scenario1": {
-          "viewName": "soa.create.scenario.Scenario1",
+        "soa.create.scenery.Scenario1": {
+          "viewName": "soa.create.scenery.Scenario1",
           "viewId": "Scenario1",
           "viewLevel": 5
         },
-        "soa.create.scenario.Scenario2": {
-          "viewName": "soa.create.scenario.Scenario2",
+        "soa.create.scenery.Scenario2": {
+          "viewName": "soa.create.scenery.Scenario2",
           "viewId": "Scenario2",
           "viewLevel": 5
         },
-        "soa.create.scenario.Scenario3": {
-          "viewName": "soa.create.scenario.Scenario3",
+        "soa.create.scenery.Scenario3": {
+          "viewName": "soa.create.scenery.Scenario3",
           "viewId": "Scenario3",
           "viewLevel": 5
         },
-        "soa.create.scenario.Scenario4": {
-          "viewName": "soa.create.scenario.Scenario4",
+        "soa.create.scenery.Scenario4": {
+          "viewName": "soa.create.scenery.Scenario4",
           "viewId": "Scenario4",
           "viewLevel": 5
         }

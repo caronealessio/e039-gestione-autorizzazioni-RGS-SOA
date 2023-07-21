@@ -1,7 +1,7 @@
-sap.ui.define(["./BaseController"], function (BaseController) {
+sap.ui.define(["../../BaseController"], function (BaseController) {
   "use strict";
 
-  return BaseController.extend("rgssoa.controller.ChoseTypeSoa", {
+  return BaseController.extend("rgssoa.controller.soa.create.ChoseTypeSoa", {
     onNavBack: function () {
       history.go(-1);
     },

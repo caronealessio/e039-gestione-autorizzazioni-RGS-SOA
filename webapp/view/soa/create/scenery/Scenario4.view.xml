@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="rgssoa.controller.Scenario3"
+	controllerName="rgssoa.controller.soa.create.scenery.Scenario4"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
@@ -15,11 +15,10 @@
 				<pages>
 					<Page showHeader="false">
 						<content>
-							<Wizard id="wizScenario3" showNextButton="false" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
-								<WizardStep title="{i18n>titleWizard1ProspLiquidazione}" >
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.FiltersDocumentiProspetti" type="XML"/>
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.list.ProspettoLiquidazione" type="XML"/>
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.riepilogo.ProspettoLiquidazione" type="XML"/>		
+							<Wizard id="wizScenario4" showNextButton="false" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
+								<WizardStep title="{i18n>titleWizard1NewProspLiquidazione}" >
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.NewProspettoLiquidazione" type="XML"/>
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.riepilogo.RiepilogoProspettoLiquidazione" type="XML"/>
 								</WizardStep>
 								<WizardStep title="{i18n>titleWizard2}" >
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard2.BeneficiarioSoa" type="XML"/>
@@ -50,7 +49,7 @@
 						</layoutData>
 				</Button>
 				<ToolbarSpacer/>
-				<Button type="Emphasized" text="{i18n>btnStart}" press="onStart" visible="{StepScenario>/visibleBtnStart}">
+				<Button type="Emphasized" text="{i18n>btnInserisciProspettoLiquidazione}" press="onInserisciProspettoLiquidazione" visible="{StepScenario>/visibleBtnInserisciProspLiquidazione}">
 						<layoutData>
 							<OverflowToolbarLayoutData priority="NeverOverflow" />
 						</layoutData>

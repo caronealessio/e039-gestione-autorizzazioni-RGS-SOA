@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="rgssoa.controller.SOAPage"
+	controllerName="rgssoa.controller.soa.list.ListSoa"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:c="sap.ui.core"

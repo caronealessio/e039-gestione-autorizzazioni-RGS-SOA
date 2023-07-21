@@ -21,7 +21,7 @@ sap.ui.define(
       },
       onSOA: function () {
         var self = this;
-        self.getRouter().navTo("soa.SOAPage");
+        self.getRouter().navTo("soa.list.ListSoa");
       },
     });
   }

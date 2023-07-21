@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "./BaseController",
+    "../BaseController",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
@@ -8,7 +8,7 @@ sap.ui.define(
   function (BaseController, Filter, FilterOperator, JSONModel) {
     "use strict";
 
-    return BaseController.extend("rgssoa.controller.BaseScenarioController", {
+    return BaseController.extend("rgssoa.controller.soa.BaseSoaController", {
       //#region WIZARD 1
 
       //#region VALUE HELP
