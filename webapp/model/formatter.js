@@ -24,12 +24,6 @@ sap.ui.define([], function () {
       return sValue.toString().replace(/\B(?<!\,\d*)(?=(\d{3})+(?!\d))/g, ".");
     },
 
-    acceptOnlyNumbers: function (e) {
-      if (e.keyCode === 46) {
-        e.preventDefault();
-      }
-    },
-
     dateWithPoints: function (oDate) {
       {
         if (oDate) {
@@ -52,13 +46,5 @@ sap.ui.define([], function () {
         return null;
       }
     },
-
-    getYear: function(oDate){
-      if(oDate){
-        oDate = new Date(oDate);
-        return oDate.getFullYear()
-      }
-      return null;
-    }
   };
 });

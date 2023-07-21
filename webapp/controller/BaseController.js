@@ -158,6 +158,31 @@ sap.ui.define(
         oView.setModel(oModelJson, sNameModel);
       },
 
+      setModelSelectDialog: function (sNameModel, aData, sNameDialog, oDialog) {
+        var oModelJson = new JSONModel();
+        oModelJson.setData(aData.results);
+        var oSelectDialog = sap.ui.getCore().byId(sNameDialog);
+        oSelectDialog?.setModel(oModelJson, sNameModel);
+        oDialog.open();
+      },
+
+      setBlank: function (sValue) {
+        if (!sValue) {
+          return "";
+        }
+
+        return sValue;
+      },
+
+      acceptOnlyNumber: function (sId) {
+        var oInput = this.getView().byId(sId);
+        oInput.attachBrowserEvent("keypress", function (oEvent) {
+          if (oEvent.keyCode === 46) {
+            oEvent.preventDefault();
+          }
+        });
+      },
+
       /** -------------------GESTIONE VALUE HELP--------------------------- */
 
       _createFilterValueHelp: function (key, operator, value, useToLower) {
@@ -171,14 +196,15 @@ sap.ui.define(
       onValueHelpChange: function (oEvent) {
         var sValue = oEvent.getParameter("value");
         var oSource = oEvent.getSource();
-        var searchPropertyModel = oSource.data()?.searchPropertyModel;
+
+        var sFilterValueHelp = oSource.data()?.FilterValueHelp;
         var oFilter = [];
         var qFilters = [];
 
-        if (searchPropertyModel) {
+        if (sFilterValueHelp) {
           oFilter.push(
             this._createFilterValueHelp(
-              searchPropertyModel,
+              sFilterValueHelp,
               CONTAINS,
               sValue,
               false

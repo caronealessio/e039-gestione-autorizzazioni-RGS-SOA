@@ -11,7 +11,7 @@
 		confirm="onValueHelpDialogClose"
 		cancel="onValueHelpDialogClose"
     app:input="fltUfficioPagatore"
-		app:searchPropertyModel="Fkber"
+		app:FilterValueHelp="Fkber"
 		items="{path: 'UfficioPagatore>/'}">		
 		<StandardListItem
       iconDensityAware="false"

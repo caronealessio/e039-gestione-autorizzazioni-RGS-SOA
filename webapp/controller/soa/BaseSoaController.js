@@ -4,11 +4,25 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
+    "../../model/formatter",
   ],
-  function (BaseController, Filter, FilterOperator, JSONModel) {
+  function (BaseController, Filter, FilterOperator, JSONModel, formatter) {
     "use strict";
 
     return BaseController.extend("rgssoa.controller.soa.BaseSoaController", {
+      formatter: formatter,
+      /**
+       * @override
+       */
+      onInit: function () {
+        var self = this;
+
+        self.acceptOnlyNumber("iptImpDaOrd");
+        self.acceptOnlyNumber("iptImpDaAssociare");
+        self.acceptOnlyNumber("iptImpDaAssociareCpv");
+
+        //TODO - Inserire l'acceptOnlyNumber anche per CIG e CUP
+      },
       //#region WIZARD 1
 
       //#region VALUE HELP
@@ -131,14 +145,11 @@ sap.ui.define(
         oModelSoa.setProperty("/ZzDescebe", oSelectedItem?.getTitle());
         oModelSoa.setProperty("/ZzCebenra", sKey);
 
-        if (oSelectedItem) {
-          this._setSpecieSoaDesc("2");
-        } else {
+        this.setSpecieSoaDesc("2", oSelectedItem);
+
+        if (!oSelectedItem) {
           oInput.resetProperty("value");
-          oModelSoa.setProperty("/DescZspecieSop", null);
-          oModelSoa.setProperty("/ZspecieSop", null);
           oInput.data("key", null);
-          this.unloadFragment();
           return;
         }
 
@@ -211,19 +222,21 @@ sap.ui.define(
         oModelSoa.setProperty("/BuType", oSelectedItem?.data("typeBen"));
 
         oView.setModel(oBeneficiario, "Beneficiario");
-        this._setEditableRitenuta(oSelectedItem);
+        if (
+          oModelSoa.getProperty("/Ztipopag") === "1" ||
+          oModelSoa.getProperty("/Ztipopag") === "2"
+        ) {
+          this._setEditableRitenuta(oSelectedItem);
+        }
 
-        if (oSelectedItem) {
-          this._setSpecieSoaDesc("1");
-        } else {
+        this.setSpecieSoaDesc("1", oSelectedItem);
+
+        if (!oSelectedItem) {
           oInput.resetProperty("value");
-          oModelSoa.setProperty("/DescZspecieSop", null);
-          oModelSoa.setProperty("/ZspecieSop", null);
           self.clearModel("AnnoDocBeneficiario");
           self.unloadFragment();
           return;
         }
-
         oInput.setValue(oSelectedItem.getTitle());
 
         var aFiltersAnnoDocBeneficiario = [];
@@ -538,28 +551,36 @@ sap.ui.define(
         oInputQuoteEsibigili.setSelected(bEditable);
       },
 
-      _setSpecieSoaDesc: function (sValue) {
+      setSpecieSoaDesc: function (sValue, oSelectedItem) {
         var self = this;
         //Load Models
         var oModel = self.getModel();
         var oModelSoa = self.getModel("Soa");
 
-        var oParameters = {
-          ZspecieSoa: sValue,
-        };
-        var sPath = self.getModel().createKey("SpecieSOASet", oParameters);
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oModel.read("/" + sPath, {
-              success: function (data, oResponse) {
-                oModelSoa.setProperty("/DescZspecieSop", data?.ZdescSpecieSoa);
-                oModelSoa.setProperty("/ZspecieSop", data?.ZspecieSoa);
-              },
-              error: function () {},
+        oModelSoa.setProperty("/DescZspecieSop", "");
+        oModelSoa.setProperty("/ZspecieSop", "");
+
+        if (oSelectedItem) {
+          var oParameters = {
+            ZspecieSoa: sValue,
+          };
+          var sPath = self.getModel().createKey("SpecieSOASet", oParameters);
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oModel.read("/" + sPath, {
+                success: function (data, oResponse) {
+                  oModelSoa.setProperty(
+                    "/DescZspecieSop",
+                    data?.ZdescSpecieSoa
+                  );
+                  oModelSoa.setProperty("/ZspecieSop", data?.ZspecieSoa);
+                },
+                error: function () {},
+              });
             });
-          });
+        }
       },
 
       //#endregion PRIVATE METHODS
@@ -589,7 +610,7 @@ sap.ui.define(
           "rgssoa.view.fragment.pop-up.NewModalitaPagamento"
         );
 
-        this._getNpmModalitaPagamento();
+        this._getNmpModalitaPagamento();
 
         oFragmentNewModPag.open();
 
@@ -665,7 +686,7 @@ sap.ui.define(
       },
 
       onNmpPaeseResidenzaChange: function (oEvent) {
-        this._setNpmPaeseResidenzaDesc(oEvent.getParameter("value"));
+        this._setNmpPaeseResidenzaDesc(oEvent.getParameter("value"));
       },
 
       onNmpTipoFirmaChange: function (oEvent) {
@@ -794,7 +815,7 @@ sap.ui.define(
         });
       },
 
-      _getNpmModalitaPagamento: function () {
+      _getNmpModalitaPagamento: function () {
         var self = this;
         var oModel = self.getModel();
         var oModelSoa = self.getModel("Soa");
@@ -824,7 +845,7 @@ sap.ui.define(
         }
       },
 
-      _setNpmPaeseResidenzaDesc: function (sPaeseResidenza) {
+      _setNmpPaeseResidenzaDesc: function (sPaeseResidenza) {
         var self = this;
         var oModelNewModPagamento = self.getModel("NewModalitaPagamento");
 
@@ -1543,23 +1564,6 @@ sap.ui.define(
 
       //#region PRIVATE METHODS
 
-      _setTipoPersona: function () {
-        var self = this;
-        //Load Models
-        var oModelSoa = self.getModel("Soa");
-        var oModelTipoPersona = self.getModel("TipoPersona");
-
-        var sTipoBen = oModelSoa.getProperty("/BuType");
-
-        oModelTipoPersona.setProperty("/PersonaFisica", false);
-        oModelTipoPersona.setProperty("/PersonaGiuridica", true);
-
-        if (sTipoBen === "1") {
-          oModelTipoPersona.setProperty("/PersonaFisica", true);
-          oModelTipoPersona.setProperty("/PersonaGiuridica", false);
-        }
-      },
-
       _resetCodiceFiscale1: function () {
         var self = this;
         var oModelSoa = self.getModel("Soa");
@@ -1622,7 +1626,7 @@ sap.ui.define(
           .getModel()
           .createKey("BeneficiarioSOASet", oParameters);
 
-        this._setTipoPersona();
+        this.setTipoPersona();
 
         self
           .getModel()
@@ -1916,6 +1920,23 @@ sap.ui.define(
                 error: function () {},
               });
             });
+        }
+      },
+
+      setTipoPersona: function () {
+        var self = this;
+        //Load Models
+        var oModelSoa = self.getModel("Soa");
+        var oModelTipoPersona = self.getModel("TipoPersona");
+
+        var sTipoBen = oModelSoa.getProperty("/BuType");
+
+        oModelTipoPersona.setProperty("/PersonaFisica", false);
+        oModelTipoPersona.setProperty("/PersonaGiuridica", true);
+
+        if (sTipoBen === "1") {
+          oModelTipoPersona.setProperty("/PersonaFisica", true);
+          oModelTipoPersona.setProperty("/PersonaGiuridica", false);
         }
       },
 
@@ -2303,32 +2324,6 @@ sap.ui.define(
 
       //#region WIZARD 4
       onSave: function () {},
-
-      //#region PRIVATE METHODS
-
-      setCausalePagamento: function () {
-        var self = this;
-        var oModelSoa = self.getModel("Soa");
-
-        var aListDocumenti = oModelSoa.getProperty("/data");
-        var sZtipopag = oModelSoa.getProperty("/Ztipopag");
-
-        var sZcausale = "";
-        if (sZtipopag === "1" || sZtipopag === "2") {
-          aListDocumenti.map((oDocumento) => {
-            sZcausale =
-              sZcausale +
-              " " +
-              oDocumento.NumRegDoc +
-              " " +
-              formatter.dateWithPoints(oDocumento.DataDocBen);
-          });
-        }
-
-        oModelSoa.setProperty("/Zcausale", sZcausale);
-      },
-
-      //#endregion
 
       //#endregion
     });

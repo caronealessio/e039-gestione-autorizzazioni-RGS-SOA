@@ -11,7 +11,7 @@
 		confirm="onValueHelpCoordEstereClose"
 		cancel="onValueHelpCoordEstereClose"
     app:input="iptCoordEstere"
-		app:searchPropertyModel="Zcoordest"
+		app:FilterValueHelp="Zcoordest"
 		items="{path: 'CoordinateEstere>/'}">		
 		<StandardListItem
       iconDensityAware="false"

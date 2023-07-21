@@ -11,7 +11,7 @@
 		confirm="onValueHelpDialogClose"
 		cancel="onValueHelpDialogClose"
     app:input="fltZdescProsp"
-		app:searchPropertyModel="ZdescProsp"
+		app:FilterValueHelp="ZdescProsp"
 		items="{path: 'DescProspLiquidazione>/'}"
   >		
 		<StandardListItem

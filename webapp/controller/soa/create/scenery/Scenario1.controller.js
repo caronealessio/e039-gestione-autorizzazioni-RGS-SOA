@@ -206,26 +206,6 @@ sap.ui.define(
             },
           });
 
-          var oInputImpDaOrd = self.getView().byId("iptImpDaOrd");
-          oInputImpDaOrd.attachBrowserEvent(
-            "keypress",
-            formatter.acceptOnlyNumbers
-          );
-          var oInputImpDaAssociare = self.getView().byId("iptImpDaAssociare");
-          oInputImpDaAssociare.attachBrowserEvent(
-            "keypress",
-            formatter.acceptOnlyNumbers
-          );
-          var oInputImpDaAssociareCpv = self
-            .getView()
-            .byId("iptImpDaAssociareCpv");
-          oInputImpDaAssociareCpv.attachBrowserEvent(
-            "keypress",
-            formatter.acceptOnlyNumbers
-          );
-
-          //TODO - Inserire l'acceptOnlyNumber anche per CIG e CUP
-
           self.setModel(oModelPaginator, PAGINATOR_MODEL);
           self.setModel(oModelSoa, "Soa");
           self.setModel(oStepScenario, "StepScenario");
@@ -343,7 +323,7 @@ sap.ui.define(
             oModelStepScenario.setProperty("/wizard4", true);
             oModelStepScenario.setProperty("/visibleBtnForward", false);
             oModelStepScenario.setProperty("/visibleBtnSave", true);
-            this.setCausalePagamento();
+            this._setCausalePagamento();
             oWizard.nextStep();
             // }
           }
@@ -792,6 +772,33 @@ sap.ui.define(
         },
 
         //#endregion PRIVATE METHODS
+
+        //#endregion
+
+        //#region
+
+        //#region PRIVATE METHODS
+
+        _setCausalePagamento: function () {
+          var self = this;
+          var oModelSoa = self.getModel("Soa");
+
+          var aListDocumenti = oModelSoa.getProperty("/data");
+
+          var sZcausale = "";
+          aListDocumenti.map((oDocumento) => {
+            sZcausale =
+              sZcausale +
+              " " +
+              oDocumento.NumRegDoc +
+              " " +
+              formatter.dateWithPoints(oDocumento.DataDocBen);
+          });
+
+          oModelSoa.setProperty("/Zcausale", sZcausale);
+        },
+
+        //#endregion
 
         //#endregion
       }

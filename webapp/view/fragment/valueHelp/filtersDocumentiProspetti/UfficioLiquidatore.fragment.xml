@@ -11,7 +11,7 @@
 		confirm="onValueHelpMultiDialogClose"
 		cancel="onValueHelpMultiDialogClose"
     app:input="fltUffLiquidatore"
-		app:searchPropertyModel="Zuffliq"
+		app:FilterValueHelp="Zuffliq"
 		items="{path: 'UfficioLiquidatore>/'}"	
     multiSelect="true"
   >

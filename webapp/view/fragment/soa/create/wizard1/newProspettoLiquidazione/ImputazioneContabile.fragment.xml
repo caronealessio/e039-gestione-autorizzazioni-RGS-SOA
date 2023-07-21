@@ -15,27 +15,43 @@
 				<Text text="{i18n>inputCentroCosto}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-				<Input>
-					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
+				<Input
+					valueHelpRequest="onValueHelpCentroCosto"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					value="{Soa>/Kostl}"
+				>
+					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Input>
         <Text text="{i18n>inputDescrizione}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL1"/></layoutData>
         </Text>
-        <Input editable="false">
-					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
+        <Input 
+					editable="false"
+					value="{Soa>/DescKostl}"
+				>
+					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Input>	
 				
         <Text text="{i18n>inputContoCoGe}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
         </Text>
-				<Input>
-					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
+				<Input
+					valueHelpRequest="onValueHelpContoCoGe"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					value="{Soa>/Saknr}"
+				>
+					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Input>
 				<Text text="{i18n>inputDescrizione}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL1"/></layoutData>
         </Text>
-				<Input editable="false">
-					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
+				<Input 
+				value="{Soa>/DescSaknr}"
+					editable="false"
+				>
+					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Input>
 			</l:Grid>
 		</content>

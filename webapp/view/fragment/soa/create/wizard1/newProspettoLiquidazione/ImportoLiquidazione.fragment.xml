@@ -15,7 +15,13 @@
 				<Label text="{i18n>inputImportoLiquidazione}" class="sapUiTinyMarginTop sapUiLargeMarginEnd" required="true">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Label>
-				<Input>
+				<Input
+					id="iptImportoLiquidazione"
+					maxLength="26"
+					value="{Soa>/Zimptot}"
+					type="Number"
+					change="onImpLiquidazioneChange"
+				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12"/></layoutData>
 				</Input>	
       </l:Grid>

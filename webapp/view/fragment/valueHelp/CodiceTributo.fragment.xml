@@ -1,6 +1,7 @@
 <c:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 <SelectDialog
 		id="sdCodiceTributo"
@@ -9,6 +10,7 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpCodiceTributoClose"
 		cancel="onValueHelpCodiceTributoClose"
+		app:FilterValueHelp="Zcodtrib"
 		items="{path: 'CodiceTributo>/'}">		
 		<StandardListItem
       iconDensityAware="false"

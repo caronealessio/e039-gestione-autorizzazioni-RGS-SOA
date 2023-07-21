@@ -11,7 +11,7 @@
 		confirm="onValueHelpDialogClose"
 		cancel="onValueHelpDialogClose"
     app:input="fltEnteBeneficiario"
-		app:searchPropertyModel="DescEnte"
+		app:FilterValueHelp="DescEnte"
 		items="{path: 'EnteBeneficiario>/'}">		
 		<StandardListItem
       iconDensityAware="false"

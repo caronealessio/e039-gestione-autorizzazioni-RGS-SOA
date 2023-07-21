@@ -11,7 +11,7 @@
 		confirm="onValueHelpCodiceFiscale1Close"
 		cancel="onValueHelpCodiceFiscale1Close"
     app:input="iptCodiceFiscale1"
-		app:searchPropertyModel="Zstcd1"
+		app:FilterValueHelp="Zstcd1"
 		items="{path: 'CodiceFiscale1>/'}">		
 		<StandardListItem
       iconDensityAware="false"

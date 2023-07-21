@@ -2,6 +2,7 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
   <Panel backgroundDesign="Transparent">
 		<headerToolbar>
@@ -27,8 +28,12 @@
 				<Text text="{i18n>inputBeneficiario}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-				<!-- TODO - Inserire MC beneficiario -->
-        <Input>
+				<Input
+					valueHelpRequest="onValueHelpBeneficiario"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					value="{Soa>/Lifnr}"
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 				<RadioButtonGroup columns="2" editable="false">
@@ -79,28 +84,43 @@
         <Label text="{i18n>inputModalitaPagamento}" class="sapUiTinyMarginTop sapUiLargeMarginEnd" required="true">
 					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
 				</Label>
-				<Input>
+				<ComboBox
+					width="100%"
+					items="{path: 'ModalitaPagamento>/'}"
+					selectedKey="{Soa>/Zwels}"
+					editable="{= ${Soa>/Lifnr} ? true : false}"
+				>
+					<c:Item 
+            key="{ModalitaPagamento>Zwels}" 
+            text="{ModalitaPagamento>Zdescwels}"
+          /> 
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-				</Input>
+				</ComboBox>
 
         <Label text="{i18n>inputIban}" class="sapUiTinyMarginTop sapUiLargeMarginEnd" required="true">
 					<layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL1"/></layoutData>
 				</Label>
-				<Input>
+				<Input
+					valueHelpRequest="onValueHelpIban"
+					showValueHelp="true"
+					valueHelpOnly="true"
+					value="{Soa>/Iban}"
+					editable="{= ${Soa>/Lifnr} ? true : false}"
+				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 
         <Text text="{i18n>inputDurc}" class="sapUiTinyMarginTop sapUiLargeMarginEnd" >
 					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
 				</Text>
-				<Input editable="false">
+				<Input editable="false" value="{Soa>/Zdurc}">
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 
         <Text text="{i18n>inputFermoAmministrativo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd" >
 					<layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL1"/></layoutData>
 				</Text>
-				<Input editable="false">
+				<Input editable="false" value="{Soa>/ZfermAmm}">
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 

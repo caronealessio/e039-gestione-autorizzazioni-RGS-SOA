@@ -11,7 +11,7 @@
 		confirm="onValueHelpChiaveAutorizzazioneClose"
 		cancel="onValueHelpChiaveAutorizzazioneClose"
     app:input="fltChiaveAutorizzazione"
-		app:searchPropertyModel="Zchiaveaut"
+		app:FilterValueHelp="Zchiaveaut"
 		items="{path: 'ChiaveAutorizzazione>/'}">		
 		<StandardListItem
       iconDensityAware="false"

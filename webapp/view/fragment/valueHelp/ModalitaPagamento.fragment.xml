@@ -11,7 +11,7 @@
 		confirm="onValueHelpModPagamentoClose"
 		cancel="onValueHelpModPagamentoClose"
     app:input="iptModalitaPagamento"
-		app:searchPropertyModel="Zdescwels"
+		app:FilterValueHelp="Zdescwels"
 		items="{path: 'ModalitaPagamento>/'}">		
 		<StandardListItem
       iconDensityAware="false"

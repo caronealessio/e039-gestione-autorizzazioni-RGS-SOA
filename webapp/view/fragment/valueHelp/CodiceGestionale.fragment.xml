@@ -11,6 +11,7 @@
 		confirm="onValueHelpCodiceGestionaleClose"
 		cancel="onValueHelpCodiceGestionaleClose"
     app:input="iptCodiceGestionale"
+		app:FilterValueHelp="Zcos"
 		items="{path: 'CodiceGestionale>/'}">		
 		<StandardListItem
       iconDensityAware="false"

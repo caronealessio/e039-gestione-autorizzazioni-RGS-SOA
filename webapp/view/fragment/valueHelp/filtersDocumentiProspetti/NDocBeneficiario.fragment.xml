@@ -11,7 +11,7 @@
 		confirm="onValueHelpMultiDialogClose"
 		cancel="onValueHelpMultiDialogClose"
     app:input="fltNDocBene"
-		app:searchPropertyModel="NDocBen"
+		app:FilterValueHelp="NDocBen"
 		items="{path: 'NDocBeneficiario>/'}"
 		multiSelect="true">		
 		<StandardListItem

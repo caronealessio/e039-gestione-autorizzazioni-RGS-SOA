@@ -228,24 +228,6 @@ sap.ui.define(
           self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
           self.setModel(oModelClassificazione, "Classificazione");
 
-          var oInputImpDaOrd = self.getView().byId("iptImpDaOrd");
-          oInputImpDaOrd.attachBrowserEvent(
-            "keypress",
-            formatter.acceptOnlyNumbers
-          );
-          var oInputImpDaAssociare = self.getView().byId("iptImpDaAssociare");
-          oInputImpDaAssociare.attachBrowserEvent(
-            "keypress",
-            formatter.acceptOnlyNumbers
-          );
-          var oInputImpDaAssociareCpv = self
-            .getView()
-            .byId("iptImpDaAssociareCpv");
-          oInputImpDaAssociareCpv.attachBrowserEvent(
-            "keypress",
-            formatter.acceptOnlyNumbers
-          );
-
           //TODO - Inserire l'acceptOnlyNumber anche per CIG e CUP
           this.getRouter()
             .getRoute("soa.create.scenery.Scenario2")
@@ -359,7 +341,7 @@ sap.ui.define(
             oModelStepScenario.setProperty("/wizard4", true);
             oModelStepScenario.setProperty("/visibleBtnForward", false);
             oModelStepScenario.setProperty("/visibleBtnSave", true);
-            this.setCausalePagamento();
+            this._setCausalePagamento();
             oWizard.nextStep();
             // }
           }
@@ -755,6 +737,34 @@ sap.ui.define(
           }
 
           return true;
+        },
+
+        //#endregion
+
+        //#endregion
+
+        //#region WIZARD 4
+
+        //#region PRIVATE METHODS
+
+        _setCausalePagamento: function () {
+          var self = this;
+          var oModelSoa = self.getModel("Soa");
+
+          var aListDocumenti = oModelSoa.getProperty("/data");
+
+          var sZcausale = "";
+
+          aListDocumenti.map((oDocumento) => {
+            sZcausale =
+              sZcausale +
+              " " +
+              oDocumento.Belnr +
+              " " +
+              formatter.dateWithPoints(oDocumento.Bldat);
+          });
+
+          oModelSoa.setProperty("/Zcausale", sZcausale);
         },
 
         //#endregion

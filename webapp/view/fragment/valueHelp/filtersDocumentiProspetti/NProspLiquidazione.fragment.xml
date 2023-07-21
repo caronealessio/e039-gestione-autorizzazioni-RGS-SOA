@@ -10,7 +10,7 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpDialogClose"
 		cancel="onValueHelpDialogClose"
-		app:searchPropertyModel="Znumliq"
+		app:FilterValueHelp="Znumliq"
 		items="{path: 'NProspLiquidazione>/'}">		
 		<StandardListItem
       iconDensityAware="false"

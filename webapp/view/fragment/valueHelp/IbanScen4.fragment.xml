@@ -4,19 +4,18 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 <SelectDialog
-		id="sdCpv"
-    noDataText="{i18n>noCpv}"
-		title="{i18n>labelCpv}"
+		id="sdIbanScen4"
+    noDataText="{i18n>noIbanBeneficiario}"
+		title="{i18n>labelIbanBeneficiario}"
 		search="onValueHelpChange"
-		confirm="onValueHelpCpvClose"
-		cancel="onValueHelpCpvClose"
-    app:input="iptCpv"
-		app:FilterValueHelp="Matnr"
-		items="{path: 'Cpv>/'}">		
+		confirm="onValueHelpIbanClose"
+		cancel="onValueHelpIbanClose"
+    app:FilterValueHelp="Iban"
+		items="{path: 'Iban>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
-      title="{Cpv>Matnr}"
-			description="{Cpv>Maktg}"/>
+      title="{Iban>Iban}"
+    />
 	</SelectDialog>
 </c:FragmentDefinition>

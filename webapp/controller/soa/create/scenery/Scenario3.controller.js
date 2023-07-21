@@ -206,41 +206,24 @@ sap.ui.define(
             },
           });
 
-          // var oModelClassificazione = new JSONModel({
-          //   CodiceGestionale: [],
-          //   Cpv: [],
-          //   Cig: [],
-          //   Cup: [],
-          //   ImpTotAssociareCodiceGestionale: "0.00",
-          //   ImpTotAssociareCpv: "0.00",
-          //   ImpTotAssociareCig: "0.00",
-          //   ImpTotAssociareCup: "0.00",
-          // });
+          var oModelClassificazione = new JSONModel({
+            CodiceGestionale: [],
+            Cpv: [],
+            Cig: [],
+            Cup: [],
+            ImpTotAssociareCodiceGestionale: "0.00",
+            ImpTotAssociareCpv: "0.00",
+            ImpTotAssociareCig: "0.00",
+            ImpTotAssociareCup: "0.00",
+          });
 
           self.setModel(oModelSoa, "Soa");
           self.setModel(oModelPaginator, PAGINATOR_MODEL);
           self.setModel(oStepScenario, "StepScenario");
           self.setModel(oModelTipoPersona, "TipoPersona");
           self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
-          // self.setModel(oModelClassificazione, "Classificazione");
+          self.setModel(oModelClassificazione, "Classificazione");
 
-          var oInputImpDaOrd = self.getView().byId("iptImpDaOrd");
-          oInputImpDaOrd.attachBrowserEvent(
-            "keypress",
-            formatter.acceptOnlyNumbers
-          );
-          // var oInputImpDaAssociare = self.getView().byId("iptImpDaAssociare");
-          // oInputImpDaAssociare.attachBrowserEvent(
-          //   "keypress",
-          //   formatter.acceptOnlyNumbers
-          // );
-          // var oInputImpDaAssociareCpv = self.getView().byId("iptImpDaAssociareCpv");
-          // oInputImpDaAssociareCpv.attachBrowserEvent(
-          //   "keypress",
-          //   formatter.acceptOnlyNumbers
-          // );
-
-          //TODO - Inserire l'acceptOnlyNumber anche per CIG e CUP
           this.getRouter()
             .getRoute("soa.create.scenery.Scenario3")
             .attachPatternMatched(this._onObjectMatched, this);
@@ -310,12 +293,12 @@ sap.ui.define(
           } else if (bWizard1Step3) {
             oModelStepScenario.setProperty("/wizard1Step3", false);
             oModelStepScenario.setProperty("/wizard2", true);
-            this._setDataBenficiario();
-            this._setModalitaPagamento();
-            this._setIbanBeneficiario();
-            this._setDatiVaglia();
-            this._getSedeBeneficiario();
-            this._setInpsData();
+            self.setDataBenficiario();
+            self.setModalitaPagamento();
+            self.setIbanBeneficiario();
+            self.setDatiVaglia();
+            self.getSedeBeneficiario();
+            self.setInpsData();
             oWizard.nextStep();
           } else if (bWizard2) {
             oModelStepScenario.setProperty("/wizard2", false);
@@ -328,7 +311,6 @@ sap.ui.define(
             oModelStepScenario.setProperty("/wizard4", true);
             oModelStepScenario.setProperty("/visibleBtnForward", false);
             oModelStepScenario.setProperty("/visibleBtnSave", true);
-            // this._setCausalePagamento();
             oWizard.nextStep();
             // }
           }

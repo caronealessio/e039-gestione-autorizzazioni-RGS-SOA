@@ -4,27 +4,25 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 <SelectDialog
-		id="sdBeneficiario"
+		id="sdBeneficiarioScen4"
     noDataText="{i18n>noBeneficiario}"
 		title="{i18n>columnNameBeneficiario}"
 		search="onValueHelpChange"
 		confirm="onValueHelpBeneficiarioClose"
 		cancel="onValueHelpBeneficiarioClose"
-    app:input="fltBeneficiario"
-		app:FilterValueHelp="Beneficiario"
+    app:FilterValueHelp="Beneficiario"
 		items="{path: 'Beneficiario>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
       title="{Beneficiario>Beneficiario}"
-      app:key="{Beneficiario>Beneficiario}"
-      app:typeBen="{Beneficiario>Type}"
-      app:name="{Beneficiario>Nome}"
-      app:surname="{Beneficiario>Cognome}"
-      app:ragSociale="{Beneficiario>RagSoc}"
-      app:codFiscale="{Beneficiario>CodFisc}"
-      app:codFiscaleEstero="{Beneficiario>CodFiscEst}"
-      app:pIva="{Beneficiario>PIva}"
+      app:BuType="{Beneficiario>Type}"
+      app:NameFirst="{Beneficiario>Nome}"
+      app:NameLast="{Beneficiario>Cognome}"
+      app:ZzragSoc="{Beneficiario>RagSoc}"
+      app:TaxnumCf="{Beneficiario>CodFisc}"
+      app:Tax="{Beneficiario>CodFiscEst}"
+      app:TaxnumPiva="{Beneficiario>PIva}"
     />
 	</SelectDialog>
 </c:FragmentDefinition>

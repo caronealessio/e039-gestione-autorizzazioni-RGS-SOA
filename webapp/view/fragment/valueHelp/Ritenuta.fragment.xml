@@ -11,7 +11,7 @@
 		confirm="onValueHelpDialogClose"
 		cancel="onValueHelpDialogClose"
     app:input="fltRitenuta"
-		app:searchPropertyModel="DescRitenuta"
+		app:FilterValueHelp="DescRitenuta"
 		items="{path: 'Ritenuta>/'}">		
 		<StandardListItem
       iconDensityAware="false"

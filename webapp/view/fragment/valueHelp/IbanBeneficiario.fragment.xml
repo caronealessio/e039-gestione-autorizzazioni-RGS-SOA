@@ -11,7 +11,7 @@
 		confirm="onValueHelpIbanClose"
 		cancel="onValueHelpIbanClose"
     app:input="iptIbanBeneficiario"
-		app:searchPropertyModel="Iban"
+		app:FilterValueHelp="Iban"
 		items="{path: 'IbanBeneficiario>/'}">		
 		<StandardListItem
       iconDensityAware="false"

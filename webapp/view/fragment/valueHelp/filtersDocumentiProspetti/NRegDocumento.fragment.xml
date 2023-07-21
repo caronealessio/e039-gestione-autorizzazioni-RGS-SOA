@@ -10,7 +10,7 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpDialogClose"
 		cancel="onValueHelpDialogClose"
-		app:searchPropertyModel="Belnr"
+		app:FilterValueHelp="Belnr"
 		items="{path: 'NRegDocumento>/'}">		
 		<StandardListItem
       iconDensityAware="false"

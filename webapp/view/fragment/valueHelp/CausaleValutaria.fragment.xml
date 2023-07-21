@@ -11,7 +11,7 @@
 		confirm="onValueHelpCausaleValutariaClose"
 		cancel="onValueHelpCausaleValutariaClose"
     app:input="iptCausaleValutaria"
-		app:searchPropertyModel="ZDesccauval"
+		app:FilterValueHelp="ZDesccauval"
 		items="{path: 'CausaleValutaria>/'}">		
 		<StandardListItem
       iconDensityAware="false"
