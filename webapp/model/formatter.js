@@ -52,5 +52,13 @@ sap.ui.define([], function () {
         return null;
       }
     },
+
+    getYear: function(oDate){
+      if(oDate){
+        oDate = new Date(oDate);
+        return oDate.getFullYear()
+      }
+      return null;
+    }
   };
 });

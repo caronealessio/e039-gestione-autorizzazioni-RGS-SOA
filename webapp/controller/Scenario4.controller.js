@@ -1,12 +1,28 @@
 sap.ui.define(
-  ["./BaseController", "../model/formatter", "sap/ui/model/json/JSONModel"],
-  function (BaseController, formatter, JSONModel) {
+  [
+    "./BaseScenarioController",
+    "../model/formatter",
+    "sap/ui/model/json/JSONModel",
+  ],
+  function (BaseScenarioController, formatter, JSONModel) {
     "use strict";
 
-    return BaseController.extend("rgssoa.controller.Scenario4", {
+    return BaseScenarioController.extend("rgssoa.controller.Scenario4", {
       formatter: formatter,
       onInit: function () {
         var self = this;
+
+        var oStepScenario = new JSONModel({
+          wizard1Step1: true,
+          wizard1Step2: false,
+          wizard2: false,
+          wizard3: false,
+          wizard4: false,
+          visibleBtnForward: true,
+          visibleBtnInserisciProspLiquidazione: false,
+          visibleBtnSave: false,
+        });
+
         var oModelSoa = new JSONModel({
           /**   Scenario    */
           Ztipopag: "4", //Tipo Pagamento
@@ -115,13 +131,101 @@ sap.ui.define(
         });
 
         self.setModel(oModelSoa, "Soa");
+        self.setModel(oStepScenario, "StepScenario");
 
         this.getRouter()
           .getRoute("soa.create.scenario.Scenario4")
           .attachPatternMatched(this._onObjectMatched, this);
       },
 
+      onNavBack: function () {
+        var self = this;
+        var oView = self.getView();
+        var oWizard = oView.byId("wizScenario4");
+        //Load Models
+        var oModelStepScenario = self.getModel("StepScenario");
+
+        var bWizard1Step1 = oModelStepScenario.getProperty("/wizard1Step1");
+        var bWizard1Step2 = oModelStepScenario.getProperty("/wizard1Step2");
+        var bWizard2 = oModelStepScenario.getProperty("/wizard2");
+        var bWizard3 = oModelStepScenario.getProperty("/wizard3");
+        var bWizard4 = oModelStepScenario.getProperty("/wizard4");
+
+        if (bWizard1Step1) {
+          history.go(-1);
+        } else if (bWizard1Step2) {
+          oModelStepScenario.setProperty("/wizard1Step2", false);
+          oModelStepScenario.setProperty("/wizard1Step1", true);
+          oModelStepScenario.setProperty("/visibleBtnForward", true);
+          oModelStepScenario.setProperty(
+            "/visibleBtnInserisciProspLiquidazione",
+            false
+          );
+        } else if (bWizard2) {
+          oModelStepScenario.setProperty("/wizard2", false);
+          oModelStepScenario.setProperty("/wizard1Step2", true);
+          oModelStepScenario.setProperty("/visibleBtnForward", false);
+          oModelStepScenario.setProperty(
+            "/visibleBtnInserisciProspLiquidazione",
+            true
+          );
+          oWizard.previousStep();
+        } else if (bWizard3) {
+          oModelStepScenario.setProperty("/wizard3", false);
+          oModelStepScenario.setProperty("/wizard2", true);
+          oWizard.previousStep();
+        } else if (bWizard4) {
+          oModelStepScenario.setProperty("/wizard4", false);
+          oModelStepScenario.setProperty("/wizard3", true);
+          oWizard.previousStep();
+        }
+      },
+
+      onNavForward: function () {
+        var self = this;
+        var oWizard = self.getView().byId("wizScenario4");
+        var oModelStepScenario = self.getModel("StepScenario");
+
+        var bWizard1Step1 = oModelStepScenario.getProperty("/wizard1Step1");
+        var bWizard2 = oModelStepScenario.getProperty("/wizard2");
+        var bWizard3 = oModelStepScenario.getProperty("/wizard3");
+
+        if (bWizard1Step1) {
+          oModelStepScenario.setProperty("/wizard1Step1", false);
+          oModelStepScenario.setProperty("/wizard1Step2", true);
+          oModelStepScenario.setProperty("/visibleBtnForward", false);
+          oModelStepScenario.setProperty(
+            "/visibleBtnInserisciProspLiquidazione",
+            true
+          );
+        } else if (bWizard2) {
+          oModelStepScenario.setProperty("/wizard2", false);
+          oModelStepScenario.setProperty("/wizard3", true);
+          oWizard.nextStep();
+        } else if (bWizard3) {
+          oModelStepScenario.setProperty("/wizard3", false);
+          oModelStepScenario.setProperty("/wizard4", true);
+          oWizard.nextStep();
+        }
+      },
+
       //#region WIZARD 1
+      onInserisciProspettoLiquidazione: function (oEvent) {
+        var self = this;
+        var oWizard = self.getView().byId("wizScenario4");
+        var oModelStepScenario = self.getModel("StepScenario");
+
+        oModelStepScenario.setProperty("/wizard1Step2", false);
+        oModelStepScenario.setProperty("/wizard2", true);
+        oModelStepScenario.setProperty("/visibleBtnForward", true);
+        oModelStepScenario.setProperty(
+          "/visibleBtnInserisciProspLiquidazione",
+          false
+        );
+        oWizard.nextStep();
+      },
+
+      //#region PRIVATE METHODS
       _onObjectMatched: function (oEvent) {
         var self = this;
         //Load Models
@@ -158,6 +262,8 @@ sap.ui.define(
             });
           });
       },
+      //#endregion
+
       //#endregion
     });
   }

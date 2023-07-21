@@ -1,7 +1,7 @@
 <c:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
-xmlns:l="sap.ui.layout"
+  xmlns:l="sap.ui.layout"
 >
   <Panel id="pnlRiepilogoQuoteDocumenti" class="onlyTopPadding" visible="{StepScenario>/wizard1Step3}">
 		<headerToolbar>
@@ -23,7 +23,7 @@ xmlns:l="sap.ui.layout"
             <header><Text text="{i18n>labelAbbrNRegDocumento}" /></header>
           </Column>
           <Column minScreenWidth="Desktop" demandPopin="true">
-            <header><Text text="{i18n>labelTipoDocumento}" /></header>
+            <header><Text text="{i18n>labelAbbrTipoDocumento}" /></header>
           </Column>
           <Column minScreenWidth="Desktop" demandPopin="true">
             <header><Text text="{i18n>labelDataDocBeneficiario}" /></header>
@@ -35,10 +35,10 @@ xmlns:l="sap.ui.layout"
             <header><Text text="{i18n>labelImpDaOrdinare}" /></header>
           </Column>
           <Column minScreenWidth="Desktop" demandPopin="true">
-            <header><Text text="{i18n>labelProspetto}" /></header>
+            <header><Text text="{i18n>labelProspetto}" visible="{= ${Soa>/ZzCebenra} ? false : true}"/></header>
           </Column>
           <Column minScreenWidth="Desktop" demandPopin="true">
-            <header><Text text="{i18n>labelRigaProspetto}" /></header>
+            <header><Text text="{i18n>labelRigaProspetto}" visible="{= ${Soa>/ZzCebenra} ? false : true}"/></header>
           </Column>
         </columns>
         <items>

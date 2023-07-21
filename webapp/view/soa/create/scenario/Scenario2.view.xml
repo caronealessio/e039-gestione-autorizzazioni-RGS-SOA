@@ -15,10 +15,10 @@
 					<Page showHeader="false">
 						<content>
 							<Wizard id="wizScenario2" showNextButton="false" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
-								<WizardStep title="{i18n>wizard1TitleDocContabili}" >
+								<WizardStep title="{i18n>titleWizard1DocContabili}" >
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.FiltersDocumentiProspetti" type="XML"/>
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.ListDocumentiCosto" type="XML"/>
-									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.RiepilogoDocumentiCosto" type="XML"/>		
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.list.QuoteDocumentiScen2" type="XML"/>
+									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard1.riepilogo.QuoteDocumentiScen2" type="XML"/>		
 								</WizardStep>
 								<WizardStep title="{i18n>titleWizard2}" >
 									<c:Fragment fragmentName="rgssoa.view.fragment.soa.registerSoa.wizard2.BeneficiarioSoa" type="XML"/>

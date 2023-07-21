@@ -335,8 +335,16 @@ sap.ui.define(
         self.setFilterEQValue(aFilters, oDataProtAmm);
         self.setFilterEQValue(aFilters, oNumProtAmm);
         self.setFilterEQValue(aFilters, oBeneficiario);
-        self.setFilterEQKeyMC(aFilters, oRitenuta);
-        self.setFilterEQKeyMC(aFilters, oEnteBeneficiario);
+        self.setFilterEQKeyMC(
+          aFilters,
+          oRitenuta.data("searchPropertyModel"),
+          oRitenuta
+        );
+        self.setFilterEQKeyMC(
+          aFilters,
+          oEnteBeneficiario.data("searchPropertyModel"),
+          oEnteBeneficiario
+        );
         self.setFilterBTValue(aFilters, oPosFinanziariaFrom, oPosFinanziariaTo);
         self.setFilterEQValue(aFilters, oStrAmmResponsabile);
         self.setFilterBTValue(

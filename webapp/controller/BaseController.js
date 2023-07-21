@@ -296,45 +296,27 @@ sap.ui.define(
         }
       },
 
-      setFilterEQKeyMC: function (aFilters, oInput) {
+      setFilterEQKeyMC: function (aFilters, sPropertyModel, oInput) {
         if (oInput?.data("key")) {
-          aFilters.push(
-            new Filter(
-              oInput.data("searchPropertyModel"),
-              EQ,
-              oInput.data("key")
-            )
-          );
+          aFilters.push(new Filter(sPropertyModel, EQ, oInput.data("key")));
         }
       },
 
-      setFilterMultiInputEQText: function (aFilters, oInput) {
+      setFilterMultiInputEQText: function (aFilters, sPropertyModel, oInput) {
         if (oInput.getTokens().length !== 0) {
           oInput.getTokens().map((oRow) => {
             if (oRow.getText()) {
-              aFilters.push(
-                new Filter(
-                  oInput.data("searchPropertyModel"),
-                  EQ,
-                  oRow.getText()
-                )
-              );
+              aFilters.push(new Filter(sPropertyModel, EQ, oRow.getText()));
             }
           });
         }
       },
 
-      setFilterMultiComboBoxEQKey: function (aFilters, oInput) {
+      setFilterMultiComboBoxEQKey: function (aFilters, sPropertyModel, oInput) {
         if (oInput.getSelectedItems().length !== 0) {
           oInput.getSelectedItems().map((oRow) => {
             if (oRow.getKey()) {
-              aFilters.push(
-                new Filter(
-                  oInput.data("searchPropertyModel"),
-                  EQ,
-                  oRow.getKey()
-                )
-              );
+              aFilters.push(new Filter(sPropertyModel, EQ, oRow.getKey()));
             }
           });
         }
@@ -355,12 +337,25 @@ sap.ui.define(
         if (oIntervalFilters.length > 0) {
           return (
             oBundle.getText("checkBTFilter") +
-            " " +
-            oBundle.getText("label" + oIntervalFilters[0]?.sPath)
+            " '" +
+            oBundle.getText("label" + oIntervalFilters[0]?.sPath) +
+            "'"
           );
         }
 
         return;
+      },
+
+      setFilterEQ: function (aFilters, sPropertyModel, sValue) {
+        if (sValue) {
+          aFilters.push(new Filter(sPropertyModel, EQ, sValue));
+        }
+      },
+
+      setFilterBT: function (aFilters, sPropertyModel, sValueFrom, sValueTo) {
+        if (sValueFrom || sValueTo) {
+          aFilters.push(new Filter(sPropertyModel, BT, sValueFrom, sValueTo));
+        }
       },
 
       /** ----------------GESTIONE PAGINAZIONE-------------------- */

@@ -12,9 +12,9 @@
     <content>
       <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgWhite" >
         <Table  
-          id="tblQuoteDocumenti"
+          id="tblQuoteDocumentiScen2"
           mode="MultiSelect"
-          items="{path: 'QuoteDocumenti>/'}"
+          items="{path: 'QuoteDocumentiScen2>/'}"
           selectionChange="onSelectedItem"
         >
         <columns>
@@ -25,7 +25,7 @@
             <header><Text text="{i18n>labelAbbrNRegDocumento}" /></header>
           </Column>
           <Column minScreenWidth="Desktop" demandPopin="true">
-            <header><Text text="{i18n>labelTipoDocumento}" /></header>
+            <header><Text text="{i18n>labelAbbrTipoDocumento}" /></header>
           </Column>
           <Column minScreenWidth="Desktop" demandPopin="true">
             <header><Text text="{i18n>labelDataDocBeneficiario}" /></header>
@@ -33,79 +33,66 @@
           <Column minScreenWidth="Desktop" demandPopin="true">
             <header><Text text="{i18n>labelDenomBeneficiario}" /></header>
           </Column>
-          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/Lifnr} ? true : false}">
-            <header><Text text="{i18n>labelImpLiquidato}" /></header>
+          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/ZzCebenra} ? false : true}">
+            <header><Text text="{i18n>labelImpQuotaDocumento}" /></header>
           </Column>
-          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/Lifnr} ? true : false}">
-            <header><Text text="{i18n>labelImpOrdinato}" /></header>
+          <Column minScreenWidth="Desktop" demandPopin="true">
+            <header><Text text="{i18n>labelImpLiquidabile}" /></header>
           </Column>
-
-          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/Lifnr} ? false : true}">
-            <header><Text text="{i18n>labelImpLiqNonOrdinata}" /></header>
-          </Column>
-          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/Lifnr} ? false : true}">
+          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/ZzCebenra} ? true : false}">
             <header><Text text="{i18n>labelResiduoVersabile}" /></header>
-          </Column>
-          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/Lifnr} ? false : true}">
+          </Column>         
+          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/ZzCebenra} ? true : false}">
             <header><Text text="{i18n>labelResiduoEsigibile}" /></header>
           </Column>
-
           <Column minScreenWidth="Desktop" demandPopin="true">
             <header><Text text="{i18n>labelImpDaOrdinare}" /></header>
           </Column>
-          <Column minScreenWidth="Desktop" demandPopin="true">
-            <header><Text text="{i18n>labelProspetto}" /></header>
+          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/ZzCebenra} ? false : true}">
+            <header><Text text="{i18n>labelDurc}" /></header>
           </Column>
-          <Column minScreenWidth="Desktop" demandPopin="true">
-            <header><Text text="{i18n>labelRigaProspetto}" /></header>
+          <Column minScreenWidth="Desktop" demandPopin="true" visible="{= ${Soa>/ZzCebenra} ? false : true}">
+            <header><Text text="{i18n>labelFermoAmministrativo}" /></header>
           </Column>
         </columns>
         <items>
         <ColumnListItem vAlign="Middle">
           <cells>
-            <ObjectIdentifier text="{QuoteDocumenti>AnnoRegDocumento}"/>
-            <ObjectIdentifier text="{QuoteDocumenti>NumRegDoc}"/>
-            <Text text="{QuoteDocumenti>TipoDoc}"/>				
+            <ObjectIdentifier text="{path: 'QuoteDocumentiScen2>Gjahr'}"/>
+            <ObjectIdentifier text="{QuoteDocumentiScen2>Belnr}"/>
+            <Text text="{QuoteDocumentiScen2>Blart}"/>				
             <Text text="{
-                    path: 'QuoteDocumenti>DataDocBen',
+                    path: 'QuoteDocumentiScen2>Bldat',
                     type: 'sap.ui.model.type.Date',
                     formatOptions: {
                       pattern: 'dd.MM.yyyy'
                     }
                   }"/>
-            <Text text="{QuoteDocumenti>DenBen}"/>
-            <Text text="{
-                    path: 'QuoteDocumenti>ImpLiq',
+            <Text text="{QuoteDocumentiScen2>ZzragSoc}"/>
+             <Text text="{
+                    path: 'QuoteDocumentiScen2>Wrbtr',
                     formatter:'.formatter.convertFormattedNumber'
             }" />
             <Text text="{
-                    path: 'QuoteDocumenti>ImpOrd',
-                    formatter:'.formatter.convertFormattedNumber'
-            }" />
-            
-            <Text text="{
-                    path: 'QuoteDocumenti>ImpLiq',
+                    path: 'QuoteDocumentiScen2>Zimpliq',
                     formatter:'.formatter.convertFormattedNumber'
             }" />
             <Text text="{
-                    path: 'QuoteDocumenti>Zresvers',
+                    path: 'QuoteDocumentiScen2>Zresvers',
                     formatter:'.formatter.convertFormattedNumber'
             }" />
             <Text text="{
-                    path: 'QuoteDocumenti>Zresesig',
+                    path: 'QuoteDocumentiScen2>Zresesig',
                     formatter:'.formatter.convertFormattedNumber'
             }" />
-
             <Input
               id="iptImpDaOrd"
               change="onImpDaOrdinareChange"
               type="Number"
-              value="{
-                      path: 'QuoteDocumenti>ImpDaOrd'
-              }"
-              />    
-            <Text text="{QuoteDocumenti>NProspLiquidazione}"/> 
-            <Text text="{QuoteDocumenti>RigaProsp}"/> 
+              value="{path: 'QuoteDocumentiScen2>Zimpdaord'}"
+            /> 
+            <Text text="{QuoteDocumentiScen2>Zdurc}"/>	
+            <Text text="{QuoteDocumentiScen2>ZfermAmm}"/>	
           </cells>
         </ColumnListItem>
         </items>  
@@ -129,7 +116,7 @@
               text="{i18n>btnCalculate}" 
               icon="sap-icon://simulate" 
               width="100%" 
-              press="onCalcute"
+              press="onCalculate"
             > 
               <layoutData><l:GridData span="XL1 L2 M4 S12" /></layoutData>
           </Button>
