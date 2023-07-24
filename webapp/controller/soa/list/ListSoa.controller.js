@@ -22,6 +22,7 @@ sap.ui.define(
        * @override
        */
       onInit: function () {
+        var self = this;
         var oModelPaginator = new JSONModel({
           btnPrevEnabled: false,
           btnFirstEnabled: false,
@@ -41,8 +42,16 @@ sap.ui.define(
           totalItems: 0,
         });
 
-        this.setModel(oModelPaginator, PAGINATOR_MODEL);
-        this.setModel(oSoaModel, SOA_MODEL);
+        var oModelFilter = new JSONModel({
+          Gjahr: "",
+          FiposFrom: "",
+          FiposTo: "",
+          Fistl: "",
+        });
+
+        self.setModel(oModelPaginator, PAGINATOR_MODEL);
+        self.setModel(oSoaModel, SOA_MODEL);
+        self.setModel(oModelFilter, "Filter");
       },
       onNavBack: function () {
         history.go(-1);
@@ -203,6 +212,29 @@ sap.ui.define(
         self.getRouter().navTo("soa.create.ChoseTypeSoa");
       },
 
+      //#region SELECTION CHANGE
+      onFiposFromChange: function (oEvent) {
+        var self = this;
+        var oModelFilter = self.getModel("Filter");
+
+        oModelFilter.setProperty("/FiposFrom", oEvent.getParameter("value"));
+      },
+
+      onFiposToChange: function (oEvent) {
+        var self = this;
+        var oModelFilter = self.getModel("Filter");
+
+        oModelFilter.setProperty("/FiposTo", oEvent.getParameter("value"));
+      },
+
+      onFistlChange: function (oEvent) {
+        var self = this;
+        var oModelFilter = self.getModel("Filter");
+
+        oModelFilter.setProperty("/Fistl", oEvent.getParameter("value"));
+      },
+      //#endregion
+
       /** -----------------PRIVATE METHODS------------------- */
 
       _getSoaList: function () {
@@ -284,8 +316,10 @@ sap.ui.define(
       _getHeaderFilters: function () {
         var self = this;
         var aFilters = [];
+        var oModelFilter = self.getModel("Filter");
 
-        var oEsercizioGestione = self.getView().byId("fltGjahr");
+        console.log(oModelFilter.getData());
+
         var oAmministrazione = self.getView().byId("fltZzamministr");
         var oCapitolo = self.getView().byId("fltZcapitolo");
         var oNumSoaFrom = self.getView().byId("fltZnumsopFrom");
@@ -308,18 +342,12 @@ sap.ui.define(
         var oBeneficiario = self.getView().byId("fltLifnr");
         var oRitenuta = self.getView().byId("fltRitenuta");
         var oEnteBeneficiario = self.getView().byId("fltEnteBeneficiario");
-        //Posizione Finanziaria
-        var oPosFinanziariaFrom = self.getView().byId("fltFiposFrom");
-        var oPosFinanziariaTo = self.getView().byId("fltFiposTo");
-        //Struttura Amministrativa Responsabile
-        var oStrAmmResponsabile = self.getView().byId("fltFistl");
         //N. Prospetto di liquidazione
         var oNumProLiquidazioneFrom = self.getView().byId("fltZnumliqFrom");
         var oNumProLiquidazioneTo = self.getView().byId("fltZnumliqTo");
         //Descrizione Prospetto di liquidazione
         var oDescProLiquidazione = self.getView().byId("fltZdescProsp");
 
-        self.setFilterEQKey(aFilters, oEsercizioGestione);
         self.setFilterEQValue(aFilters, oAmministrazione);
         self.setFilterEQValue(aFilters, oCapitolo);
         self.setFilterBTValue(aFilters, oNumSoaFrom, oNumSoaTo);
@@ -345,8 +373,6 @@ sap.ui.define(
           oEnteBeneficiario.data("searchPropertyModel"),
           oEnteBeneficiario
         );
-        self.setFilterBTValue(aFilters, oPosFinanziariaFrom, oPosFinanziariaTo);
-        self.setFilterEQValue(aFilters, oStrAmmResponsabile);
         self.setFilterBTValue(
           aFilters,
           oNumProLiquidazioneFrom,
@@ -363,6 +389,15 @@ sap.ui.define(
             new Filter(oRichAnnullamento.data("searchPropertyModel"), EQ, "")
           );
         }
+
+        self.setFilterEQ(aFilters, "Gjahr", oModelFilter.getProperty("/Gjahr"));
+        self.setFilterBT(
+          aFilters,
+          "Fipos",
+          oModelFilter.getProperty("/FiposFrom"),
+          oModelFilter.getProperty("/FiposTo")
+        );
+        self.setFilterEQ(aFilters, "Fistl", oModelFilter.getProperty("/Fistl"));
 
         return aFilters;
       },

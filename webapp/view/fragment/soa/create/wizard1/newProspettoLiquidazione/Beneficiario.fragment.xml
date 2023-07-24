@@ -89,6 +89,7 @@
 					items="{path: 'ModalitaPagamento>/'}"
 					selectedKey="{Soa>/Zwels}"
 					editable="{= ${Soa>/Lifnr} ? true : false}"
+					selectionChange="onModalitaPagamentoChange"
 				>
 					<c:Item 
             key="{ModalitaPagamento>Zwels}" 

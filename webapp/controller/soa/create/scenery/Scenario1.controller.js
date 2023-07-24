@@ -256,6 +256,7 @@ sap.ui.define(
           var bWizard4 = oModelStepScenario.getProperty("/wizard4");
 
           if (bWizard1Step1) {
+            self.resetModelSoa("1");
             history.go(-1);
           } else if (bWizard1Step2) {
             oModelStepScenario.setProperty("/wizard1Step2", false);
@@ -435,9 +436,15 @@ sap.ui.define(
           var sValue = oEvent.getParameter("value");
           oModelSoa.setProperty("/Zimptot", "0.00");
 
-          oTableModelDocumenti.getObject(
-            oEvent.getSource().getParent().getBindingContextPath()
-          ).ImpDaOrd = parseFloat(sValue).toFixed(2);
+          if (sValue) {
+            oTableModelDocumenti.getObject(
+              oEvent.getSource().getParent().getBindingContextPath()
+            ).ImpDaOrd = parseFloat(sValue).toFixed(2);
+          } else {
+            oTableModelDocumenti.getObject(
+              oEvent.getSource().getParent().getBindingContextPath()
+            ).ImpDaOrd = "0.00";
+          }
         },
 
         //#endregion SELECTION CHANGE

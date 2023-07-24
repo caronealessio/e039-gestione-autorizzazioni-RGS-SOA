@@ -62,9 +62,9 @@ sap.ui.define(
 
             /**   WIZARD 1 - SCENARIO 4 */
             Kostl: "", //Centro Costo
-            Saknr: "", // Conto Co.Ge.
+            Hkont: "", // Conto Co.Ge.
             DescKostl: "", //Descrizione Centro Costo
-            DescSaknr: "", //Descrizione Conto Co.Ge.
+            DescHkont: "", //Descrizione Conto Co.Ge.
 
             data: [], //Quote Documenti
 
@@ -196,12 +196,24 @@ sap.ui.define(
             PersonaGiuridica: false,
           });
 
+          var oModelClassificazione = new JSONModel({
+            CodiceGestionale: [],
+            Cpv: [],
+            Cig: [],
+            Cup: [],
+            ImpTotAssociareCodiceGestionale: "0.00",
+            ImpTotAssociareCpv: "0.00",
+            ImpTotAssociareCig: "0.00",
+            ImpTotAssociareCup: "0.00",
+          });
+
           self.setModel(oModelSoa, "Soa");
           self.setModel(oStepScenario, "StepScenario");
           self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
           self.setModel(oModelTipoPersona, "TipoPersona");
+          self.setModel(oModelClassificazione, "Classificazione");
 
-          self.acceptOnlyNumber("iptImportoLiquidazione");
+          self.acceptOnlyImport("iptImportoLiquidazione");
 
           this.getRouter()
             .getRoute("soa.create.scenery.Scenario4")
@@ -221,6 +233,7 @@ sap.ui.define(
           var bWizard4 = oModelStepScenario.getProperty("/wizard4");
 
           if (bWizard1Step1) {
+            self.resetModelSoa("4");
             history.go(-1);
           } else if (bWizard1Step2) {
             oModelStepScenario.setProperty("/wizard1Step2", false);
@@ -260,13 +273,14 @@ sap.ui.define(
           var bWizard3 = oModelStepScenario.getProperty("/wizard3");
 
           if (bWizard1Step1) {
-            oModelStepScenario.setProperty("/wizard1Step1", false);
-            oModelStepScenario.setProperty("/wizard1Step2", true);
-            oModelStepScenario.setProperty("/visibleBtnForward", false);
-            oModelStepScenario.setProperty(
-              "/visibleBtnInserisciProspLiquidazione",
-              true
-            );
+            //TODO - Rimettere
+            // if (this._checkNewProspettoLiquidazione()) {
+            this._getNewProspettoLiquidazione();
+            // self.setDataBenficiario();
+            // self.setDatiVaglia();
+            // self.getSedeBeneficiario();
+            // self.setInpsData();
+            // }
           } else if (bWizard2) {
             oModelStepScenario.setProperty("/wizard2", false);
             oModelStepScenario.setProperty("/wizard3", true);
@@ -395,6 +409,10 @@ sap.ui.define(
           var oSelectedItem = oEvent.getParameter("selectedItem");
 
           oModelSoa.setProperty("/Iban", oSelectedItem?.getTitle());
+          oModelSoa.setProperty(
+            "/Zbanks",
+            oSelectedItem?.getTitle().slice(0, 2)
+          );
 
           self.unloadFragment();
         },
@@ -485,11 +503,11 @@ sap.ui.define(
           var oSelectedItem = oEvent.getParameter("selectedItem");
 
           oModelSoa.setProperty(
-            "/Saknr",
+            "/Hkont",
             self.setBlank(oSelectedItem?.getTitle())
           );
           oModelSoa.setProperty(
-            "/DescSaknr",
+            "/DescHkont",
             self.setBlank(oSelectedItem?.data("Description"))
           );
 
@@ -505,7 +523,22 @@ sap.ui.define(
           var oModelSoa = self.getModel("Soa");
 
           var sValue = oEvent.getParameter("value");
-          oModelSoa.setProperty("/Zimptot", parseFloat(sValue).toFixed(2));
+          if (sValue) {
+            oModelSoa.setProperty("/Zimptot", parseFloat(sValue).toFixed(2));
+          } else {
+            oModelSoa.setProperty("/Zimptot", "0.00");
+          }
+        },
+
+        onModalitaPagamentoChange: function (oEvent) {
+          var self = this;
+          var oModelSoa = self.getModel("Soa");
+          var oSelectedItem = oEvent.getParameter("selectedItem");
+
+          oModelSoa.setProperty(
+            "/Zdescwels",
+            self.setBlank(oSelectedItem.getText())
+          );
         },
         //#endregion
 
@@ -634,6 +667,68 @@ sap.ui.define(
                 });
               });
           }
+        },
+
+        _getNewProspettoLiquidazione: function () {
+          var self = this;
+          //Load Models
+          var oModel = self.getModel();
+          var oModelSoa = self.getModel("Soa");
+          var oModelStepScenario = self.getModel("StepScenario");
+
+          var aFilters = [];
+
+          self.setFilterEQ(aFilters, "Lifnr", oModelSoa?.getProperty("/Lifnr"));
+          self.setFilterEQ(aFilters, "Zwels", oModelSoa?.getProperty("/Zwels"));
+          self.setFilterEQ(
+            aFilters,
+            "Zimpliq",
+            oModelSoa?.getProperty("/Zimptot")
+          );
+          self.setFilterEQ(aFilters, "Iban", oModelSoa?.getProperty("/Iban"));
+
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oModel.read("/RegProspettoLiquidazioneSet", {
+                filters: aFilters,
+                success: function (data, oResponse) {
+                  if (!self.setResponseMessage(oResponse)) {
+                    self.setModelCustom(
+                      "NewProspettoLiquidazione",
+                      data?.results
+                    );
+                    oModelStepScenario.setProperty("/wizard1Step1", false);
+                    oModelStepScenario.setProperty("/wizard1Step2", true);
+                    oModelStepScenario.setProperty("/visibleBtnForward", false);
+                    oModelStepScenario.setProperty(
+                      "/visibleBtnInserisciProspLiquidazione",
+                      true
+                    );
+                  }
+                },
+                error: function () {},
+              });
+            });
+        },
+
+        _checkNewProspettoLiquidazione: function () {
+          var self = this;
+          var oModelSoa = self.getModel("Soa");
+          var oBundle = self.getResourceBundle();
+
+          if (!oModelSoa.getProperty("/Kostl")) {
+            sap.m.MessageBox.error(oBundle.getText("msgKostlRequired"));
+            return false;
+          }
+
+          if (!oModelSoa.getProperty("/Hkont")) {
+            sap.m.MessageBox.error(oBundle.getText("msgHkontRequired"));
+            return false;
+          }
+
+          return true;
         },
 
         //#endregion

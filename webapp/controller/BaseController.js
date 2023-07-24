@@ -174,10 +174,10 @@ sap.ui.define(
         return sValue;
       },
 
-      acceptOnlyNumber: function (sId) {
+      acceptOnlyImport: function (sId) {
         var oInput = this.getView().byId(sId);
         oInput.attachBrowserEvent("keypress", function (oEvent) {
-          if (oEvent.keyCode === 46) {
+          if (oEvent.key === "." || oEvent.key === "-") {
             oEvent.preventDefault();
           }
         });

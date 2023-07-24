@@ -3,6 +3,8 @@
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout"
 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:zcontrol="zsap.com.r3.cobi.s4.custposfin.z_s4_zposfin.controls"
+	xmlns:zcontrolMatchSar="zsap.com.r3.cobi.s4.custapiuser.z_s4_userlog.controls"
 >
 	<VBox >
 	<l:Grid
@@ -18,10 +20,10 @@
 			<items>
 				<Label text="{i18n>soaFilterGjahr}" class="filterLabel"/>
 				<ComboBox 
-					id="fltGjahr" 
 					width="100%" 
 					items="{path: '/EsercizioGestioneSet'}"
-					app:searchPropertyModel="Gjahr" >
+					selectedKey="{Filter>/Gjahr}"
+				>
 					<c:Item key="{Gjahr}" text="{Gjahr}" />
 				</ComboBox>
 			</items>
@@ -303,8 +305,18 @@
 				<l:GridData span="XL2 L3 M6 S12" linebreak="true"/>
 			</layoutData>
 			<items>
-				<Label text="{i18n>soaFilterFiposFrom}" class="filterLabel"/>
-					<Input id="fltFiposFrom" app:searchPropertyModel="Fipos"/>
+				<Label text="{i18n>soaFilterFiposFrom}" class="filterLabel"/>			
+					<zcontrol:InputPosizioneFinanziaria 
+						fase="GEST" 
+						spesa="X" 
+						reale="R" 
+						anno="{Filter>/Gjahr}" 
+						versione="D" 
+						maxSuggestionWidth="100%" 
+						width="100%"
+						value="{Filter>/FiposFrom}"
+						liveChange="onFiposFromChange"
+					/>
 			</items>
 		</VBox>
 
@@ -314,7 +326,17 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterFiposTo}" class="filterLabel"/>
-					<Input id="fltFiposTo" />
+					<zcontrol:InputPosizioneFinanziaria 
+						fase="GEST" 
+						spesa="X" 
+						reale="R" 
+						anno="{Filter>/Gjahr}" 
+						versione="D" 
+						maxSuggestionWidth="100%" 
+						width="100%"
+						value="{Filter>/FiposTo}"
+						liveChange="onFiposToChange"
+					/>
 			</items>
 		</VBox>
 
@@ -324,7 +346,19 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterFistl}" class="filterLabel"/>
-					<Input id="fltFistl" app:searchPropertyModel="Fistl"/>
+					<zcontrolMatchSar:GestioneLogUser 
+						eos="S" 
+						fase="GEST" 
+						entrata="X" 
+						reale="R" 
+						anno="{Filter>/Gjahr}" 
+						SEM_OBJ="Z_TEST_LIB"  
+						versione="D" 
+						width="100%" 
+						placeholder="Scegli struttura amministrativa"
+						value="{Filter>/Fistl}"
+						liveChange="onFistlChange"
+					/>
 			</items>
 		</VBox>
 

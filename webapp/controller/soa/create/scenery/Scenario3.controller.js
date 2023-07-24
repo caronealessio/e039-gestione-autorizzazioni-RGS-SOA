@@ -245,6 +245,7 @@ sap.ui.define(
           var bWizard4 = oModelStepScenario.getProperty("/wizard4");
 
           if (bWizard1Step1) {
+            self.resetModelSoa("3");
             history.go(-1);
           } else if (bWizard1Step2) {
             oModelStepScenario.setProperty("/wizard1Step2", false);
@@ -318,8 +319,7 @@ sap.ui.define(
 
         //#region WIZARD 1
         onStart: function () {
-          this._setPaginatorProperties();
-          this._getProspettiLiquidazioneList();
+          this._checkBeneficiario();
         },
 
         onSelectedItem: function (oEvent) {
@@ -434,19 +434,25 @@ sap.ui.define(
         onImpDaOrdinareChange: function (oEvent) {
           var self = this;
           //Load Component
-          var oTableDocumenti = self.getView().byId("tblQuoteDocumentiScen2");
+          var oTableDocumenti = self.getView().byId("tblProspettoLiquidazione");
           //Load Models
           var oTableModelDocumenti = oTableDocumenti.getModel(
-            "QuoteDocumentiScen2"
+            "ProspettoLiquidazione"
           );
           var oModelSoa = self.getModel("Soa");
 
           var sValue = oEvent.getParameter("value");
           oModelSoa.setProperty("/Zimptot", "0.00");
 
-          oTableModelDocumenti.getObject(
-            oEvent.getSource().getParent().getBindingContextPath()
-          ).Zimpdaord = parseFloat(sValue).toFixed(2);
+          if (sValue) {
+            oTableModelDocumenti.getObject(
+              oEvent.getSource().getParent().getBindingContextPath()
+            ).Zimpdaord = parseFloat(sValue).toFixed(2);
+          } else {
+            oTableModelDocumenti.getObject(
+              oEvent.getSource().getParent().getBindingContextPath()
+            ).Zimpdaord = "0.00";
+          }
         },
         //#endregion
 
@@ -671,6 +677,46 @@ sap.ui.define(
 
           return true;
         },
+
+        _checkBeneficiario: function () {
+          var self = this;
+          //Load Models
+          var oModel = self.getModel();
+          var oModelSoa = self.getModel("Soa");
+
+          if (oModelSoa.getProperty("/Lifnr")) {
+            var sPath = self.getModel().createKey("CheckBeneficiarioScen3Set", {
+              Lifnr: oModelSoa.getProperty("/Lifnr"),
+            });
+            var oBundle = self.getResourceBundle();
+
+            self
+              .getModel()
+              .metadataLoaded()
+              .then(function () {
+                oModel.read("/" + sPath, {
+                  success: function (data, oResponse) {
+                    if (oResponse?.headers["sap-message"]) {
+                      sap.m.MessageBox.warning(
+                        oBundle.getText("msgExistQuoteDocumenti"),
+                        {
+                          onClose: function (oAction) {
+                            self._setPaginatorProperties();
+                            self._getProspettiLiquidazioneList();
+                          },
+                        }
+                      );
+                    } else {
+                      self._setPaginatorProperties();
+                      self._getProspettiLiquidazioneList();
+                    }
+                  },
+                  error: function () {},
+                });
+              });
+          }
+        },
+
         //#endregion
 
         //#endregion

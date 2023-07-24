@@ -40,7 +40,7 @@
 					valueHelpRequest="onValueHelpContoCoGe"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					value="{Soa>/Saknr}"
+					value="{Soa>/Hkont}"
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 				</Input>
@@ -48,7 +48,7 @@
           <layoutData><l:GridData span="XL2 L3 M5 S12" indent="XL1"/></layoutData>
         </Text>
 				<Input 
-				value="{Soa>/DescSaknr}"
+					value="{Soa>/DescHkont}"
 					editable="false"
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>

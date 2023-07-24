@@ -228,7 +228,7 @@ sap.ui.define(
           self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
           self.setModel(oModelClassificazione, "Classificazione");
 
-          //TODO - Inserire l'acceptOnlyNumber anche per CIG e CUP
+          //TODO - Inserire l'acceptOnlyImport anche per CIG e CUP
           this.getRouter()
             .getRoute("soa.create.scenery.Scenario2")
             .attachPatternMatched(this._onObjectMatched, this);
@@ -273,6 +273,7 @@ sap.ui.define(
           var bWizard4 = oModelStepScenario.getProperty("/wizard4");
 
           if (bWizard1Step1) {
+            self.resetModelSoa("2");
             history.go(-1);
           } else if (bWizard1Step2) {
             oModelStepScenario.setProperty("/wizard1Step2", false);
@@ -465,9 +466,15 @@ sap.ui.define(
           var sValue = oEvent.getParameter("value");
           oModelSoa.setProperty("/Zimptot", "0.00");
 
-          oTableModelDocumenti.getObject(
-            oEvent.getSource().getParent().getBindingContextPath()
-          ).Zimpdaord = parseFloat(sValue).toFixed(2);
+          if (sValue) {
+            oTableModelDocumenti.getObject(
+              oEvent.getSource().getParent().getBindingContextPath()
+            ).Zimpdaord = parseFloat(sValue).toFixed(2);
+          } else {
+            oTableModelDocumenti.getObject(
+              oEvent.getSource().getParent().getBindingContextPath()
+            ).Zimpdaord = "0.00";
+          }
         },
 
         //#endregion
