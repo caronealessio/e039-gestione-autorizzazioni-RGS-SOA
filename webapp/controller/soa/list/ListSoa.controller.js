@@ -9,7 +9,6 @@ sap.ui.define(
   function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
     "use strict";
 
-    const EQ = FilterOperator.EQ;
     const NE = FilterOperator.NE;
     const SOA_ENTITY_SET = "SOASet";
     const SOA_ENTITY_MODEL = "SOASet";
@@ -44,6 +43,29 @@ sap.ui.define(
 
         var oModelFilter = new JSONModel({
           Gjahr: "",
+          Zzamministr: "",
+          Zcapitolo: "",
+          ZnumsopFrom: "",
+          ZnumsopTo: "",
+          ZstatoSoa: "TU",
+          Zchiaveaut: "",
+          Ztipodisp2: "000",
+          Ztipodisp3: "000",
+          Zztipologia: "0",
+          DescTipopag: "TUTTI",
+          ZspecieSop: "0",
+          Zricann: "No",
+          ZdatasopFrom: "",
+          ZdatasopTo: "",
+          Zdataprot: "",
+          Lifnr: "",
+          Witht: "",
+          DescRitenuta: "",
+          ZzCebenra: "",
+          DescEnte: "",
+          ZnumliqFrom: "",
+          ZnumliqTo: "",
+          ZdescProsp: "",
           FiposFrom: "",
           FiposTo: "",
           Fistl: "",
@@ -58,88 +80,6 @@ sap.ui.define(
       },
       onAfterRendering: function () {
         this._getTipoDisponibilitaList([]);
-      },
-
-      onTipologiaAutorizzazioneChange: function (oEvent) {
-        var aFilters = [];
-        var iKey = oEvent.getParameters().selectedItem?.getKey();
-
-        aFilters.push(new Filter("Ztipodisp2", EQ, iKey));
-
-        this._getTipoDisponibilitaList(aFilters);
-      },
-
-      onValueHelpRitenuta: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
-        );
-
-        //Resetto l'input dell'Ente Beneficiario ogni qual volta imposto una Ritenuta
-        var oInputEnteBen = self.getView().byId("fltEnteBeneficiario");
-        oInputEnteBen.setValue(null);
-        oInputEnteBen.data("key", null);
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "RitenutaSet", {
-              success: function (data, oResponse) {
-                self.setResponseMessage(oResponse);
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "Ritenuta");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
-      },
-
-      onValueHelpEnteBeneficiario: function (oEvent) {
-        var self = this;
-        var oDataModel = self.getModel();
-        var oSourceData = oEvent.getSource().data();
-        var sFragmentName = oSourceData.fragmentName;
-        var dialogName = oSourceData.dialogName;
-        var oDialog = self.loadFragment(
-          "rgssoa.view.fragment.valueHelp." + sFragmentName
-        );
-        var oInputRitenuta = self.getView().byId("fltRitenuta");
-
-        if (oInputRitenuta.data("key")) {
-          var oFilter = [];
-          oFilter.push(
-            new Filter("CodRitenuta", EQ, oInputRitenuta.data("key"))
-          );
-          oFilter.push(
-            new Filter("DescRitenuta", EQ, oInputRitenuta.getValue())
-          );
-        }
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/" + "EnteBeneficiarioSet", {
-              filters: oFilter,
-              success: function (data, oResponse) {
-                self.setResponseMessage(oResponse);
-                var oModelJson = new JSONModel();
-                oModelJson.setData(data.results);
-                var oSelectDialog = sap.ui.getCore().byId(dialogName);
-                oSelectDialog?.setModel(oModelJson, "EnteBeneficiario");
-                oDialog.open();
-              },
-              error: function (error) {},
-            });
-          });
       },
 
       onToggle: function () {
@@ -175,6 +115,24 @@ sap.ui.define(
         this._getSoaList();
       },
 
+      onUpdateFinished: function () {
+        var self = this;
+
+        self.setTitleTotalItems(
+          SOA_MODEL,
+          "totalItems",
+          "listSOATableTitle",
+          "listSOATableTitleCount"
+        );
+      },
+
+      onRegisterSoa: function () {
+        var self = this;
+        self.getRouter().navTo("soa.create.ChoseTypeSoa");
+      },
+
+      //#region PAGINATOR
+
       onFirstPaginator: function () {
         var self = this;
 
@@ -196,21 +154,120 @@ sap.ui.define(
         this._getSoaList();
       },
 
-      onUpdateFinished: function () {
-        var self = this;
+      //#endregion
 
-        self.setTitleTotalItems(
-          SOA_MODEL,
-          "totalItems",
-          "listSOATableTitle",
-          "listSOATableTitleCount"
+      //#region VALUE HELP
+
+      onValueHelpRitenuta: function () {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oDialog = self.loadFragment(
+          "rgssoa.view.fragment.valueHelp.Ritenuta"
         );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "RitenutaSet", {
+              success: function (data, oResponse) {
+                self.setResponseMessage(oResponse);
+                self.setModelSelectDialog(
+                  "Ritenuta",
+                  data,
+                  "sdRitenuta",
+                  oDialog
+                );
+              },
+              error: function (error) {},
+            });
+          });
       },
 
-      onRegisterSoa: function () {
+      onValueHelpRitenutaClose: function (oEvent) {
         var self = this;
-        self.getRouter().navTo("soa.create.ChoseTypeSoa");
+        //Load Models
+        var oModelFilter = self.getModel("Filter");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+
+        oModelFilter.setProperty(
+          "/DescRitenuta",
+          self.setBlank(oSelectedItem?.getTitle())
+        );
+        oModelFilter.setProperty(
+          "/Witht",
+          self.setBlank(oSelectedItem?.data("key"))
+        );
+        oModelFilter.setProperty("/DescEnte", "");
+        oModelFilter.setProperty("/ZzCebenra", "");
+
+        this.unloadFragment();
       },
+
+      onValueHelpEnteBeneficiario: function () {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oModelFilter = self.getModel("Filter");
+        var oDialog = self.loadFragment(
+          "rgssoa.view.fragment.valueHelp.EnteBeneficiario"
+        );
+
+        if (oModelFilter.getProperty("/Witht")) {
+          var aFilters = [];
+
+          self.setFilterEQ(
+            aFilters,
+            "CodRitenuta",
+            oModelFilter.getProperty("/Witht")
+          );
+          self.setFilterEQ(
+            aFilters,
+            "DescRitenuta",
+            oModelFilter.getProperty("/DescRitenuta")
+          );
+        }
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/" + "EnteBeneficiarioSet", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                self.setResponseMessage(oResponse);
+                self.setModelSelectDialog(
+                  "EnteBeneficiario",
+                  data,
+                  "sdEnteBeneficiario",
+                  oDialog
+                );
+              },
+              error: function (error) {},
+            });
+          });
+      },
+
+      onValueHelpEnteBeneficiarioClose: function () {
+        var self = this;
+        //Load Models
+        var oModelFilter = self.getModel("Filter");
+
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+
+        oModelFilter.setProperty(
+          "/DescEnte",
+          self.setBlank(oSelectedItem?.getTitle())
+        );
+        oModelFilter.setProperty(
+          "/ZzCebenra",
+          self.setBlank(oSelectedItem?.data("key"))
+        );
+
+        this.unloadFragment();
+      },
+
+      //#endregion
 
       //#region SELECTION CHANGE
       onFiposFromChange: function (oEvent) {
@@ -233,9 +290,39 @@ sap.ui.define(
 
         oModelFilter.setProperty("/Fistl", oEvent.getParameter("value"));
       },
+
+      onTipologiaAutorizzazioneChange: function (oEvent) {
+        var self = this;
+        var oDataModel = self.getModel();
+        var oModelFilter = self.getModel("Filter");
+
+        var aFilters = [];
+
+        self.setFilterEQ(
+          aFilters,
+          "Ztipodisp2",
+          oModelFilter.getProperty("/Ztipodisp2")
+        );
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/TipoDisp3Set", {
+              filters: aFilters,
+              success: function (data, oResponse) {
+                self.setResponseMessage(oResponse);
+                var oModelJson = new sap.ui.model.json.JSONModel();
+                oModelJson.setData(data.results);
+                self.getView().setModel(oModelJson, "TipoDisp3Set");
+              },
+              error: function (error) {},
+            });
+          });
+      },
       //#endregion
 
-      /** -----------------PRIVATE METHODS------------------- */
+      //#region PRIVATE METHODS
 
       _getSoaList: function () {
         var self = this;
@@ -318,79 +405,81 @@ sap.ui.define(
         var aFilters = [];
         var oModelFilter = self.getModel("Filter");
 
-        console.log(oModelFilter.getData());
-
-        var oAmministrazione = self.getView().byId("fltZzamministr");
-        var oCapitolo = self.getView().byId("fltZcapitolo");
-        var oNumSoaFrom = self.getView().byId("fltZnumsopFrom");
-        var oNumSoaTo = self.getView().byId("fltZnumsopTo");
-        var oStatoSoa = self.getView().byId("fltZcodStatosop");
-        var oChiaveAut = self.getView().byId("fltZchiaveaut");
-        var oTipoAutorizzazione = self.getView().byId("fltZtipodisp2");
-        var oTipoDisposizione = self.getView().byId("fltZtipodisp3");
-        var oTipoSoa = self.getView().byId("fltZztipologia");
-        var oTipoTitolo = self.getView().byId("fltDescTipopag");
-        var oSpecieSoa = self.getView().byId("fltZspecieSop");
-        //Richiesta annullamento
-        var oRichAnnullamento = self.getView().byId("fltZricann");
-        var oDataRegSoaFrom = self.getView().byId("fltZdatasopFrom");
-        var oDataRegSoaTo = self.getView().byId("fltZdatasopTo");
-        //Data Protocollo Amm.
-        var oDataProtAmm = self.getView().byId("fltZdataprot");
-        //Num Protocollo Amm.
-        var oNumProtAmm = self.getView().byId("fltZnumprot");
-        var oBeneficiario = self.getView().byId("fltLifnr");
-        var oRitenuta = self.getView().byId("fltRitenuta");
-        var oEnteBeneficiario = self.getView().byId("fltEnteBeneficiario");
-        //N. Prospetto di liquidazione
-        var oNumProLiquidazioneFrom = self.getView().byId("fltZnumliqFrom");
-        var oNumProLiquidazioneTo = self.getView().byId("fltZnumliqTo");
-        //Descrizione Prospetto di liquidazione
-        var oDescProLiquidazione = self.getView().byId("fltZdescProsp");
-
-        self.setFilterEQValue(aFilters, oAmministrazione);
-        self.setFilterEQValue(aFilters, oCapitolo);
-        self.setFilterBTValue(aFilters, oNumSoaFrom, oNumSoaTo);
-        self.setFilterEQKey(aFilters, oStatoSoa);
-        //TODO - Settarlo quando viene inserito il MC code
-        self.setFilterEQValue(aFilters, oChiaveAut);
-        self.setFilterEQKey(aFilters, oTipoAutorizzazione);
-        self.setFilterEQKey(aFilters, oTipoDisposizione);
-        self.setFilterEQKey(aFilters, oTipoSoa);
-        self.setFilterEQKey(aFilters, oTipoTitolo);
-        self.setFilterEQKey(aFilters, oSpecieSoa);
-        self.setFilterBTValue(aFilters, oDataRegSoaFrom, oDataRegSoaTo);
-        self.setFilterEQValue(aFilters, oDataProtAmm);
-        self.setFilterEQValue(aFilters, oNumProtAmm);
-        self.setFilterEQValue(aFilters, oBeneficiario);
-        self.setFilterEQKeyMC(
-          aFilters,
-          oRitenuta.data("searchPropertyModel"),
-          oRitenuta
-        );
-        self.setFilterEQKeyMC(
-          aFilters,
-          oEnteBeneficiario.data("searchPropertyModel"),
-          oEnteBeneficiario
-        );
-        self.setFilterBTValue(
-          aFilters,
-          oNumProLiquidazioneFrom,
-          oNumProLiquidazioneTo
-        );
-        self.setFilterEQValue(aFilters, oDescProLiquidazione);
-
-        if (oRichAnnullamento?.getSelectedKey() === "Si") {
-          aFilters.push(
-            new Filter(oRichAnnullamento.data("searchPropertyModel"), NE, "")
-          );
-        } else {
-          aFilters.push(
-            new Filter(oRichAnnullamento.data("searchPropertyModel"), EQ, "")
-          );
-        }
-
         self.setFilterEQ(aFilters, "Gjahr", oModelFilter.getProperty("/Gjahr"));
+        self.setFilterEQ(
+          aFilters,
+          "Zzamministr",
+          oModelFilter.getProperty("/Zzamministr")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "Zcapitolo",
+          oModelFilter.getProperty("/Zcapitolo")
+        );
+        self.setFilterBT(
+          aFilters,
+          "Znumsop",
+          oModelFilter.getProperty("/ZnumsopFrom"),
+          oModelFilter.getProperty("/ZnumsopTo")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "ZcodStatosop",
+          oModelFilter.getProperty("/ZstatoSoa")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "Zchiaveaut",
+          oModelFilter.getProperty("/Zchiaveaut")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "Ztipodisp2",
+          oModelFilter.getProperty("/Ztipodisp2")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "Ztipodisp3",
+          oModelFilter.getProperty("/Ztipodisp3")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "Zztipologia",
+          oModelFilter.getProperty("/Zztipologia")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "DescTipopag",
+          oModelFilter.getProperty("/DescTipopag")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "ZspecieSop",
+          oModelFilter.getProperty("/ZspecieSop")
+        );
+        if (oModelFilter.getProperty("/Zricann") === "Si") {
+          aFilters.push(new Filter("Zricann", NE, ""));
+        } else {
+          self.setFilterEQ(aFilters, "Zricann", "");
+        }
+        self.setFilterBT(
+          aFilters,
+          "Zdatasop",
+          oModelFilter.getProperty("/ZdatasopFrom"),
+          oModelFilter.getProperty("/ZdatasopTo")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "Znumprot",
+          oModelFilter.getProperty("/Znumprot")
+        );
+        self.setFilterEQ(aFilters, "Lifnr", oModelFilter.getProperty("/Lifnr"));
+        self.setFilterEQ(aFilters, "Witht", oModelFilter.getProperty("/Witht"));
+        self.setFilterEQ(
+          aFilters,
+          "ZzCebenra",
+          oModelFilter.getProperty("/ZzCebenra")
+        );
         self.setFilterBT(
           aFilters,
           "Fipos",
@@ -398,30 +487,22 @@ sap.ui.define(
           oModelFilter.getProperty("/FiposTo")
         );
         self.setFilterEQ(aFilters, "Fistl", oModelFilter.getProperty("/Fistl"));
+        self.setFilterBT(
+          aFilters,
+          "Znumliq",
+          oModelFilter.getProperty("/ZnumliqFrom"),
+          oModelFilter.getProperty("/ZnumliqTo")
+        );
+        self.setFilterEQ(
+          aFilters,
+          "ZdescProsp",
+          oModelFilter.getProperty("/ZdescProsp")
+        );
 
         return aFilters;
       },
 
-      _getTipoDisponibilitaList: function (aFilters) {
-        var self = this;
-        var oDataModel = self.getModel();
-
-        self
-          .getModel()
-          .metadataLoaded()
-          .then(function () {
-            oDataModel.read("/TipoDisp3Set", {
-              filters: aFilters,
-              success: function (data, oResponse) {
-                self.setResponseMessage(oResponse);
-                var oModelJson = new sap.ui.model.json.JSONModel();
-                oModelJson.setData(data.results);
-                self.getView().setModel(oModelJson, "TipoDisp3Set");
-              },
-              error: function (error) {},
-            });
-          });
-      },
+      //#endregion
     });
   }
 );

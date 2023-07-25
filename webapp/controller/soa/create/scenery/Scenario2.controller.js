@@ -180,34 +180,6 @@ sap.ui.define(
             VisibleNewQuietanzante: false,
             VisibleNewDestinatario: false,
             titleDialog: "Inserisci Modalità di Pagamento",
-            Quietanzante: {
-              Zqnome: "",
-              Zqcognome: "",
-              Zqqualifica: "",
-              Stcd1: "",
-              Zqdatanasc: "",
-              Zqluogonasc: "",
-              Zqprovnasc: "",
-              Zqindiriz: "",
-              Zqcitta: "",
-              Zqcap: "",
-              Zqprovincia: "",
-              Zqtelefono: "",
-            },
-            Destinatario: {
-              Zqnomedest: "",
-              Zqcognomedest: "",
-              Zqqualificadest: "",
-              Stcd1Dest: "",
-              Zqdatanascdest: "",
-              Zqluogonascdest: "",
-              Zqprovnascdest: "",
-              Zqindirizdest: "",
-              Zqcittadest: "",
-              Zqcapdest: "",
-              Zqprovinciadest: "",
-              Zqtelefonodest: "",
-            },
           });
 
           var oModelClassificazione = new JSONModel({
@@ -220,6 +192,38 @@ sap.ui.define(
             ImpTotAssociareCig: "0.00",
             ImpTotAssociareCup: "0.00",
           });
+
+          var oModelNewQuietanzante = new JSONModel({
+            Zqnome: "",
+            Zqcognome: "",
+            Zqqualifica: "",
+            Stcd1: "",
+            Zqdatanasc: "",
+            Zqluogonasc: "",
+            Zqprovnasc: "",
+            Zqindiriz: "",
+            Zqcitta: "",
+            Zqcap: "",
+            Zqprovincia: "",
+            Zqtelefono: "",
+          });
+          self.setModel(oModelNewQuietanzante, "NewQuietanzante");
+
+          var oModelNewDestinatario = new JSONModel({
+            Zqnomedest: "",
+            Zqcognomedest: "",
+            Zqqualificadest: "",
+            Stcd1Dest: "",
+            Zqdatanascdest: "",
+            Zqluogonascdest: "",
+            Zqprovnascdest: "",
+            Zqindirizdest: "",
+            Zqcittadest: "",
+            Zqcapdest: "",
+            Zqprovinciadest: "",
+            Zqtelefonodest: "",
+          });
+          self.setModel(oModelNewDestinatario, "NewDestinatario");
 
           self.setModel(oModelSoa, "Soa");
           self.setModel(oModelPaginator, PAGINATOR_MODEL);

@@ -740,6 +740,7 @@ sap.ui.define(
 
       onNewModalitaPagamento: function () {
         var self = this;
+
         var oFragmentNewModPag = self.loadFragment(
           "rgssoa.view.fragment.pop-up.NewModalitaPagamento"
         );
@@ -840,10 +841,18 @@ sap.ui.define(
       onSaveNewModalitaPagamento: function (oEvent) {
         var self = this;
         var oModelNewModPag = self.getModel("NewModalitaPagamento");
+        var oModelNewQuietanzante = self.getModel("NewQuietanzante");
+
         var oModelSoa = self.getModel("Soa");
         var oModel = self.getModel();
         var oCore = sap.ui.getCore();
         var oDialogNewModPag = oCore.byId("dlgNewModalitaPagamento");
+
+        var oNewQuietanzante = oModelNewQuietanzante.getData();
+
+        oNewQuietanzante.Zqdatanasc = oNewQuietanzante.Zqdatanasc
+          ? new Date(oNewQuietanzante.Zqdatanasc)
+          : null;
 
         var oItem = {
           Lifnr: oModelSoa.getProperty("/Lifnr"),
@@ -868,30 +877,7 @@ sap.ui.define(
             Seqnr: "",
             SIban: oModelNewModPag.getProperty("/SIban"),
           },
-          Quietanzante: {
-            Zqtelefono: oModelNewModPag.getProperty("/Quietanzante/Zqtelefono"),
-            Zqprovincia: oModelNewModPag.getProperty(
-              "/Quietanzante/Zqprovincia"
-            ),
-            Zqcap: oModelNewModPag.getProperty("/Quietanzante/Zqcap"),
-            Zqcitta: oModelNewModPag.getProperty("/Quietanzante/Zqcitta"),
-            Zqindiriz: oModelNewModPag.getProperty("/Quietanzante/Zqindiriz"),
-            Zqprovnasc: oModelNewModPag.getProperty("/Quietanzante/Zqprovnasc"),
-            Zqluogonasc: oModelNewModPag.getProperty(
-              "/Quietanzante/Zqluogonasc"
-            ),
-            Zqdatanasc: oModelNewModPag.getProperty("/Quietanzante/Zqdatanasc")
-              ? new Date(
-                  oModelNewModPag.getProperty("/Quietanzante/Zqdatanasc")
-                )
-              : null,
-            Stcd1: oModelNewModPag.getProperty("/Quietanzante/Stcd1"),
-            Zqqualifica: oModelNewModPag.getProperty(
-              "/Quietanzante/Zqqualifica"
-            ),
-            Zqcognome: oModelNewModPag.getProperty("/Quietanzante/Zqcognome"),
-            Zqnome: oModelNewModPag.getProperty("/Quietanzante/Zqnome"),
-          },
+          Quietanzante: oNewQuietanzante,
           DestinatarioVaglia: {
             Zqindirizdest: oModelNewModPag.getProperty(
               "/Destinatario/Zqindirizdest"
@@ -1035,47 +1021,39 @@ sap.ui.define(
       _resetQuietanzate: function () {
         var self = this;
 
-        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+        var oModelNewQuietanzante = self.getModel("NewQuietanzante");
 
-        var oQuietanzante = oModelNewModPag.getProperty("/Quietanzante");
-
-        oQuietanzante.Zqnome = "";
-        oQuietanzante.Zqcognome = "";
-        oQuietanzante.Zqqualifica = "";
-        oQuietanzante.Stcd1 = "";
-        oQuietanzante.Zqdatanasc = "";
-        oQuietanzante.Zqluogonasc = "";
-        oQuietanzante.Zqprovnasc = "";
-        oQuietanzante.Zqindiriz = "";
-        oQuietanzante.Zqcitta = "";
-        oQuietanzante.Zqcap = "";
-        oQuietanzante.Zqprovincia = "";
-        oQuietanzante.Zqtelefono = "";
-
-        oModelNewModPag.setProperty("/Quietanzante", oQuietanzante);
+        oModelNewQuietanzante.setProperty("/Zqnome", "");
+        oModelNewQuietanzante.setProperty("/Zqcognome", "");
+        oModelNewQuietanzante.setProperty("/Zqqualifica", "");
+        oModelNewQuietanzante.setProperty("/Stcd1", "");
+        oModelNewQuietanzante.setProperty("/Zqdatanasc", "");
+        oModelNewQuietanzante.setProperty("/Zqluogonasc", "");
+        oModelNewQuietanzante.setProperty("/Zqprovnasc", "");
+        oModelNewQuietanzante.setProperty("/Zqindiriz", "");
+        oModelNewQuietanzante.setProperty("/Zqcitta", "");
+        oModelNewQuietanzante.setProperty("/Zqcap", "");
+        oModelNewQuietanzante.setProperty("/Zqprovincia", "");
+        oModelNewQuietanzante.setProperty("/Zqtelefono", "");
       },
 
       _resetDestinatario: function () {
         var self = this;
 
-        var oModelNewModPag = self.getModel("NewModalitaPagamento");
+        var oModelNewDestinatario = self.getModel("NewDestinatario");
 
-        var oDestinatario = oModelNewModPag.getProperty("/Destinatario");
-
-        oDestinatario.Zqnomedest = "";
-        oDestinatario.Zqcognomedest = "";
-        oDestinatario.Zqqualificadest = "";
-        oDestinatario.Stcd1Dest = "";
-        oDestinatario.Zqdatanascdest = "";
-        oDestinatario.Zqluogonascdest = "";
-        oDestinatario.Zqprovnascdest = "";
-        oDestinatario.Zqindirizdest = "";
-        oDestinatario.Zqcittadest = "";
-        oDestinatario.Zqcapdest = "";
-        oDestinatario.Zqprovinciadest = "";
-        oDestinatario.Zqtelefonodest = "";
-
-        oModelNewModPag.setProperty("/Destinatario", oDestinatario);
+        oModelNewDestinatario.setProperty("/Zqnomedest", "");
+        oModelNewDestinatario.setProperty("/Zqcognomedest", "");
+        oModelNewDestinatario.setProperty("/Zqqualificadest", "");
+        oModelNewDestinatario.setProperty("/Stcd1Dest", "");
+        oModelNewDestinatario.setProperty("/Zqdatanascdest", "");
+        oModelNewDestinatario.setProperty("/Zqluogonascdest", "");
+        oModelNewDestinatario.setProperty("/Zqprovnascdest", "");
+        oModelNewDestinatario.setProperty("/Zqindirizdest", "");
+        oModelNewDestinatario.setProperty("/Zqcittadest", "");
+        oModelNewDestinatario.setProperty("/Zqcapdest", "");
+        oModelNewDestinatario.setProperty("/Zqprovinciadest", "");
+        oModelNewDestinatario.setProperty("/.Zqtelefonodest", "");
       },
 
       _setNmpPrevalorizzato: function () {
@@ -1099,6 +1077,41 @@ sap.ui.define(
           error: function (error) {},
           async: false,
         });
+      },
+
+      //#endregion
+
+      //#region CREA ANAGRAFICA BENEFICIARIO
+      onNewBeneficiario: function () {
+        var self = this;
+
+        var oFragmentNewBen = self.loadFragment(
+          "rgssoa.view.fragment.pop-up.NewBeneficiario"
+        );
+
+        oFragmentNewBen.open();
+
+        var oDialogNewBen = sap.ui.getCore().byId("dlgNewBeneficiario");
+        oDialogNewBen.attachBrowserEvent("keydown", function (oEvent) {
+          if (oEvent.key === "Escape") {
+            oEvent.stopPropagation();
+          }
+        });
+      },
+
+      onBackNewBeneficiario: function () {
+        var self = this;
+        var oCore = sap.ui.getCore();
+        var oDialogNewBen = oCore.byId("dlgNewBeneficiario");
+
+        oDialogNewBen.close();
+        self.unloadFragment();
+      },
+
+      onSaveNewBeneficiario: function () {
+        var self = this;
+        var oModelNewBeneficiario = self.getModel("NewBeneficiario");
+        console.log(oModelNewBeneficiario.getData());
       },
 
       //#endregion

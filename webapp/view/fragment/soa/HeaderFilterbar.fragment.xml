@@ -35,7 +35,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZzamministr}"	class="filterLabel"/>
-				<Input id="fltZzamministr" app:searchPropertyModel="Zzamministr"/>		
+				<Input value="{Filter>/Zzamministr}"/>		
 			</items>
 		</VBox>
 		
@@ -45,7 +45,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>inputCapitolo}" class="filterLabel"/>
-				<Input id="fltZcapitolo" app:searchPropertyModel="Zcapitolo"/>
+				<Input value="{Filter>/Zcapitolo}"/>
 			</items>
 		</VBox>
 		
@@ -55,7 +55,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZnumsopFrom}" class="filterLabel"/>
-					<Input id="fltZnumsopFrom" app:searchPropertyModel="Znumsop"/>
+					<Input value="{Filter>/ZnumsopFrom}"/>
 			</items>
 		</VBox>
 		
@@ -65,7 +65,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZnumsopTo}" class="filterLabel"/>
-					<Input id="fltZnumsopTo"/>
+					<Input value="{Filter>/ZnumsopTo}"/>
 			</items>
 		</VBox>
 		
@@ -76,11 +76,10 @@
 			<items>
 				<Label text="{i18n>soaFilterZcodStatosop}" class="filterLabel"/>
 				<ComboBox 
-					id="fltZcodStatosop" 
 					width="100%" 
 					items="{path: '/StateSOASet'}" 
-					selectedKey="TU" 
-					app:searchPropertyModel="ZcodStatosop">
+					selectedKey="{Filter>/ZstatoSoa}" 
+				>
 					<c:Item key="{ZstatoSoa}" text="{ZdescStatoSoa}" />
 				</ComboBox>
 			</items>
@@ -92,7 +91,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZchiaveaut}" class="filterLabel" required="true"/>
-				<Input id="fltZchiaveaut" app:searchPropertyModel="Zchiaveaut"/>
+				<Input value="{Filter>/Zchiaveaut}"/>
 			</items>
 		</VBox>
 		
@@ -103,12 +102,11 @@
 			<items>
 				<Label text="{i18n>soaFilterZtipodisp2}" class="filterLabel"/>
 					<ComboBox
-							id="fltZtipodisp2"
 							width="100%"
-							selectedKey="000"
+							selectedKey="{Filter>/Ztipodisp2}"
 							selectionChange="onTipologiaAutorizzazioneChange"
 							items="{path:'/TipoDisp2Set'}"
-							app:searchPropertyModel="Ztipodisp2">
+							>
 							<c:Item key="{Ztipodisp2}" text="{Zdesctipodisp2}" />					
 					</ComboBox>
 			</items>
@@ -121,11 +119,10 @@
 			<items>
 				<Label text="{i18n>soaFilterZtipodisp3}" class="filterLabel"/>
 				<ComboBox
-					id="fltZtipodisp3"
 					width="100%"
-					selectedKey="000"
+					selectedKey="{Filter>/Ztipodisp3}"
 					items="{path:'TipoDisp3Set>/'}"
-					app:searchPropertyModel="Ztipodisp3">
+				>
 					<c:Item key="{TipoDisp3Set>Ztipodisp3}" text="{TipoDisp3Set>Zdesctipodisp3}"/>
 				</ComboBox>			
 			</items>
@@ -138,11 +135,10 @@
 			<items>
 				<Label text="{i18n>soaFilterZztipologia}" class="filterLabel"/>
 				<ComboBox
-						id="fltZztipologia"
 						width="100%"
-						selectedKey="0"
+						selectedKey="{Filter>/Zztipologia}"
 						items="{path:'/TipoSOASet'}"
-						app:searchPropertyModel="Zztipologia">
+					>
 						<c:Item key="{ZtipoSoa}" text="{ZdescTipoSoa}" />					
 				</ComboBox>
 			</items>
@@ -155,11 +151,9 @@
 			<items>
 				<Label text="{i18n>soaFilterDescTipopag}" class="filterLabel" />
 					<ComboBox 
-					id="fltDescTipopag" 
 					width="100%" 
 					items="{path: '/TipoPagSet'}" 
-					selectedKey="TUTTI"
-					app:searchPropertyModel="DescTipopag"
+					selectedKey="{Filter>/DescTipopag}"
 					>
 						<c:Item key="{Low}" text="{Low}" />
 					</ComboBox>
@@ -173,11 +167,10 @@
 			<items>
 				<Label text="{i18n>soaFilterZspecieSop}" class="filterLabel"/>
 					<ComboBox
-						id="fltZspecieSop"
 						width="100%"
-						selectedKey="0"
+						selectedKey="{Filter>/ZspecieSop}"
 						items="{path:'/SpecieSOASet'}"
-						app:searchPropertyModel="ZspecieSop">
+					>
 						<c:Item key="{ZspecieSoa}" text="{ZdescSpecieSoa}" />					
 				</ComboBox>
 			</items>
@@ -190,10 +183,8 @@
 			<items>
 				<Label text="{i18n>soaFilterZricann}" class="filterLabel"/>
 				<ComboBox 
-					id="fltZricann" 
 					width="100%" 
-					selectedKey="{i18n>itemNo}" 
-					app:searchPropertyModel="Zricann"
+					selectedKey="{Filter>/Zricann}" 
 				>
 					<c:Item  key="{i18n>itemNo}" text="{i18n>itemNo}" />	
 					<c:Item  key="{i18n>itemYes}" text="{i18n>itemYes}" />		
@@ -207,11 +198,14 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZdatasopFrom}" class="filterLabel"/>
-				<DatePicker
-					id="fltZdatasopFrom"								
+				<DatePicker								
           valueFormat="yyyy-MM-dd"
           displayFormat="dd.MM.yyyy"
-					app:searchPropertyModel="Zdatasop"
+					value="{
+									path: 'Filter>/ZdatasopFrom',
+									type: 'sap.ui.model.type.Date',
+									formatOptions: {pattern: 'dd.MM.yyyy'}
+								}"
 				/>	
 			</items>
 		</VBox>
@@ -222,10 +216,15 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZdatasopTo}" class="filterLabel"/>
-				<DatePicker
-					id="fltZdatasopTo"								
+				<DatePicker							
           valueFormat="yyyy-MM-dd"
-          displayFormat="dd.MM.yyyy"/>	
+          displayFormat="dd.MM.yyyy"
+					value="{
+									path: 'Filter>/ZdatasopTo',
+									type: 'sap.ui.model.type.Date',
+									formatOptions: {pattern: 'dd.MM.yyyy'}
+								}"
+				/>	
 			</items>
 		</VBox>
 		
@@ -235,11 +234,14 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZdataprot}" class="filterLabel"/>
-				<DatePicker
-					id="fltZdataprot"								
+				<DatePicker							
           valueFormat="yyyy-MM-dd"
           displayFormat="dd.MM.yyyy"
-					app:searchPropertyModel="Zdataprot"
+					value="{
+									path: 'Filter>/Zdataprot',
+									type: 'sap.ui.model.type.Date',
+									formatOptions: {pattern: 'dd.MM.yyyy'}
+								}"
 					/>	
 			</items>
 		</VBox>
@@ -250,7 +252,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>soaFilterZnumprot}" class="filterLabel"/>
-					<Input id="fltZnumprot" app:searchPropertyModel="Znumprot"/>
+					<Input value="{Filter>/Znumprot}"/>
 			</items>
 		</VBox>
 		
@@ -260,7 +262,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>filterBeneficiario}" class="filterLabel"/>
-					<Input id="fltLifnr" app:searchPropertyModel="Lifnr"/>
+					<Input value="{Filter>/Lifnr}"/>
 			</items>
 		</VBox>
 		
@@ -271,13 +273,11 @@
 			<items>
 				<Label text="{i18n>soaFilterWitht}" class="filterLabel"/>
 				<Input
-					id="fltRitenuta"
 					valueHelpRequest="onValueHelpRitenuta"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdRitenuta"
-					app:fragmentName="Ritenuta"
-					app:searchPropertyModel="Witht"
+					app:key="{Filter>/Witht}"
+					value="{Filter>/DescRitenuta}"
 				/>			
 			</items>
 		</VBox>
@@ -289,13 +289,11 @@
 			<items>
 				<Label text="{i18n>soaFilterZzCebenra}" class="filterLabel"/>
 				<Input
-					id="fltEnteBeneficiario"
 					valueHelpRequest="onValueHelpEnteBeneficiario"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdEnteBeneficiario"
-					app:fragmentName="EnteBeneficiario"
-					app:searchPropertyModel="ZzCebenra"
+					app:key="{Filter>/ZzCebenra}"
+					value="{Filter>/DescEnte}"
 				/>						
 			</items>
 		</VBox>
@@ -368,7 +366,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>filterZnumliqFrom}" class="filterLabel"/>
-					<Input id="fltZnumliqFrom" app:searchPropertyModel="Znumliq"/>
+					<Input value="{Filter>/ZnumliqFrom}"/>
 			</items>
 		</VBox>
 
@@ -378,7 +376,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>filterZnumliqTo}" class="filterLabel"/>
-					<Input id="fltZnumliqTo"/>
+					<Input value="{Filter>/ZnumliqTo}"/>
 			</items>
 		</VBox>
 
@@ -388,7 +386,7 @@
 			</layoutData>
 			<items>
 				<Label text="{i18n>filterZdescProsp}" class="filterLabel"/>
-					<Input id="fltZdescProsp" app:searchPropertyModel="ZdescProsp"/>
+					<Input value="{Filter>/ZdescProsp}"/>
 			</items>
 		</VBox>
 

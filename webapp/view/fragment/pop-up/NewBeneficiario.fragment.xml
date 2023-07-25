@@ -1,7 +1,6 @@
 <c:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
-  xmlns:l="sap.ui.layout"
 >
 <Dialog 
   id="dlgNewBeneficiario"
@@ -10,198 +9,14 @@
   
 >
   <content>
-  <Panel 
-      backgroundDesign="Transparent">
-      <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
-        <Label 
-          text="{i18n>inputPaese}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-          required="true"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Label>
-        <Input>
-          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
-        </Input>
-        <Input>
-          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
-        </Input>
-
-        <Label 
-          text="{i18n>inputCatBeneficiario}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-          required="true"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-        </Label>
-        <ComboBox
-          width="100%"
-          items="{path: '/NabCategoriaBeneficiarioSet'}"
-        >
-					<c:Item key="{SType}" text="{Descrizione}" />
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </ComboBox>
-
-        <Text
-          text="{i18n>inputRagSociale}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-        </Text>
-        <Input
-          editable="{= ${NewBeneficiario>/SType} === '2' ? true : false}"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-
-        <Text
-          text="{i18n>inputNome}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-        </Text>
-        <Input
-          editable="{= ${NewBeneficiario>/SType} === '1' ? true : false}"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-
-        <Text
-          text="{i18n>inputCognome}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-        </Text>
-        <Input
-          editable="{= ${NewBeneficiario>/SType} === '1' ? true : false}"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-
-        <Label
-          text="{i18n>inputVia}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-          required="true"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-        </Label>
-        <Input>
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-        <Label
-          text="{i18n>inputNumCivico}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-          required="true"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
-        </Label>
-        <Input>
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-
-        <Label
-          text="{i18n>inputLocalita}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-          required="true"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-        </Label>
-        <Input>
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-        <Label
-          text="{i18n>inputProvincia}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-          required="true"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
-        </Label>
-        <Input>
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-
-        <Label
-          text="{i18n>inputCap}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-          required="true"
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-        </Label>
-        <Input>
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-        </Input>
-        <Text 
-          text="{i18n>inputSedeLegale}" 
-          class="sapUiTinyMarginTop sapUiLargeMarginEnd"  
-        >
-          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
-        </Text>
-        <CheckBox
-          editable="{= ${NewBeneficiario>/SType} === '1' || ${NewBeneficiario>/SCountry} === 'IT' ? true : false}"
-        >
-          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
-        </CheckBox>
-        
-      </l:Grid>
-  </Panel>
-
-  <Panel backgroundDesign="Transparent">
-    <headerToolbar>
-      <OverflowToolbar>
-        <Title text="{i18n>titleDatiFiscali}" />
-      </OverflowToolbar>
-    </headerToolbar>
-    <content>
-        <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
-            <Text
-              text="{i18n>inputCF}" 
-              class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-            > 
-              <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-            </Text>
-            <Input
-              editable="{= ${NewBeneficiario>/SCountry} === 'IT' ? true : false}"
-            >
-              <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-            </Input>
-
-            <Text
-              text="{i18n>inputPartitaIva}" 
-              class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-            > 
-              <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-            </Text>
-            <Input
-              editable="{= ${NewBeneficiario>/SCountry} === 'IT' ? true : false}"
-            >
-              <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-            </Input>
-
-            <Text
-              text="{i18n>inputIdeFiscaleEstero}" 
-              class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-            > 
-              <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
-            </Text>
-            <Input
-              editable="{= ${NewBeneficiario>/SCountry} !== 'IT' ? true : false}"
-            >
-              <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
-            </Input>
-        </l:Grid>
-    </content>
-
-  </Panel>
-
-  <Panel 
-      backgroundDesign="Transparent">
-      <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
-      </l:Grid>
-  </Panel>
+    <c:Fragment fragmentName="rgssoa.view.fragment.panel.NewBeneficiarioDatiAnagrafica" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.panel.NewBeneficiarioDatiFiscali" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.panel.NewBeneficiarioDatiPagamento" type="XML"/>
   </content>
+
   <buttons>
     <Button text="{i18n>btnBack}" press="onBackNewBeneficiario" type="Emphasized"/>
-    <Button text="{i18n>btnSave}" type="Emphasized"/>
+    <Button text="{i18n>btnSave}" press="onSaveNewBeneficiario" type="Emphasized"/>
   </buttons>
 </Dialog>
 </c:FragmentDefinition>

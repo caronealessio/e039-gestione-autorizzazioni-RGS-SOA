@@ -19,6 +19,7 @@
 					text="{i18n>btnNewBeneficiario}"
 					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
 					type="Emphasized"
+					press="onNewBeneficiario"
 				/>
       </OverflowToolbar>
     </headerToolbar>

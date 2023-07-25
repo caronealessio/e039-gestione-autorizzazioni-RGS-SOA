@@ -1,0 +1,172 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+  xmlns:l="sap.ui.layout"
+>
+  <Panel 
+      backgroundDesign="Transparent"
+  >
+      <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
+        <Label 
+          text="{i18n>inputPaese}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Label>
+        <ComboBox
+          width="100%"
+          selectedKey="{NewBeneficiario>/SCountry}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </ComboBox>
+        <Input
+          editable="false"
+          value="{NewBeneficiario>/DescPaeseResidenza}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Label 
+          text="{i18n>inputCatBeneficiario}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Label>
+        <ComboBox
+          width="100%"
+          items="{path: '/NabCategoriaBeneficiarioSet'}"
+          selectedKey="{NewBeneficiario>/SType}"
+        >
+					<c:Item key="{SType}" text="{Descrizione}" />
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </ComboBox>
+
+        <Text
+          text="{i18n>inputRagSociale}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewBeneficiario>/SType} === '2' ? true : false}"
+          value="{NewBeneficiario>/SRagsoc}"
+          maxLength="60"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Text
+          text="{i18n>inputNome}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewBeneficiario>/SType} === '1' ? true : false}"
+          value="{NewBeneficiario>/SName}"
+          maxLength="40"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Text
+          text="{i18n>inputCognome}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewBeneficiario>/SType} === '1' ? true : false}"
+          value="{NewBeneficiario>/SSurname}"
+          maxLength="40"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Label
+          text="{i18n>inputVia}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Label>
+        <Input
+          value="{NewBeneficiario>/SStreet}"
+          maxLength="60"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+        <Label
+          text="{i18n>inputNumCivico}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
+        </Label>
+        <Input
+          value="{NewBeneficiario>/SHousenum}"
+          maxLength="10"
+          type="Number"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Label
+          text="{i18n>inputLocalita}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Label>
+        <Input
+          value="{NewBeneficiario>/SCity}"
+          maxLength="40"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+        <Label
+          text="{i18n>inputProvincia}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
+        </Label>
+        <Input
+          value="{NewBeneficiario>/SRegion}"
+          maxLength="3"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Label
+          text="{i18n>inputCap}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Label>
+        <Input
+          value="{NewBeneficiario>/SPstlz}"
+          maxLength="10"
+          type="Number"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text 
+          text="{i18n>inputSedeLegale}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"  
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
+        </Text>
+        <CheckBox
+          editable="{= ${NewBeneficiario>/SType} === '1' || ${NewBeneficiario>/SCountry} === 'IT' ? true : false}"
+          selected="{NewBeneficiario>/SSedelegale}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </CheckBox>
+        
+      </l:Grid>
+  </Panel>
+</c:FragmentDefinition>

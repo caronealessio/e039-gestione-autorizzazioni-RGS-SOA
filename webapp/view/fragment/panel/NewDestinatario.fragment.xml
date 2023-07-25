@@ -1,0 +1,162 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+  xmlns:l="sap.ui.layout"
+>
+<Panel 
+      id="pnlNewDestinatario"
+      backgroundDesign="Transparent"
+      visible="{NewModalitaPagamento>/VisibleNewDestinatario}">
+      <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
+        <Label 
+          text="{i18n>inputCognome}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Label>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqcognomedest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Label 
+          text="{i18n>inputNome}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Label>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqnomedest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text 
+          text="{i18n>inputCF}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Stcd1Dest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text 
+          text="{i18n>inputQualifica}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqqualificadest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+
+
+        <Text 
+          text="{i18n>inputDataNascita}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <DatePicker
+          value="{NewModalitaPagamento>/Destinatario/Zqdatanascdest}"
+          width="100%"
+          valueFormat="yyyy-MM-dd"
+          displayFormat="dd.MM.yyyy"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </DatePicker>
+        <Text 
+          text="{i18n>inputLuogoNascita}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqluogonascdest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text 
+          text="{i18n>inputProvinciaNascita}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqprovnascdest}"
+          maxLength="3"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Label
+          text="{i18n>inputIndirizzo}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Label>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqindirizdest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+
+
+        <Label 
+          text="{i18n>inputCitta}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Label>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqcittadest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Label 
+          text="{i18n>inputCap}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Label>
+        <Input
+          type="Number"
+          value="{NewModalitaPagamento>/Destinatario/Zqcapdest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Label 
+          text="{i18n>inputProvinciaResidenza}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+          required="true"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Label>
+        <Input
+          value="{NewModalitaPagamento>/Destinatario/Zqprovinciadest}"
+          maxLength="3"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text 
+          text="{i18n>inputTelefono}" 
+          class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          type="Number"
+          value="{NewModalitaPagamento>/Destinatario/Zqtelefonodest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+      </l:Grid>
+    </Panel>
+</c:FragmentDefinition>

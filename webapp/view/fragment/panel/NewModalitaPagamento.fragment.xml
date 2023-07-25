@@ -1,0 +1,188 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+  xmlns:l="sap.ui.layout"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+    <Panel 
+      id="pnlNewModalitaPagamento"
+      backgroundDesign="Transparent"
+      visible="{NewModalitaPagamento>/VisibleNewModalitaPagamento}">
+      <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
+        <Text 
+          text="{i18n>labelCodiceBeneficiario}" class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          editable="false"
+          value="{Soa>/Lifnr}"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Label text="{i18n>labelModalitaPagamento}" class="sapUiTinyMarginTop sapUiLargeMarginEnd" required="true">  
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Label>
+        <ComboBox
+          width="100%" 
+          items="{path: 'NmpModalitaPagamento>/'}"
+          selectionChange="onNewModalitaPagamentoChange"
+        >
+          <c:Item 
+            key="{NmpModalitaPagamento>SZwels}" 
+            text="{NmpModalitaPagamento>SZdescwels}"
+            app:SType="{NmpModalitaPagamento>SType}" 
+          /> 
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </ComboBox>
+
+        <Text text="{i18n>inputIban}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <Input 
+          editable="{= ${NewModalitaPagamento>/SZwels} !== 'ID6' &amp;&amp; ${NewModalitaPagamento>/SZwels} !== '' ? true : false}"
+          value="{NewModalitaPagamento>/SIban}"
+        >
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text text="{i18n>inputPaeseResidenza}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+
+          <Input
+            editable="{= ${NewModalitaPagamento>/SZwels} === 'ID6' || ${NewModalitaPagamento>/SZwels} === 'ID5' ? true : false}"
+            value="{NewModalitaPagamento>/SCountryRes}"
+            change="onNmpPaeseResidenzaChange"
+          >
+            <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+          </Input>
+          <Text text="{NewModalitaPagamento>/DescPaeseResidenza}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+            <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+          </Text >
+        <Text text="{i18n>inputTipoFirma}" class="sapUiTinyMarginTop sapUiLargeMarginEnd" width="100%">
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" indent="XL2" linebreakM="true"/></layoutData>
+        </Text>
+        <ComboBox
+          width="100%"
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID1' ? true : false}"
+          items="{path: '/NmpZtipofirmaSet'}"
+          selectedKey="{NewModalitaPagamento>/Ztipofirma}"
+          selectionChange="onNmpTipoFirmaChange"
+        >
+          <c:Item key="{Ztipofirma}" text="{Descrizione}"/> 
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </ComboBox>
+
+        <Text text="{i18n>inputBic}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID6' ? true : false}"
+          value="{NewModalitaPagamento>/Swift}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text text="{i18n>inputCoordinateEstere}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID6' ? true : false}"
+          value="{NewModalitaPagamento>/Zcoordest}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Text text="{i18n>inputInizioValidita}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <DatePicker				
+            valueFormat="yyyy-MM-dd"
+            displayFormat="dd.MM.yyyy"
+          editable="{= ${NewModalitaPagamento>/SZwels} !== '' ? true : false}"
+          value="{
+                    path: 'NewModalitaPagamento>/ValidFromDats',
+                    type: 'sap.ui.model.type.Date',
+                    formatOptions: {pattern: 'dd.MM.yyyy'}
+                  }"
+				>
+					<layoutData><l:GridData span="XL1 L2 M6 S12"/></layoutData>
+				</DatePicker>
+        <Text text="{i18n>inputFineValidita}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
+        </Text>
+        <DatePicker				
+            valueFormat="yyyy-MM-dd"
+            displayFormat="dd.MM.yyyy"
+          editable="{= ${NewModalitaPagamento>/SZwels} !== '' ? true : false}"
+          value="{
+                    path: 'NewModalitaPagamento>/ValidToDats',
+                    type: 'sap.ui.model.type.Date',
+                    formatOptions: {pattern: 'dd.MM.yyyy'}
+                  }"
+
+				>
+					<layoutData><l:GridData span="XL1 L2 M6 S12"/></layoutData>
+				</DatePicker>
+        
+        <Text text="{i18n>inputEsercizio}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID4' ? true : false}"
+          value="{NewModalitaPagamento>/Gjahr}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text text="{i18n>inputCapo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID4' ? true : false}"
+          value="{NewModalitaPagamento>/Zcapo}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text text="{i18n>inputCapitolo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID4' ? true : false}"
+          value="{NewModalitaPagamento>/Zcapitolo}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text text="{i18n>inputArticolo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID4' ? true : false}"
+          value="{NewModalitaPagamento>/Zarticolo}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+
+        <Text text="{i18n>inputContoTesoreria}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
+        </Text>
+        <Input
+          editable="{= ${NewModalitaPagamento>/SZwels} === 'ID3' ? true : false}"
+          value="{NewModalitaPagamento>/Zconto}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+        <Text text="{i18n>inputDescrizione}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
+          <layoutData><l:GridData  span="XL2 L2 M6 S12" indent="XL1"/></layoutData>
+        </Text>
+        <Input 
+          editable="false"
+          value="{NewModalitaPagamento>/ZdescConto}"
+        >
+          <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
+        </Input>
+      </l:Grid>
+    </Panel>
+
+    <c:Fragment fragmentName="rgssoa.view.fragment.panel.NewQuietanzante" type="XML"/>
+    <c:Fragment fragmentName="rgssoa.view.fragment.panel.NewDestinatario" type="XML"/>
+</c:FragmentDefinition>
