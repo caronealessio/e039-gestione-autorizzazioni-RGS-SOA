@@ -10,7 +10,6 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpIbanClose"
 		cancel="onValueHelpIbanClose"
-    app:input="iptIbanBeneficiario"
 		app:FilterValueHelp="Iban"
 		items="{path: 'IbanBeneficiario>/'}">		
 		<StandardListItem

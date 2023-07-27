@@ -10,13 +10,12 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpCoordEstereClose"
 		cancel="onValueHelpCoordEstereClose"
-    app:input="iptCoordEstere"
 		app:FilterValueHelp="Zcoordest"
 		items="{path: 'CoordinateEstere>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
       title="{CoordinateEstere>Zcoordest}"
-      app:swift="{CoordinateEstere>Swift}̋"/>
+      app:Swift="{CoordinateEstere>Swift}̋"/>
 	</SelectDialog>
 </c:FragmentDefinition>

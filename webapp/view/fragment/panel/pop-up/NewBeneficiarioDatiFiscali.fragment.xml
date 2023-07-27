@@ -3,7 +3,7 @@
 	xmlns:c="sap.ui.core"
   xmlns:l="sap.ui.layout"
 >
-<Panel backgroundDesign="Transparent">
+<Panel backgroundDesign="Transparent" visible="{NewAnagraficaBen>/VisibleNewBeneficiario}">
     <headerToolbar>
       <OverflowToolbar>
         <Title text="{i18n>titleDatiFiscali}" />
@@ -18,8 +18,8 @@
               <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
             </Text>
             <Input
-              editable="{= ${NewBeneficiario>/SCountry} === 'IT' ? true : false}"
-              value="{NewBeneficiario>/SStcd1}"
+              editable="{= ${NewAnagraficaBen>/Beneficiario/SCountry} === 'IT' ? true : false}"
+              value="{NewAnagraficaBen>/Beneficiario/SStcd1}"
               maxLength="20"
             >
               <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
@@ -32,8 +32,8 @@
               <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
             </Text>
             <Input
-              editable="{= ${NewBeneficiario>/SCountry} === 'IT' ? true : false}"
-              value="{NewBeneficiario>/SStcd2}"
+              editable="{= ${NewAnagraficaBen>/Beneficiario/SCountry} === 'IT' ? true : false}"
+              value="{NewAnagraficaBen>/Beneficiario/SStcd2}"
               maxLength="20"
             >
               <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
@@ -46,8 +46,8 @@
               <layoutData><l:GridData  span="XL2 L2 M6 S12" linebreak="true"/></layoutData>
             </Text>
             <Input
-              editable="{= ${NewBeneficiario>/SCountry} !== 'IT' ? true : false}"
-              value="{NewBeneficiario>/SStcd3}"
+              editable="{= ${NewAnagraficaBen>/Beneficiario/SCountry} !== 'IT' ? true : false}"
+              value="{NewAnagraficaBen>/Beneficiario/SStcd3}"
               maxLength="60"
             >
               <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>

@@ -6,7 +6,8 @@
 <Panel 
       id="pnlNewDestinatario"
       backgroundDesign="Transparent"
-      visible="{NewModalitaPagamento>/VisibleNewDestinatario}">
+      visible="{NewAnagraficaBen>/VisibleNewDestinatario}"
+>
       <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
         <Label 
           text="{i18n>inputCognome}" 
@@ -16,7 +17,8 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Label>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqcognomedest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqcognomedest}"
+          maxLength="50"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -28,7 +30,8 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Label>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqnomedest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqnomedest}"
+          maxLength="50"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -39,7 +42,8 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Text>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Stcd1Dest}"
+          value="{NewAnagraficaBen>/Destinatario/Stcd1Dest}"
+          maxLength="16"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -50,7 +54,8 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Text>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqqualificadest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqqualificadest}"
+          maxLength="50"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -63,10 +68,14 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Text>
         <DatePicker
-          value="{NewModalitaPagamento>/Destinatario/Zqdatanascdest}"
           width="100%"
           valueFormat="yyyy-MM-dd"
           displayFormat="dd.MM.yyyy"
+          value="{
+                path: 'NewAnagraficaBen>/Destinatario/Zqdatanascdest',
+                type: 'sap.ui.model.type.Date',
+                formatOptions: {pattern: 'dd.MM.yyyy'}
+              }"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </DatePicker>
@@ -77,7 +86,8 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Text>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqluogonascdest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqluogonascdest}"
+          maxLength="40"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -88,7 +98,7 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Text>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqprovnascdest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqprovnascdest}"
           maxLength="3"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
@@ -101,7 +111,8 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Label>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqindirizdest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqindirizdest}"
+          maxLength="40"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -115,7 +126,8 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Label>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqcittadest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqcittadest}"
+          maxLength="40"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -128,7 +140,8 @@
         </Label>
         <Input
           type="Number"
-          value="{NewModalitaPagamento>/Destinatario/Zqcapdest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqcapdest}"
+          maxLength="10"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>
@@ -140,7 +153,7 @@
           <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
         </Label>
         <Input
-          value="{NewModalitaPagamento>/Destinatario/Zqprovinciadest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqprovinciadest}"
           maxLength="3"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
@@ -153,7 +166,8 @@
         </Text>
         <Input
           type="Number"
-          value="{NewModalitaPagamento>/Destinatario/Zqtelefonodest}"
+          value="{NewAnagraficaBen>/Destinatario/Zqtelefonodest}"
+          maxLength="20"
         >
           <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
         </Input>

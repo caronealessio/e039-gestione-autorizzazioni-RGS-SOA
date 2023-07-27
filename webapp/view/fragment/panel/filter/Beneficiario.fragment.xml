@@ -2,7 +2,6 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
   xmlns:l="sap.ui.layout"
-  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
   <Panel backgroundDesign="Transparent">
 		<headerToolbar>
@@ -17,12 +16,16 @@
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
 				<ComboBox
-					id="fltTipoBeneficiario" 
 					width="100%"
 					items="{path: '/TipologiaBeneficiarioSet'}"
-					selectedKey="{Beneficiario>/TypeBen}"
-					change="onTipoBeneficiarioChange"
-					app:searchPropertyModel="TipoBeneficiario"
+					selectedKey="{FilterDocumenti>/TipoBeneficiario}"
+					editable="{= 	${FilterDocumenti>/CodRitenuta} ||
+												${FilterDocumenti>/CodEnte} ||
+												${FilterDocumenti>/QuoteEsigibili} === false ||
+												${FilterDocumenti>/DataEsigibilitaFrom} ||
+												${FilterDocumenti>/DataEsigibilitaTo} 
+												? false : true
+										}"
 				>
 					<c:Item key="{CodTipoBen}" text="{DescTipoBen}" />
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
@@ -30,15 +33,18 @@
 				<Text text="{i18n>filterBeneficiario}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-				<!-- TODO - Eliminare value -->
 				<Input
-					id="fltBeneficiario"
 					valueHelpRequest="onValueHelpBeneficiario"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdBeneficiario"
-					app:fragmentName="Beneficiario"
-					app:searchPropertyModel="Lifnr"
+					value="{FilterDocumenti>/Lifnr}"
+					editable="{= 	${FilterDocumenti>/CodRitenuta} ||
+							${FilterDocumenti>/CodEnte} ||
+							${FilterDocumenti>/QuoteEsigibili} === false ||
+							${FilterDocumenti>/DataEsigibilitaFrom} ||
+							${FilterDocumenti>/DataEsigibilitaTo} 
+							? false : true
+					}"
 				>
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>
@@ -50,19 +56,19 @@
 					<Text text="{i18n>soaFilterName}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 						<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 					</Text>
-          <Input value="{Beneficiario>/Name}" editable="false">
+          <Input value="{Soa>/NameFirst}" editable="false">
             <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				  </Input >
           <Text text="{i18n>soaFilterSurname}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 						<layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
 					</Text>
-          <Input value="{Beneficiario>/Surname}" editable="false">
+          <Input value="{Soa>/NameLast}" editable="false">
             <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				  </Input>
           <Text text="{i18n>soaFilterRagSociale}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 						<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 					</Text>
-          <Input value="{Beneficiario>/RagSociale}" editable="false">
+          <Input value="{Soa>/ZzragSoc}" editable="false">
             <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				  </Input>
 				</l:Grid>
@@ -73,19 +79,19 @@
 				<Text text="{i18n>soaFilterCF}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-				<Input value="{Beneficiario>/CodFiscale}" editable="false">
+				<Input value="{Soa>/TaxnumCf}" editable="false">
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>
 				<Text text="{i18n>soaFilterCFEstero}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-				<Input value="{Beneficiario>/CodFiscaleEstero}" editable="false">
+				<Input value="{Soa>/Taxnumxl}" editable="false">
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>
         <Text text="{i18n>soaFilterPIVA}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
           <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
         </Text>
-				<Input value="{Beneficiario>/PIva}" editable="false">
+				<Input value="{Soa>/TaxnumPiva}" editable="false">
 					<layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
 				</Input>
 			</l:Grid>

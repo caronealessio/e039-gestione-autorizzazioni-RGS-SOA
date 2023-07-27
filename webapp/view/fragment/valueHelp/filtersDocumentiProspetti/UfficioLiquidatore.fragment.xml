@@ -1,24 +1,25 @@
 <c:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
-  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
-<SelectDialog
+	<SelectDialog
 		id="sdUfficioLiquidatore"
-    noDataText="{i18n>noUffLiquidatore}"
+		noDataText="{i18n>noUffLiquidatore}"
 		title="{i18n>labelUffLiquidatore}"
 		search="onValueHelpChange"
-		confirm="onValueHelpMultiDialogClose"
-		cancel="onValueHelpMultiDialogClose"
-    app:input="fltUffLiquidatore"
+		confirm="onValueHelpUffLiquidatoreClose"
+		cancel="onValueHelpUffLiquidatoreClose"
 		app:FilterValueHelp="Zuffliq"
-		items="{path: 'UfficioLiquidatore>/'}"	
-    multiSelect="true"
-  >
+		items="{
+			path: 'UfficioLiquidatore>/'
+		}"
+		multiSelect="true"
+	>
 		<StandardListItem
-      iconDensityAware="false"
-      iconInset="false"
-      title="{UfficioLiquidatore>Zuffliq}"
+			iconDensityAware="false"
+			iconInset="false"
+			title="{UfficioLiquidatore>Zuffliq}"
 		/>
 	</SelectDialog>
 </c:FragmentDefinition>

@@ -4,11 +4,11 @@
 >
   <Dialog 
     id="dlgNewModalitaPagamento"
-    title="{NewModalitaPagamento>/titleDialog}"
+    title="{NewAnagraficaBen>/TitleDialogNewModPag}"
     contentWidth="100%" 
   >
     <content>
-      <c:Fragment fragmentName="rgssoa.view.fragment.panel.NewModalitaPagamento" type="XML"/>
+      <c:Fragment fragmentName="rgssoa.view.fragment.panel.pop-up.NewModalitaPagamento" type="XML"/>
     </content>
       <buttons>
       <Button text="{i18n>btnBack}" press="onBackNewModalitaPagamento" type="Emphasized"/>
@@ -16,19 +16,19 @@
         text="{i18n>btnNewDestinatario}" 
         press="onNewDestinatario" 
         type="Emphasized" 
-        visible="{NewModalitaPagamento>/VisibleNewModalitaPagamento}"
-        enabled="{= ${NewModalitaPagamento>/SZwels} === 'ID2' ? true : false}"/>
+        visible="{NewAnagraficaBen>/VisibleNewModalitaPagamento}"
+        enabled="{= ${NewAnagraficaBen>/ModalitaPagamento/SZwels} === 'ID2' ? true : false}"/>
       <Button 
         text="{i18n>btnNewQuietanzante}" 
         press="onNewQuietanzante" 
         type="Emphasized" 
-        visible="{NewModalitaPagamento>/VisibleNewModalitaPagamento}"
-        enabled="{= ${NewModalitaPagamento>/SZwels} === 'ID1' ? true : false}"
+        visible="{NewAnagraficaBen>/VisibleNewModalitaPagamento}"
+        enabled="{= ${NewAnagraficaBen>/ModalitaPagamento/SZwels} === 'ID1' ? true : false}"
         />
       <Button 
         text="{i18n>btnSave}" 
         type="Emphasized" 
-        visible="{NewModalitaPagamento>/VisibleNewModalitaPagamento}" 
+        visible="{NewAnagraficaBen>/VisibleNewModalitaPagamento}" 
         press="onSaveNewModalitaPagamento"/>
     </buttons>
   </Dialog>

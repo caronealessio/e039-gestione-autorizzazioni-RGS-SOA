@@ -3,19 +3,22 @@
 	xmlns:c="sap.ui.core"
 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
-<SelectDialog
+	<SelectDialog
 		id="sdNProspLiquidazione"
-    noDataText="{i18n>noNProspLiquidazione}"
+		noDataText="{i18n>noNProspLiquidazione}"
 		title="{i18n>labelNProspLiquidazione}"
 		search="onValueHelpChange"
-		confirm="onValueHelpDialogClose"
-		cancel="onValueHelpDialogClose"
+		confirm="onValueHelpNProspLiquidazioneClose"
+		cancel="onValueHelpNProspLiquidazioneClose"
 		app:FilterValueHelp="Znumliq"
-		items="{path: 'NProspLiquidazione>/'}">		
+		items="{
+			path: 'NProspLiquidazione>/'
+		}"
+	>
 		<StandardListItem
-      iconDensityAware="false"
-      iconInset="false"
-      title="{NProspLiquidazione>Znumliq}"
-      app:key="{NProspLiquidazione>Znumliq}"/>
+			iconDensityAware="false"
+			iconInset="false"
+			title="{NProspLiquidazione>Znumliq}"
+		/>
 	</SelectDialog>
 </c:FragmentDefinition>

@@ -2,7 +2,6 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 	<Panel backgroundDesign="Transparent">
 		<headerToolbar>
@@ -40,8 +39,6 @@
 					valueHelpRequest="onValueHelpCodiceTributo"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdCodiceTributo"
-					app:fragmentName="CodiceTributo"
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
@@ -53,7 +50,11 @@
           valueFormat="yyyy-MM-dd"
           displayFormat="dd.MM.yyyy"
 					editable="{Soa>/FlagInpsEditabile}"
-					value="{Soa>/Zperiodrifda}"
+					value="{
+                path: 'Soa>/Zperiodrifda',
+                type: 'sap.ui.model.type.Date',
+                formatOptions: {pattern: 'dd.MM.yyyy'}
+              }"
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</DatePicker>
@@ -64,7 +65,11 @@
           valueFormat="yyyy-MM-dd"
           displayFormat="dd.MM.yyyy"
 					editable="{Soa>/FlagInpsEditabile}"
-					value="{Soa>/Zperiodrifa}"
+					value="{
+                path: 'Soa>/Zperiodrifa',
+                type: 'sap.ui.model.type.Date',
+                formatOptions: {pattern: 'dd.MM.yyyy'}
+              }"
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</DatePicker>

@@ -17,9 +17,9 @@
           <layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
         </Text>
 				<ComboBox
-					id="iptSedeBeneficiario"
 					width="100%"
 					items="{path:'SedeBeneficiario>/'}"
+					selectedKey="{Soa>/Zidsede}"
 					selectionChange="onSedeBeneficiarioChange"
 				>
 					<c:Item 

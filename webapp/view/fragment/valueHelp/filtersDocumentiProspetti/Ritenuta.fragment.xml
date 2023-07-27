@@ -10,13 +10,12 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpRitenutaClose"
 		cancel="onValueHelpRitenutaClose"
-    app:input="fltRitenuta"
 		app:FilterValueHelp="DescRitenuta"
 		items="{path: 'Ritenuta>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
       title="{Ritenuta>DescRitenuta}"
-      app:key="{Ritenuta>CodRitenuta}"/>
+      app:CodRitenuta="{Ritenuta>CodRitenuta}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

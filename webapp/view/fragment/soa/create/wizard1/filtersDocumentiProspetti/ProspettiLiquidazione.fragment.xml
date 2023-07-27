@@ -1,90 +1,127 @@
 <c:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
-  xmlns:l="sap.ui.layout"
-  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:l="sap.ui.layout"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
-  <Panel backgroundDesign="Transparent" visible="{= ${Soa>/Ztipopag} === '3' || ${Soa>/Ztipopag} === '4' ? true : false}">
+	<Panel
+		backgroundDesign="Transparent"
+		visible="{= ${Soa>/Ztipopag} === '3' || ${Soa>/Ztipopag} === '4' ? true : false}"
+	>
 		<headerToolbar>
-      <OverflowToolbar>
-        <Title text="{i18n>searchProspettiLiquidazione}" />
-      </OverflowToolbar>
-    </headerToolbar>
-
-    <content>
-			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
-				<Text text="{i18n>filterEseContabile}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-        </Text>
-        <ComboBox 
-					id="fltEseContabile"
-					app:searchPropertyModel="EsercizioContabile"
-					width="100%" 
-					items="{path: '/RicercaEseContabileSet'}"
-        >
-					<c:Item key="{Gjahr}" text="{Gjahr}" />
-          <layoutData><l:GridData span="XL2 L2 M5 S12" /></layoutData>
+			<OverflowToolbar>
+				<Title text="{i18n>searchProspettiLiquidazione}"/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<content>
+			<l:Grid
+				defaultSpan="XL12 L12 M12 S12"
+				hSpacing="0.5"
+			>
+				<Text
+					text="{i18n>filterEseContabile}"
+					class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+				>
+					<layoutData>
+						<l:GridData span="XL2 L3 M5 S12"/>
+					</layoutData>
+				</Text>
+				<ComboBox
+					width="100%"
+					items="{
+						path: '/RicercaEseContabileSet'
+					}"
+					selectedKey="{FilterDocumenti>/Gjahr}"
+				>
+					<c:Item
+						key="{Gjahr}"
+						text="{Gjahr}"
+					/>
+					<layoutData>
+						<l:GridData span="XL2 L2 M5 S12"/>
+					</layoutData>
 				</ComboBox>
-				<Text text="{i18n>filterUffLiquidatore}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-        </Text>
-       <MultiInput  					
-          id="fltUffLiquidatore"
+				<Text
+					text="{i18n>filterUffLiquidatore}"
+					class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+				>
+					<layoutData>
+						<l:GridData span="XL2 L3 M5 S12"/>
+					</layoutData>
+				</Text>
+				<MultiInput
 					valueHelpRequest="onValueHelpUffLiquidatore"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdUfficioLiquidatore"
-					app:fragmentName="UfficioLiquidatore"
-					app:searchPropertyModel="UfficioLiquidatore"
+					value="{FilterDocumenti>/Zuffliq}"
 				>
-          <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
-        </MultiInput >
-        <Text text="{i18n>filterZnumliqFrom}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-        </Text>
-        <Input 					
-          id="fltNProspLiquidazioneFrom"
+					<layoutData>
+						<l:GridData span="XL2 L3 M5 S12"/>
+					</layoutData>
+				</MultiInput>
+				<Text
+					text="{i18n>filterZnumliqFrom}"
+					class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+				>
+					<layoutData>
+						<l:GridData span="XL2 L3 M5 S12"/>
+					</layoutData>
+				</Text>
+				<Input
 					valueHelpRequest="onValueHelpNProspLiquidazione"
 					showValueHelp="true"
 					valueHelpOnly="true"
-          app:input="fltNProspLiquidazioneFrom"
-					app:dialogName="sdNProspLiquidazione"
-					app:fragmentName="NProspLiquidazione"
-					app:searchPropertyModel="NProspLiquidazione"
+					app:PropertyModel="ZnumliqFrom"
+					value="{FilterDocumenti>/ZnumliqFrom}"
 				>
-          <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
-        </Input>
+					<layoutData>
+						<l:GridData span="XL2 L3 M5 S12"/>
+					</layoutData>
+				</Input>
 			</l:Grid>
 		</content>
-
 		<content>
-			<l:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0.5">
-				<Text text="{i18n>filterZnumliqTo}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
-        </Text>
-				<Input 					
-          id="fltNProspLiquidazioneTo"
+			<l:Grid
+				defaultSpan="XL12 L12 M12 S12"
+				hSpacing="0.5"
+			>
+				<Text
+					text="{i18n>filterZnumliqTo}"
+					class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+				>
+					<layoutData>
+						<l:GridData span="XL2 L3 M5 S12"/>
+					</layoutData>
+				</Text>
+				<Input
 					valueHelpRequest="onValueHelpNProspLiquidazione"
 					showValueHelp="true"
 					valueHelpOnly="true"
-          app:input="fltNProspLiquidazioneTo"
-					app:dialogName="sdNProspLiquidazione"
-					app:fragmentName="NProspLiquidazione">
-          <layoutData><l:GridData span="XL2 L3 M5 S12" /></layoutData>
-        </Input>
-				<Text text="{i18n>filterZdescProsp}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
-          <layoutData><l:GridData span="XL2 L12 M5 S12" /></layoutData>
-        </Text>
-				<Input 					
-          id="fltZdescProsp"
+					app:PropertyModel="ZnumliqTo"
+					value="{FilterDocumenti>/ZnumliqTo}"
+				>
+					<layoutData>
+						<l:GridData span="XL2 L3 M5 S12"/>
+					</layoutData>
+				</Input>
+				<Text
+					text="{i18n>filterZdescProsp}"
+					class="sapUiTinyMarginTop sapUiLargeMarginEnd"
+				>
+					<layoutData>
+						<l:GridData span="XL2 L12 M5 S12"/>
+					</layoutData>
+				</Text>
+				<Input
 					valueHelpRequest="onValueHelpDescProspLiquidazione"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdDescProspLiquidazione"
-					app:fragmentName="DescProspLiquidazione"
-					app:searchPropertyModel="DescProspLiquidazione">
-          <layoutData><l:GridData span="XL4 L12 M12 S12" /></layoutData>
-        </Input>
+					value="{FilterDocumenti>/ZdescProsp}"
+				>
+					<layoutData>
+						<l:GridData span="XL4 L12 M12 S12"/>
+					</layoutData>
+				</Input>
 			</l:Grid>
 		</content>
 	</Panel>

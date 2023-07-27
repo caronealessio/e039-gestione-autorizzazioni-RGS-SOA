@@ -33,8 +33,8 @@
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
 				<RadioButtonGroup columns="2" editable="false">
-          <RadioButton text="{i18n>rbPersonaFisica}" selected="{TipoPersona>/PersonaFisica}"/>
-          <RadioButton text="{i18n>rbPersonaGiuridica}" selected="{TipoPersona>/PersonaGiuridica}"/>
+          <RadioButton text="{i18n>rbPersonaFisica}" selected="{= ${Soa>/BuType} === '1' ? true : false }"/>
+          <RadioButton text="{i18n>rbPersonaGiuridica}" selected="{= ${Soa>/BuType} === '2' || ${Soa>/BuType} === '3' ? true : false }"/>
 					<layoutData><l:GridData span="XL7 L6 M12 S12" indent="XL1"/></layoutData>
 		    </RadioButtonGroup>
 

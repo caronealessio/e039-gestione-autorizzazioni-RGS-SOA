@@ -8,15 +8,13 @@
     noDataText="{i18n>noUfficioContabile}"
 		title="{i18n>labelUfficioContabile}"
 		search="onValueHelpChange"
-		confirm="onValueHelpDialogClose"
-		cancel="onValueHelpDialogClose"
-    app:input="fltUfficioContabile"
+		confirm="onValueHelpUffContabileClose"
+		cancel="onValueHelpUffContabileClose"
 		app:FilterValueHelp="Fkber"
 		items="{path: 'UfficioContabile>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
-      title="{UfficioContabile>Fkber}"
-      app:key="{UfficioContabile>Fkber}"/>
+      title="{UfficioContabile>Fkber}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

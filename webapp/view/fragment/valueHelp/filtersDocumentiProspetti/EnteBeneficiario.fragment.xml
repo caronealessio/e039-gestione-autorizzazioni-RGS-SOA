@@ -10,13 +10,12 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpEnteBeneficiarioClose"
 		cancel="onValueHelpEnteBeneficiarioClose"
-    app:input="fltEnteBeneficiario"
 		app:FilterValueHelp="DescEnte"
 		items="{path: 'EnteBeneficiario>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
       title="{EnteBeneficiario>DescEnte}"
-      app:key="{EnteBeneficiario>CodEnte}"/>
+      app:CodEnte="{EnteBeneficiario>CodEnte}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

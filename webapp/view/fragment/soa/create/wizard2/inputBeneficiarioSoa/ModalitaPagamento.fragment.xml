@@ -2,7 +2,6 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
   <Panel backgroundDesign="Transparent">
 		<headerToolbar>
@@ -17,13 +16,11 @@
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Text>
 				<Input
-					id="iptModalitaPagamento"
 					valueHelpRequest="onValueHelpModPagamento"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdModalitaPagamento"
-					app:fragmentName="ModalitaPagamento"
 					value="{Soa>/Zdescwels}"
+					editable="{= ${Soa>/Ztipopag} !== '4' ? true : false}"
 					
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
@@ -33,9 +30,9 @@
 					<layoutData><l:GridData span="XL2 L3 M5 S12" linebreak="true"/></layoutData>
 				</Text>
 				<Input 
-					id="iptPaeseResidenza"
 					value="{Soa>/Zbanks}"
 					change="onPaeseResidenzaChange"
+					editable="{= ${Soa>/Ztipopag} !== '4' ? true : false}"
 				>
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Input>
@@ -43,13 +40,11 @@
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Text>
 				<Input 
-					id="iptCausaleValutaria"
 					valueHelpRequest="onValueHelpCausaleValutaria"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdCausaleValutaria"
-					app:fragmentName="CausaleValutaria"
-					editable="{=${Soa>/Zwels} === 'ID6' || ${Soa>/Zbanks} !== 'IT' ? true : false}"
+					value="{Soa>/ZDesccauval}"
+					editable="{= ${Soa>/Ztipopag} !== '4' &amp;&amp; ( ${Soa>/Zwels} === 'ID6' || ${Soa>/Zbanks} !== 'IT' ) ? true : false}"
 					>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
@@ -59,17 +54,15 @@
 
 				<FlexBox width="100%">
 				<Input
-					id="iptIbanBeneficiario"
 					valueHelpRequest="onValueHelpIban"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdIbanBeneficiario"
-					app:fragmentName="IbanBeneficiario"
 					value="{Soa>/Iban}"
+					editable="{= ${Soa>/Ztipopag} !== '4' ? true : false}"
 					>
 				</Input>
 				<c:Icon
-					src="sap-icon://message-popup" class="messagePopup">
+					src="sap-icon://message-popup" class="messagePopup" visible="{= ${Soa>/Ztipopag} !== '4' ? true : false}">
 				</c:Icon>
 				<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</FlexBox>
@@ -87,21 +80,15 @@
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Text>
 				<Input
-					id="iptCoordEstere"
 					valueHelpRequest="onValueHelpCoordEstere"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdCoordEstere"
-					app:fragmentName="CoordinateEstere" 
-					editable="{=${Soa>/Zwels} === 'ID6' ? true : false}"
+					editable="{= ${Soa>/Ztipopag} !== '4' &amp;&amp; ${Soa>/Zwels} === 'ID6' ? true : false}"
+					value="{Soa>/Zcoordest}"
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>
-
-
 			</l:Grid>
 		</content>
-
-
 	</Panel>
 </c:FragmentDefinition>

@@ -24,6 +24,7 @@ sap.ui.define(
             visibleBtnInserisciProspLiquidazione: false,
             visibleBtnSave: false,
           });
+          self.setModel(oStepScenario, "StepScenario");
 
           var oModelSoa = new JSONModel({
             /**   Scenario    */
@@ -137,36 +138,7 @@ sap.ui.define(
             Zdataprot: "", //Data protocollo
             Zdataesig: "", //TODO - Punto Aperto - Data esigibilità
           });
-
-          var oModelNewModalitaPagamento = new JSONModel({
-            SZwels: "",
-            Zdescwels: "",
-            SType: "",
-            SCountryRes: "",
-            SIban: "",
-            Ztipofirma: "",
-            DescZtipofirma: "",
-            Swift: "",
-            Zcoordest: "",
-            ValidFromDats: "",
-            ValidToDats: "",
-            Gjahr: "",
-            Zcapo: "",
-            Zcapitolo: "",
-            Zarticolo: "",
-            Zconto: "",
-            ZdescConto: "",
-            DescPaeseResidenza: "",
-            VisibleNewModalitaPagamento: true,
-            VisibleNewQuietanzante: false,
-            VisibleNewDestinatario: false,
-            titleDialog: "Inserisci Modalità di Pagamento",
-          });
-
-          var oModelTipoPersona = new JSONModel({
-            PersonaFisica: false,
-            PersonaGiuridica: false,
-          });
+          self.setModel(oModelSoa, "Soa");
 
           var oModelClassificazione = new JSONModel({
             CodiceGestionale: [],
@@ -178,66 +150,88 @@ sap.ui.define(
             ImpTotAssociareCig: "0.00",
             ImpTotAssociareCup: "0.00",
           });
-
-          var oModelNewQuietanzante = new JSONModel({
-            Zqnome: "",
-            Zqcognome: "",
-            Zqqualifica: "",
-            Stcd1: "",
-            Zqdatanasc: "",
-            Zqluogonasc: "",
-            Zqprovnasc: "",
-            Zqindiriz: "",
-            Zqcitta: "",
-            Zqcap: "",
-            Zqprovincia: "",
-            Zqtelefono: "",
-          });
-          self.setModel(oModelNewQuietanzante, "NewQuietanzante");
-
-          var oModelNewDestinatario = new JSONModel({
-            Zqnomedest: "",
-            Zqcognomedest: "",
-            Zqqualificadest: "",
-            Stcd1Dest: "",
-            Zqdatanascdest: "",
-            Zqluogonascdest: "",
-            Zqprovnascdest: "",
-            Zqindirizdest: "",
-            Zqcittadest: "",
-            Zqcapdest: "",
-            Zqprovinciadest: "",
-            Zqtelefonodest: "",
-          });
-          self.setModel(oModelNewDestinatario, "NewDestinatario");
-
-          var oModelNewBeneficiario = new JSONModel({
-            FlagSife: "",
-            Lifnr: "",
-            SCountry: "",
-            SType: "",
-            SRagsoc: "",
-            SName: "",
-            SSurname: "",
-            SStreet: "",
-            SHousenum: "",
-            SCity: "",
-            SRegion: "",
-            SPstlz: "",
-            SSedelegale: false,
-            SStcd1: "",
-            SStcd2: "",
-            SStcd3: "",
-
-            DescPaeseResidenza: "",
-          });
-          self.setModel(oModelNewBeneficiario, "NewBeneficiario");
-
-          self.setModel(oModelSoa, "Soa");
-          self.setModel(oStepScenario, "StepScenario");
-          self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
-          self.setModel(oModelTipoPersona, "TipoPersona");
           self.setModel(oModelClassificazione, "Classificazione");
+
+          var oModelNewAnagraficaBen = new JSONModel({
+            Beneficiario: {
+              FlagSife: true,
+              Lifnr: "",
+              SCountry: "IT",
+              SType: "1",
+              SRagsoc: "",
+              SName: "Alessio",
+              SSurname: "Carone",
+              SStreet: "Parma",
+              SHousenum: "53",
+              SCity: "Altamura",
+              SRegion: "BA",
+              SPstlz: "70022",
+              SSedelegale: false,
+              SStcd1: "PTRLNZ03C10A662T",
+              SStcd2: "86334519757",
+              SStcd3: "",
+
+              DescPaeseResidenza: "",
+              DescProvincia: "",
+            },
+            ModalitaPagamento: {
+              SZwels: "",
+              Zdescwels: "",
+              SType: "",
+              SCountryRes: "",
+              SIban: "",
+              Ztipofirma: "",
+              Swift: "",
+              Zcoordest: "",
+              ValidFromDats: "",
+              ValidToDats: "",
+              Gjahr: "",
+              Zcapo: "",
+              Zcapitolo: "",
+              Zarticolo: "",
+              Zconto: "",
+              ZdescConto: "",
+              Seqnr: "",
+
+              DescPaeseResidenza: "",
+            },
+            Quietanzante: {
+              Zqnome: "",
+              Zqcognome: "",
+              Zqqualifica: "",
+              Stcd1: "",
+              Zqdatanasc: "",
+              Zqluogonasc: "",
+              Zqprovnasc: "",
+              Zqindiriz: "",
+              Zqcitta: "",
+              Zqcap: "",
+              Zqprovincia: "",
+              Zqtelefono: "",
+            },
+            Destinatario: {
+              Zqnomedest: "",
+              Zqcognomedest: "",
+              Zqqualificadest: "",
+              Stcd1Dest: "",
+              Zqdatanascdest: "",
+              Zqluogonascdest: "",
+              Zqprovnascdest: "",
+              Zqindirizdest: "",
+              Zqcittadest: "",
+              Zqcapdest: "",
+              Zqprovinciadest: "",
+              Zqtelefonodest: "",
+            },
+            VisibleNewBeneficiario: false,
+            VisibleNewModalitaPagamento: false,
+            VisibleNewQuietanzante: false,
+            VisibleNewDestinatario: false,
+            TitleDialogNewModPag: "Inserisci Modalità di Pagamento",
+            TitleDialogNewBeneficiario: "Dati Anagrafica Beneficiario",
+            BeneficiarioCreated: false,
+          });
+          self.setModel(oModelNewAnagraficaBen, "NewAnagraficaBen");
 
           self.acceptOnlyImport("iptImportoLiquidazione");
 
@@ -245,6 +239,19 @@ sap.ui.define(
             .getRoute("soa.create.scenery.Scenario4")
             .attachPatternMatched(this._onObjectMatched, this);
         },
+
+        /**
+         * @override
+         */
+        onBeforeRendering: function () {
+          var self = this;
+
+          var oModelSoa = self.getModel("Soa");
+
+          oModelSoa.setProperty("/ZspecieSop", "1");
+          oModelSoa.setProperty("/DescZspecieSop", "Sosp Ben.");
+        },
+
         onNavBack: function () {
           var self = this;
           var oView = self.getView();
@@ -293,7 +300,6 @@ sap.ui.define(
           var self = this;
           var oWizard = self.getView().byId("wizScenario4");
           var oModelStepScenario = self.getModel("StepScenario");
-
           var bWizard1Step1 = oModelStepScenario.getProperty("/wizard1Step1");
           var bWizard2 = oModelStepScenario.getProperty("/wizard2");
           var bWizard3 = oModelStepScenario.getProperty("/wizard3");
@@ -302,10 +308,9 @@ sap.ui.define(
             //TODO - Rimettere
             // if (this._checkNewProspettoLiquidazione()) {
             this._getNewProspettoLiquidazione();
-            // self.setDataBenficiario();
-            // self.setDatiVaglia();
-            // self.getSedeBeneficiario();
-            // self.setInpsData();
+            self.setDataBenficiario();
+            self.getSedeBeneficiario();
+            self.setInpsData();
             // }
           } else if (bWizard2) {
             oModelStepScenario.setProperty("/wizard2", false);
@@ -384,11 +389,8 @@ sap.ui.define(
           oModelSoa.setProperty("/Taxnumxl", oSelectedItem?.data("Taxnumxl"));
           oModelSoa.setProperty("/BuType", oSelectedItem?.data("BuType"));
 
-          self.setSpecieSoaDesc("1", oSelectedItem);
-
           oModelSoa.setProperty("/Zwels", "");
           oModelSoa.setProperty("/Iban", "");
-          self.setTipoPersona();
           this._getModalitaPagamentoList();
           this._setDurc();
           this._setFermoAmministrativo();
@@ -565,6 +567,8 @@ sap.ui.define(
             "/Zdescwels",
             self.setBlank(oSelectedItem.getText())
           );
+
+          self.setDatiVaglia();
         },
         //#endregion
 
@@ -760,6 +764,36 @@ sap.ui.define(
         //#endregion
 
         //#endregion
+
+        onSaveNewBeneficiario: function () {
+          var self = this;
+          var oModelNewAnagraficaBen = self.getModel("NewAnagraficaBen");
+          var bBeneficiarioCreated = oModelNewAnagraficaBen.getProperty(
+            "/BeneficiarioCreated"
+          );
+          var oModelSoa = self.getModel("Soa");
+
+          if (!bBeneficiarioCreated) {
+            //Se il Beneficiario non è stato creato procedo con la creazione
+            self.saveBeneficiario(function (callback) {
+              if (callback.Success) {
+                var oItem = self.setParametersNewModPagamento(callback.Lifnr);
+                self._getModalitaPagamentoList();
+                self._setDurc();
+                self._setFermoAmministrativo();
+                self.saveModalitaPagamento(oItem, "dlgNewBeneficiario");
+              }
+            });
+          } else {
+            //Se il Beneficiario è stato creato ma l'inserimento della modalità
+            //di pagamento è andata in errore se premo nuovamente salva
+            //salva solo la modalita di pagamento e non il beneficiario
+            var oItem = self.setParametersNewModPagamento(
+              oModelSoa.getProperty("/Lifnr")
+            );
+            self.saveModalitaPagamento(oItem, "dlgNewBeneficiario");
+          }
+        },
       }
     );
   }

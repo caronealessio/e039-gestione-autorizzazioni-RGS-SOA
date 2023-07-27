@@ -10,13 +10,12 @@
 		search="onValueHelpChange"
 		confirm="onValueHelpModPagamentoClose"
 		cancel="onValueHelpModPagamentoClose"
-    app:input="iptModalitaPagamento"
 		app:FilterValueHelp="Zdescwels"
 		items="{path: 'ModalitaPagamento>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
       title="{ModalitaPagamento>Zdescwels}"
-      app:key="{ModalitaPagamento>Zwels}"/>
+      app:Zwels="{ModalitaPagamento>Zwels}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

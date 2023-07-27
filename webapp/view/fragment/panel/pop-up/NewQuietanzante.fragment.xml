@@ -6,7 +6,7 @@
  <Panel 
       id="pnlNewQuietanzante"
       backgroundDesign="Transparent"
-      visible="{NewModalitaPagamento>/VisibleNewQuietanzante}"
+      visible="{NewAnagraficaBen>/VisibleNewQuietanzante}"
       >
     <l:Grid defaultSpan="XL12 L12 M12 S12" vSpacing="0.5">
       <Label 
@@ -17,7 +17,8 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Label>
       <Input
-        value="{NewQuietanzante>/Zqcognome}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqcognome}"
+        maxLength="50"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -29,7 +30,8 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Label>
       <Input
-        value="{NewQuietanzante>/Zqnome}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqnome}"
+        maxLength="50"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -40,7 +42,8 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <Input
-        value="{NewQuietanzante>/Stcd1}"
+        value="{NewAnagraficaBen>/Quietanzante/Stcd1}"
+        maxLength="16"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -51,7 +54,8 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <Input
-        value="{NewQuietanzante>/Zqqualifica}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqqualifica}"
+        maxLength="50"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -63,9 +67,13 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <DatePicker
-        value="{NewQuietanzante>/Zqdatanasc}"
         width="100%"
         valueFormat="yyyy-MM-dd"
+        value="{
+                path: 'NewAnagraficaBen>/Quietanzante/Zqdatanasc',
+                type: 'sap.ui.model.type.Date',
+                formatOptions: {pattern: 'dd.MM.yyyy'}
+              }"
         displayFormat="dd.MM.yyyy"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
@@ -77,19 +85,19 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <Input
-        value="{NewQuietanzante>/Zqluogonasc}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqluogonasc}"
+        maxLength="40"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
       <Text 
         text="{i18n>inputProvinciaNascita}" 
-        class="sapUiTinyMarginTop sapUiLargeMarginEnd"
-        
+        class="sapUiTinyMarginTop sapUiLargeMarginEnd"        
       >
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <Input
-        value="{NewQuietanzante>/Zqprovnasc}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqprovnasc}"
         maxLength="3"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
@@ -102,7 +110,8 @@
       </Text>
       <Input 
         type="Number"
-        value="{NewQuietanzante>/Zqtelefono}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqtelefono}"
+        maxLength="20"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -114,7 +123,8 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <Input
-        value="{NewQuietanzante>/Zqindiriz}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqindiriz}"
+        maxLength="40"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -125,7 +135,8 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <Input
-        value="{NewQuietanzante>/Zqcitta}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqcitta}"
+        maxLength="40"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -137,7 +148,8 @@
       </Text>
       <Input
         type="Number"
-        value="{NewQuietanzante>/Zqcap}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqcap}"
+        maxLength="10"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>
       </Input>
@@ -148,7 +160,7 @@
         <layoutData><l:GridData  span="XL2 L2 M6 S12" /></layoutData>
       </Text>
       <Input
-        value="{NewQuietanzante>/Zqprovincia}"
+        value="{NewAnagraficaBen>/Quietanzante/Zqprovincia}"
         maxLength="3"
       >
         <layoutData><l:GridData  span="XL1 L2 M6 S12" /></layoutData>

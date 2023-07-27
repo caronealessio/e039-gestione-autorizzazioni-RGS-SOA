@@ -152,36 +152,6 @@ sap.ui.define(
             paginatorTotalPage: 1,
           });
 
-          var oModelTipoPersona = new JSONModel({
-            PersonaFisica: false,
-            PersonaGiuridica: false,
-          });
-
-          var oModelNewModalitaPagamento = new JSONModel({
-            SZwels: "",
-            Zdescwels: "",
-            SType: "",
-            SCountryRes: "",
-            SIban: "",
-            Ztipofirma: "",
-            DescZtipofirma: "",
-            Swift: "",
-            Zcoordest: "",
-            ValidFromDats: "",
-            ValidToDats: "",
-            Gjahr: "",
-            Zcapo: "",
-            Zcapitolo: "",
-            Zarticolo: "",
-            Zconto: "",
-            ZdescConto: "",
-            DescPaeseResidenza: "",
-            VisibleNewModalitaPagamento: true,
-            VisibleNewQuietanzante: false,
-            VisibleNewDestinatario: false,
-            titleDialog: "Inserisci Modalità di Pagamento",
-          });
-
           var oModelClassificazione = new JSONModel({
             CodiceGestionale: [],
             Cpv: [],
@@ -193,43 +163,33 @@ sap.ui.define(
             ImpTotAssociareCup: "0.00",
           });
 
-          var oModelNewQuietanzante = new JSONModel({
-            Zqnome: "",
-            Zqcognome: "",
-            Zqqualifica: "",
-            Stcd1: "",
-            Zqdatanasc: "",
-            Zqluogonasc: "",
-            Zqprovnasc: "",
-            Zqindiriz: "",
-            Zqcitta: "",
-            Zqcap: "",
-            Zqprovincia: "",
-            Zqtelefono: "",
+          var oModelFilterDocumenti = new JSONModel({
+            CodRitenuta: "",
+            DescRitenuta: "",
+            CodEnte: "",
+            DescEnte: "",
+            QuoteEsigibili: true,
+            DataEsigibilitaFrom: "",
+            DataEsigibilitaTo: "",
+            TipoBeneficiario: "",
+            Lifnr: "",
+            UfficioContabile: "",
+            UfficioPagatore: "",
+            AnnoRegDocumento: [],
+            NumRegDocFrom: "",
+            NumRegDocTo: "",
+            AnnoDocBeneficiario: [],
+            NDocBen: [],
+            Cig: "",
+            Cup: "",
+            ScadenzaDocFrom: null,
+            ScadenzaDocTo: null,
           });
-          self.setModel(oModelNewQuietanzante, "NewQuietanzante");
-
-          var oModelNewDestinatario = new JSONModel({
-            Zqnomedest: "",
-            Zqcognomedest: "",
-            Zqqualificadest: "",
-            Stcd1Dest: "",
-            Zqdatanascdest: "",
-            Zqluogonascdest: "",
-            Zqprovnascdest: "",
-            Zqindirizdest: "",
-            Zqcittadest: "",
-            Zqcapdest: "",
-            Zqprovinciadest: "",
-            Zqtelefonodest: "",
-          });
-          self.setModel(oModelNewDestinatario, "NewDestinatario");
+          self.setModel(oModelFilterDocumenti, "FilterDocumenti");
 
           self.setModel(oModelSoa, "Soa");
           self.setModel(oModelPaginator, PAGINATOR_MODEL);
           self.setModel(oStepScenario, "StepScenario");
-          self.setModel(oModelTipoPersona, "TipoPersona");
-          self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
           self.setModel(oModelClassificazione, "Classificazione");
 
           //TODO - Inserire l'acceptOnlyImport anche per CIG e CUP
@@ -241,8 +201,7 @@ sap.ui.define(
         onBeforeRendering: function () {
           var self = this;
           var oDataModel = self.getModel();
-          var oInputUffContabile = self.getView().byId("fltUfficioContabile");
-          var oInputUffPagatore = self.getView().byId("fltUfficioPagatore");
+          var oModelFilter = self.getModel("FilterDocumenti");
 
           if (!bPrevalLoaded) {
             self
@@ -251,8 +210,14 @@ sap.ui.define(
               .then(function () {
                 oDataModel.read("/" + "PrevalUfficioContabileSet", {
                   success: function (data) {
-                    oInputUffContabile.setValue(data?.results[0]?.Fkber);
-                    oInputUffPagatore.setValue(data?.results[0]?.Fkber);
+                    oModelFilter.setProperty(
+                      "/UfficioContabile",
+                      data?.results[0]?.Fkber
+                    );
+                    oModelFilter.setProperty(
+                      "/UfficioPagatore",
+                      data?.results[0]?.Fkber
+                    );
                     bPrevalLoaded = true;
                   },
                   error: function (error) {},
@@ -534,87 +499,89 @@ sap.ui.define(
         _getQuoteDocumentiFilters: function () {
           var self = this;
           var aFilters = [];
-          var oView = self.getView();
           var oModelSoa = self.getModel("Soa");
+          var oModelFilter = self.getModel("FilterDocumenti");
 
-          var oQuoteEsigibili = oView.byId("fltQuoteEsigibili");
-          var oDataEsigibilitaFrom = oView.byId("fltDataEsigibilitaFrom");
-          var oDataEsigibilitaTo = oView.byId("fltDataEsigibilitaTo");
-          var oUfficioContabile = oView.byId("fltUfficioContabile");
-          var oUfficioPagatore = oView.byId("fltUfficioPagatore");
-          var oAnnoRegDocumento = oView.byId("fltAnnoRegDoc");
-          var oNRegDocumentoFrom = oView.byId("fltNRegDocFrom");
-          var oNRegDocumentoTo = oView.byId("fltNRegDocTo");
-          var oAnnoDocBeneficiario = oView.byId("fltAnnoDocBene");
-          var oNDocBeneficiario = oView.byId("fltNDocBene");
-          var oCIG = oView.byId("fltCIG");
-          var oCUP = oView.byId("fltCUP");
-          var oScadenzaDocFrom = oView.byId("fltScadenzaDocFrom");
-          var oScadenzaDocTo = oView.byId("fltScadenzaDocTo");
-
-          self.setFilterEQ(aFilters, "Fipex", oModelSoa?.getProperty("/Fipos"));
-          self.setFilterEQ(aFilters, "Fistl", oModelSoa?.getProperty("/Fistl"));
-          self.setFilterEQ(
-            aFilters,
-            "UfficioPagatore",
-            oUfficioPagatore.getValue()
-          );
-          self.setFilterEQ(
-            aFilters,
-            "UfficioContabile",
-            oUfficioContabile.getValue()
-          );
-          self.setFilterMultiInputEQText(
-            aFilters,
-            "NumDocBen",
-            oNDocBeneficiario
-          );
-          self.setFilterEQ(aFilters, "Cup", oCUP.getValue());
-          self.setFilterEQ(aFilters, "Cig", oCIG.getValue());
-          self.setFilterEQ(aFilters, "Gjahr", oModelSoa?.getProperty("/Gjahr"));
+          //Estremi di ricerca per Ritenute
           self.setFilterEQ(
             aFilters,
             "CodRitenuta",
-            oModelSoa?.getProperty("/Witht")
+            oModelFilter.getProperty("/CodRitenuta")
           );
           self.setFilterEQ(
             aFilters,
             "CodEnte",
-            oModelSoa?.getProperty("/ZzCebenra")
+            oModelFilter.getProperty("/CodEnte")
           );
-          self.setFilterEQ(aFilters, "Lifnr", oModelSoa?.getProperty("/Lifnr"));
-          self.setFilterMultiComboBoxEQKey(
+          self.setFilterEQ(
             aFilters,
-            "AnnoRegDocumento",
-            oAnnoRegDocumento
-          );
-          self.setFilterMultiComboBoxEQKey(
-            aFilters,
-            "AnnoDocBeneficiario",
-            oAnnoDocBeneficiario
+            "Zquoteesi",
+            oModelFilter.getProperty("/QuoteEsigibili")
           );
           self.setFilterBT(
             aFilters,
             "DateEsigibilita",
-            oDataEsigibilitaFrom.getValue(),
-            oDataEsigibilitaTo.getValue()
+            oModelFilter.getProperty("/DataEsigibilitaFrom"),
+            oModelFilter.getProperty("/DataEsigibilitaTo")
           );
+
+          //Estremi di ricerca per Beneficiario
+          self.setFilterEQ(
+            aFilters,
+            "Lifnr",
+            oModelFilter.getProperty("/Lifnr")
+          );
+
+          //Estremi di ricerca per Documento di Costo
+          self.setFilterEQ(
+            aFilters,
+            "UfficioContabile",
+            oModelFilter.getProperty("/UfficioContabile")
+          );
+          self.setFilterEQ(
+            aFilters,
+            "AreaFunz",
+            oModelFilter.getProperty("/UfficioContabile")
+          );
+          self.setFilterEQ(
+            aFilters,
+            "UfficioPagatore",
+            oModelFilter.getProperty("/UfficioPagatore")
+          );
+          var aAnnoRegDocumento = oModelFilter.getProperty("/AnnoRegDocumento");
+          aAnnoRegDocumento.map((sAnno) => {
+            self.setFilterEQ(aFilters, "AnnoRegDocumento", sAnno);
+          });
           self.setFilterBT(
             aFilters,
             "Belnr",
-            oNRegDocumentoFrom.getValue(),
-            oNRegDocumentoTo.getValue()
+            oModelFilter.getProperty("/NumRegDocFrom"),
+            oModelFilter.getProperty("/NumRegDocTo")
           );
-          self.setFilterEQ(aFilters, "AreaFunz", oUfficioContabile.data("key"));
+          var aAnnoDocBeneficiario = oModelFilter.getProperty(
+            "/AnnoDocBeneficiario"
+          );
+          aAnnoDocBeneficiario.map((sAnno) => {
+            self.setFilterEQ(aFilters, "AnnoDocBeneficiario", sAnno);
+          });
+          var aNDocBen = oModelFilter.getProperty("/NDocBen");
+          aNDocBen.map((sNDocBen) => {
+            self.setFilterEQ(aFilters, "NDocBen", sNDocBen);
+          });
+          self.setFilterEQ(aFilters, "Cig", oModelFilter.getProperty("/Cig"));
+          self.setFilterEQ(aFilters, "Cup", oModelFilter.getProperty("/Cup"));
           self.setFilterBT(
             aFilters,
             "ScadenzaDoc",
-            oScadenzaDocFrom.getValue(),
-            oScadenzaDocTo.getValue()
+            oModelFilter.getProperty("/ScadenzaDocFrom"),
+            oModelFilter.getProperty("/ScadenzaDocTo")
           );
-          if (oQuoteEsigibili.getSelected()) {
-            aFilters.push(new Filter("Zquoteesi", FilterOperator.EQ, true));
-          }
+
+          self.setFilterEQ(aFilters, "Gjahr", oModelSoa.getProperty("/Gjahr"));
+          self.setFilterEQ(aFilters, "Fipex", oModelSoa.getProperty("/Fipos"));
+          self.setFilterEQ(aFilters, "Fistl", oModelSoa.getProperty("/Fistl"));
+
+          console.log(aFilters);
 
           return aFilters;
         },

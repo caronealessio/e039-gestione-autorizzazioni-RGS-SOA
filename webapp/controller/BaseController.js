@@ -65,31 +65,6 @@ sap.ui.define(
         return this.getOwnerComponent().getModel("i18n").getResourceBundle();
       },
 
-      _getIdElement: function (oEvent) {
-        var longId = oEvent.getSource().getId();
-        var arrayId = longId.split("-");
-        var id = arrayId[arrayId.length - 1];
-        return id;
-      },
-
-      _stringtoTimestamp: function (dateString, formatDelimiter) {
-        var dateTimeParts = dateString.split(formatDelimiter);
-        var date = new Date(
-          dateTimeParts[2],
-          parseInt(dateTimeParts[1], 10) - 1,
-          dateTimeParts[0]
-        );
-        return date;
-      },
-
-      getTotalCounter: function (sapMessage) {
-        var self = this;
-        var counter = JSON.parse(sapMessage);
-        return counter.message;
-        // listAuthModel.setProperty("/total", counter.message);
-        // self.counterRecords(counter.message);
-      },
-
       /**
        * Event handler when the share by E-Mail button has been clicked
        * @public
@@ -107,7 +82,7 @@ sap.ui.define(
       setResponseMessage: function (oResponse) {
         var bError = false;
         if (oResponse?.headers["sap-message"]) {
-          var oMessage = JSON.parse(oResponse.headers["sap-message"]);
+          var oMessage = this.getMessage(oResponse);
 
           switch (oMessage.severity) {
             case "error":
@@ -123,6 +98,24 @@ sap.ui.define(
           }
         }
         return bError;
+      },
+
+      getMessage: function (oResponse) {
+        return JSON.parse(oResponse.headers["sap-message"]);
+      },
+
+      printMessage: function (oMessage) {
+        switch (oMessage.severity) {
+          case "error":
+            sap.m.MessageBox.error(oMessage.message);
+            break;
+          case "success":
+            sap.m.MessageBox.success(oMessage.message);
+            break;
+          case "warning":
+            sap.m.MessageBox.warning(oMessage.message);
+            break;
+        }
       },
 
       setTitleTotalItems: function (
@@ -174,6 +167,15 @@ sap.ui.define(
         return sValue;
       },
 
+      setDateClass: function (sValue) {
+        if (sValue) {
+          sValue = new Date(sValue);
+          return sValue;
+        }
+
+        return null;
+      },
+
       acceptOnlyImport: function (sId) {
         var oInput = this.getView().byId(sId);
         oInput.attachBrowserEvent("keypress", function (oEvent) {
@@ -215,51 +217,6 @@ sap.ui.define(
         }
       },
 
-      onValueHelpDialogClose: function (oEvent) {
-        var self = this;
-        var oSelectedItem = oEvent.getParameter("selectedItem");
-        var oSource = oEvent.getSource();
-        var sInput = oSource.data().input;
-        var oInput = self.getView().byId(sInput);
-        var sKey = oSelectedItem?.data("key");
-
-        if (!oSelectedItem) {
-          oInput.resetProperty("value");
-          oInput.data("key", null);
-          this.unloadFragment();
-          return;
-        }
-
-        oInput.setValue(oSelectedItem.getTitle());
-        oInput.data("key", sKey);
-        this.unloadFragment();
-      },
-
-      onValueHelpMultiDialogClose: function (oEvent) {
-        var self = this;
-        var oContexts = oEvent.getParameter("selectedContexts");
-        var oSource = oEvent.getSource().data();
-        var sValue = oSource.searchPropertyModel;
-        var oMultiInput = self.getView().byId(oSource.input);
-
-        oMultiInput.removeAllTokens();
-
-        if (oContexts?.length) {
-          var aData = oContexts.map((oContext) => {
-            return oContext.getObject()[sValue];
-          });
-
-          for (var i = 0; i < aData.length; i++) {
-            oMultiInput.addToken(
-              new sap.m.Token({
-                text: aData[i],
-              })
-            );
-          }
-        }
-        this.unloadFragment();
-      },
-
       loadFragment: function (dialogPath) {
         this.unloadFragment();
 
@@ -281,72 +238,6 @@ sap.ui.define(
       },
 
       /** -------------------GESTIONE FILTRI--------------------- */
-
-      setFilterBTValue: function (aFilters, oInputFrom, oInputTo) {
-        var sInputFrom = oInputFrom?.getValue() ? oInputFrom?.getValue() : null;
-        var sInputTo = oInputTo?.getValue() ? oInputTo?.getValue() : null;
-
-        if (sInputFrom || sInputTo) {
-          aFilters.push(
-            new Filter(
-              oInputFrom?.data("searchPropertyModel"),
-              BT,
-              sInputFrom,
-              sInputTo
-            )
-          );
-        }
-      },
-
-      setFilterEQKey: function (aFilters, oInput) {
-        if (oInput?.getSelectedKey()) {
-          aFilters.push(
-            new Filter(
-              oInput.data("searchPropertyModel"),
-              EQ,
-              oInput.getSelectedKey()
-            )
-          );
-        }
-      },
-
-      setFilterEQValue: function (aFilters, oInput) {
-        if (oInput?.getValue()) {
-          aFilters.push(
-            new Filter(
-              oInput.data("searchPropertyModel"),
-              EQ,
-              oInput.getValue()
-            )
-          );
-        }
-      },
-
-      setFilterEQKeyMC: function (aFilters, sPropertyModel, oInput) {
-        if (oInput?.data("key")) {
-          aFilters.push(new Filter(sPropertyModel, EQ, oInput.data("key")));
-        }
-      },
-
-      setFilterMultiInputEQText: function (aFilters, sPropertyModel, oInput) {
-        if (oInput.getTokens().length !== 0) {
-          oInput.getTokens().map((oRow) => {
-            if (oRow.getText()) {
-              aFilters.push(new Filter(sPropertyModel, EQ, oRow.getText()));
-            }
-          });
-        }
-      },
-
-      setFilterMultiComboBoxEQKey: function (aFilters, sPropertyModel, oInput) {
-        if (oInput.getSelectedItems().length !== 0) {
-          oInput.getSelectedItems().map((oRow) => {
-            if (oRow.getKey()) {
-              aFilters.push(new Filter(sPropertyModel, EQ, oRow.getKey()));
-            }
-          });
-        }
-      },
 
       checkBTFilter: function (aFilters) {
         var oBundle = this.getResourceBundle();
@@ -384,7 +275,7 @@ sap.ui.define(
         }
       },
 
-      /** ----------------GESTIONE PAGINAZIONE-------------------- */
+      //#region PAGINATOR
 
       getChangePage: function (oEvent, modelName) {
         var oPaginatorModel = this.getModel(modelName);
@@ -496,6 +387,8 @@ sap.ui.define(
           oPaginatorModel.setProperty("/btnLastEnabled", false);
         }
       },
+
+      //#endregion
     });
   }
 );

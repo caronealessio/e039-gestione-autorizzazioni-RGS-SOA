@@ -8,15 +8,13 @@
     noDataText="{i18n>noUfficioPagatore}"
 		title="{i18n>labelUfficioPagatore}"
 		search="onValueHelpChange"
-		confirm="onValueHelpDialogClose"
-		cancel="onValueHelpDialogClose"
-    app:input="fltUfficioPagatore"
+		confirm="onValueHelpUffPagatoreClose"
+		cancel="onValueHelpUffPagatoreClose"
 		app:FilterValueHelp="Fkber"
 		items="{path: 'UfficioPagatore>/'}">		
 		<StandardListItem
       iconDensityAware="false"
       iconInset="false"
-      title="{UfficioPagatore>Fkber}"
-      app:key="{UfficioPagatore>Fkber}"/>
+      title="{UfficioPagatore>Fkber}"/>
 	</SelectDialog>
 </c:FragmentDefinition>

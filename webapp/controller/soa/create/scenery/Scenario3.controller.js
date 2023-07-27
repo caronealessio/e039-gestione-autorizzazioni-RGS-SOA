@@ -148,36 +148,6 @@ sap.ui.define(
             paginatorTotalPage: 1,
           });
 
-          var oModelTipoPersona = new JSONModel({
-            PersonaFisica: false,
-            PersonaGiuridica: false,
-          });
-
-          var oModelNewModalitaPagamento = new JSONModel({
-            SZwels: "",
-            Zdescwels: "",
-            SType: "",
-            SCountryRes: "",
-            SIban: "",
-            Ztipofirma: "",
-            DescZtipofirma: "",
-            Swift: "",
-            Zcoordest: "",
-            ValidFromDats: "",
-            ValidToDats: "",
-            Gjahr: "",
-            Zcapo: "",
-            Zcapitolo: "",
-            Zarticolo: "",
-            Zconto: "",
-            ZdescConto: "",
-            DescPaeseResidenza: "",
-            VisibleNewModalitaPagamento: true,
-            VisibleNewQuietanzante: false,
-            VisibleNewDestinatario: false,
-            titleDialog: "Inserisci Modalità di Pagamento",
-          });
-
           var oModelClassificazione = new JSONModel({
             CodiceGestionale: [],
             Cpv: [],
@@ -189,43 +159,19 @@ sap.ui.define(
             ImpTotAssociareCup: "0.00",
           });
 
-          var oModelNewQuietanzante = new JSONModel({
-            Zqnome: "",
-            Zqcognome: "",
-            Zqqualifica: "",
-            Stcd1: "",
-            Zqdatanasc: "",
-            Zqluogonasc: "",
-            Zqprovnasc: "",
-            Zqindiriz: "",
-            Zqcitta: "",
-            Zqcap: "",
-            Zqprovincia: "",
-            Zqtelefono: "",
+          var oModelFilterDocumenti = new JSONModel({
+            Gjahr: "",
+            Lifnr: "",
+            Zuffliq: [],
+            ZnumliqFrom: "",
+            ZnumliqTo: "",
+            ZdescProsp: "",
           });
-          self.setModel(oModelNewQuietanzante, "NewQuietanzante");
-
-          var oModelNewDestinatario = new JSONModel({
-            Zqnomedest: "",
-            Zqcognomedest: "",
-            Zqqualificadest: "",
-            Stcd1Dest: "",
-            Zqdatanascdest: "",
-            Zqluogonascdest: "",
-            Zqprovnascdest: "",
-            Zqindirizdest: "",
-            Zqcittadest: "",
-            Zqcapdest: "",
-            Zqprovinciadest: "",
-            Zqtelefonodest: "",
-          });
-          self.setModel(oModelNewDestinatario, "NewDestinatario");
+          self.setModel(oModelFilterDocumenti, "FilterDocumenti");
 
           self.setModel(oModelSoa, "Soa");
           self.setModel(oModelPaginator, PAGINATOR_MODEL);
           self.setModel(oStepScenario, "StepScenario");
-          self.setModel(oModelTipoPersona, "TipoPersona");
-          self.setModel(oModelNewModalitaPagamento, "NewModalitaPagamento");
           self.setModel(oModelClassificazione, "Classificazione");
 
           this.getRouter()
@@ -510,34 +456,32 @@ sap.ui.define(
         _getProspettiLiquidazioneFilters: function () {
           var self = this;
           var aFilters = [];
-          var oView = self.getView();
           var oModelSoa = self.getModel("Soa");
-
-          var oUfficioLiquidatore = oView.byId("fltUffLiquidatore");
-          var oNProspLiquidazioneFrom = oView.byId("fltNProspLiquidazioneFrom");
-          var oNProspLiquidazioneTo = oView.byId("fltNProspLiquidazioneTo");
-          var oDescProspLiquidazione = oView.byId("fltZdescProsp");
+          var oModelFilter = self.getModel("FilterDocumenti");
 
           self.setFilterEQ(aFilters, "Fipex", oModelSoa?.getProperty("/Fipos"));
           self.setFilterEQ(aFilters, "Fistl", oModelSoa?.getProperty("/Fistl"));
           self.setFilterEQ(aFilters, "Gjahr", oModelSoa?.getProperty("/Gjahr"));
-          self.setFilterEQ(aFilters, "Lifnr", oModelSoa?.getProperty("/Lifnr"));
-
-          self.setFilterMultiInputEQText(
+          self.setFilterEQ(
             aFilters,
-            "Zuffliq",
-            oUfficioLiquidatore
+            "Lifnr",
+            oModelFilter?.getProperty("/Lifnr")
           );
+
+          var aUfficioLiquidatore = oModelFilter.getProperty("/Zuffliq");
+          aUfficioLiquidatore.map((sUfficioLiquidatore) => {
+            self.setFilterEQ(aFilters, "Zuffliq", sUfficioLiquidatore);
+          });
           self.setFilterBT(
             aFilters,
             "Znumliq",
-            oNProspLiquidazioneFrom.getValue(),
-            oNProspLiquidazioneTo.getValue()
+            oModelFilter.getProperty("/ZnumliqFrom"),
+            oModelFilter.getProperty("/ZnumliqTo")
           );
           self.setFilterEQ(
             aFilters,
             "ZdescProsp",
-            oDescProspLiquidazione.getValue()
+            oModelFilter.getProperty("/ZdescProsp")
           );
 
           return aFilters;

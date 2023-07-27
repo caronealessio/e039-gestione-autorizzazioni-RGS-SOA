@@ -2,7 +2,6 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout"
- 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 	<Panel backgroundDesign="Transparent">
 		<headerToolbar>
@@ -17,11 +16,10 @@
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Text>
 				<ComboBox 
-					id="iptTipoFirma" 
 					width="100%" 
 					items="{path: '/TipoFirmaBenSOASet'}"
+					selectedKey="{Soa>/Ztipofirma}"
 					editable="{= ${Soa>/Zwels} === 'ID1' ? true : false}"
-					change="onTipoFirmaChange"
 				>
 					<c:Item key="{Ztipofirma}" text="{ZtestoTipofirma}" />
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
@@ -44,14 +42,12 @@
 				<Text text="{i18n>inputCF}" class="sapUiTinyMarginTop sapUiLargeMarginEnd">
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Text>
-				<Input
-				  id="iptCodiceFiscale1"	
+				<Input	
 					editable="{=${Soa>/Zwels} === 'ID1' || ${Soa>/Zwels} === 'ID2' ? true : false}"
 					valueHelpRequest="onValueHelpCodiceFiscale1"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdCodiceFiscale1"
-					app:fragmentName="CodiceFiscale1"
+					value="{=${Soa>/Zwels} === 'ID1' ? ${Soa>/Zstcd1} : ${Soa>/Zstcd13}}"
 
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
@@ -117,13 +113,11 @@
 					<layoutData><l:GridData span="XL1 L3 M5 S12"/></layoutData>
 				</Text>
 				<Input
-				  id="iptCodiceFiscale2"	
 					editable="{=${Soa>/Zwels} === 'ID1' || ${Soa>/Zwels} === 'ID2' ? true : false}"
 					valueHelpRequest="onValueHelpCodiceFiscale2"
 					showValueHelp="true"
 					valueHelpOnly="true"
-					app:dialogName="sdCodiceFiscale2"
-					app:fragmentName="CodiceFiscale2"
+					value="{Soa>/Zstcd12}"
 				>
 					<layoutData><l:GridData span="XL2 L3 M5 S12"/></layoutData>
 				</Input>

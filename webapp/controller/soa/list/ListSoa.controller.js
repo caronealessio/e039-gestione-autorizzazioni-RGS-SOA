@@ -79,7 +79,21 @@ sap.ui.define(
         history.go(-1);
       },
       onAfterRendering: function () {
-        this._getTipoDisponibilitaList([]);
+        var self = this;
+        var oDataModel = self.getModel();
+
+        self
+          .getModel()
+          .metadataLoaded()
+          .then(function () {
+            oDataModel.read("/TipoDisp3Set", {
+              success: function (data, oResponse) {
+                self.setResponseMessage(oResponse);
+                self.setModelCustom("TipoDisp3Set", data.results);
+              },
+              error: function (error) {},
+            });
+          });
       },
 
       onToggle: function () {
@@ -312,9 +326,7 @@ sap.ui.define(
               filters: aFilters,
               success: function (data, oResponse) {
                 self.setResponseMessage(oResponse);
-                var oModelJson = new sap.ui.model.json.JSONModel();
-                oModelJson.setData(data.results);
-                self.getView().setModel(oModelJson, "TipoDisp3Set");
+                self.setModelCustom("TipoDisp3Set", data.results);
               },
               error: function (error) {},
             });
