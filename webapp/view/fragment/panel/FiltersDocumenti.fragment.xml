@@ -16,7 +16,7 @@
 			type="XML"
 		/>
 		<c:Fragment
-			fragmentName="rgssoa.view.fragment.soa.create.wizard1.filtersDocumentiProspetti.ProspettiLiquidazione"
+			fragmentName="rgssoa.view.fragment.panel.filter.ProspettiLiquidazione"
 			type="XML"
 		/>
 		<c:Fragment
