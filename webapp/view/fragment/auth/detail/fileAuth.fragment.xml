@@ -3,10 +3,5 @@
 	xmlns:l="sap.ui.layout"
 	xmlns:core="sap.ui.core"
 	xmlns:plugins="sap.m.plugins"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-
-	<!-- <VBox  width="100%"  class="bgWhite"> -->
-		
-
-
-</core:FragmentDefinition>
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+/>

@@ -3,7 +3,7 @@
 	xmlns:c="sap.ui.core"
 >
 	<Panel
-		class="noPadding"
+		class="sapUiNoContentPadding"
 		backgroundDesign="Transparent"
 		visible="{StepScenario>/wizard1Step1}"
 	>

@@ -6,24 +6,39 @@
 	height="100%"
 	busyIndicatorDelay="0"
 	xmlns:c="sap.ui.core"
+	xmlns:f="sap.f"
 >
-	<Page showHeader="false" class="bgWhite">
-    <content>
-			<c:Fragment fragmentName="rgssoa.view.fragment.soa.create.InputAutorizzazione" type="XML"/>	
-		</content>
-		<footer>
+	<f:DynamicPage
+		showFooter="true"
+		class="sapUiNoContentPadding"
+	>
+		<f:content>
+			<c:Fragment
+				fragmentName="rgssoa.view.fragment.soa.create.InputAutorizzazione"
+				type="XML"
+			/>
+		</f:content>
+		<f:footer>
 			<OverflowToolbar>
-				<Button type="Emphasized" text="{i18n>btnBack}" press="onNavBack" >
-						<layoutData>
-							<OverflowToolbarLayoutData priority="NeverOverflow" />
-						</layoutData>
-				</Button>
-				<Button type="Emphasized" text="{i18n>btnForward}" press="onNavForward" >
+				<Button
+					type="Emphasized"
+					text="{i18n>btnBack}"
+					press="onNavBack"
+				>
 					<layoutData>
-						<OverflowToolbarLayoutData priority="NeverOverflow" />
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<Button
+					type="Emphasized"
+					text="{i18n>btnForward}"
+					press="onNavForward"
+				>
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
 					</layoutData>
 				</Button>
 			</OverflowToolbar>
-		</footer>
-	</Page>
+		</f:footer>
+	</f:DynamicPage>
 </mvc:View>

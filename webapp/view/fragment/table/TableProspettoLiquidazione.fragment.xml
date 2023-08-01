@@ -1,0 +1,173 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+>
+	<Panel
+		class="onlyTopPadding"
+		visible="{StepScenario>/wizard1Step2}"
+		backgroundDesign="Transparent"
+	>
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="{i18n>titleListProspettiLiquidazione}"/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<content>
+			<l:Grid defaultSpan="XL12 L12 M12 S12">
+				<Table
+					id="tblProspettoLiquidazione"
+					mode="MultiSelect"
+					items="{
+						path: 'ProspettoLiquidazione>/'
+					}"
+					selectionChange="onSelectedItem"
+				>
+					<columns>
+						<Column
+							minScreenWidth="Desktop"
+							demandPopin="true"
+						>
+							<header>
+								<Text text="{i18n>labelProspetto}"/>
+							</header>
+						</Column>
+						<Column
+							minScreenWidth="Desktop"
+							demandPopin="true"
+						>
+							<header>
+								<Text text="{i18n>labelRigaProspetto}"/>
+							</header>
+						</Column>
+						<Column
+							minScreenWidth="Desktop"
+							demandPopin="true"
+						>
+							<header>
+								<Text text="{i18n>labelDescProspLiquidazione}"/>
+							</header>
+						</Column>
+						<Column
+							minScreenWidth="Desktop"
+							demandPopin="true"
+						>
+							<header>
+								<Text text="{i18n>labelAbbrNRegDocumento}"/>
+							</header>
+						</Column>
+						<Column
+							minScreenWidth="Desktop"
+							demandPopin="true"
+						>
+							<header>
+								<Text text="{i18n>labelImpLiquidato}"/>
+							</header>
+						</Column>
+						<Column
+							minScreenWidth="Desktop"
+							demandPopin="true"
+						>
+							<header>
+								<Text text="{i18n>labelImpOrdinato}"/>
+							</header>
+						</Column>
+						<Column
+							minScreenWidth="Desktop"
+							demandPopin="true"
+						>
+							<header>
+								<Text text="{i18n>labelImpDaOrdinare}"/>
+							</header>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem vAlign="Middle">
+							<cells>
+								<Text text="{
+									path: 'ProspettoLiquidazione>Znumliq'
+								}"/>
+								<Text text="{ProspettoLiquidazione>Zposizione}"/>
+								<Text text="{ProspettoLiquidazione>ZdescProsp}"/>
+								<Text text="{ProspettoLiquidazione>Belnr}"/>
+								<Text text="{
+									path: 'ProspettoLiquidazione>Zimpliq',
+									formatter: '.formatter.convertFormattedNumber'
+								}"/>
+								<Text text="{
+									path: 'ProspettoLiquidazione>Zimppag',
+									formatter: '.formatter.convertFormattedNumber'
+								}"/>
+								<Input
+									id="iptImpDaOrd"
+									change="onImpDaOrdinareChange"
+									type="Number"
+									value="{
+										path: 'ProspettoLiquidazione>Zimpdaord'
+									}"
+								/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<Panel
+					id="pnlCalculatorList"
+					visible="false"
+					backgroundDesign="Transparent"
+				>
+					<l:Grid
+						defaultSpan="XL12 L12 M12 S12"
+						class="calculator"
+					>
+						<Text text="{i18n>labelCalculator}">
+							<layoutData>
+								<l:GridData
+									span="XL2 L3 M4 S12"
+									indent="XL8 L5"
+								/>
+							</layoutData>
+						</Text>
+						<Input
+							value="{
+								path: 'Soa>/Zimptot',
+								formatter: '.formatter.convertFormattedNumber'
+							}"
+							editable="false"
+						>
+							<layoutData>
+								<l:GridData span="XL1 L2 M4 S12"/>
+							</layoutData>
+						</Input>
+						<Button
+							id="btnCalculate"
+							text="{i18n>btnCalculate}"
+							icon="sap-icon://simulate"
+							width="100%"
+							press="onCalculate"
+						>
+							<layoutData>
+								<l:GridData span="XL1 L2 M4 S12"/>
+							</layoutData>
+						</Button>
+					</l:Grid>
+				</Panel>
+				<Panel
+					id="pnlPaginator"
+					visible="false"
+					backgroundDesign="Transparent"
+				>
+					<c:Fragment
+						fragmentName="rgssoa.view.fragment.soa.Paginator"
+						type="XML"
+					/>
+					<layoutData>
+						<l:GridData
+							span="XL6 L6 M6 S12"
+							indent="XL3 L3 M3"
+						/>
+					</layoutData>
+				</Panel>
+			</l:Grid>
+		</content>
+	</Panel>
+</c:FragmentDefinition>

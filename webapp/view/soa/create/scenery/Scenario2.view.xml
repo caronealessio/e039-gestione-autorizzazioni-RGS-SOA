@@ -6,16 +6,24 @@
 	displayBlock="true"
 	height="100%"
 	busyIndicatorDelay="0"
+	xmlns:f="sap.f"
 >
-	<Page
-		showHeader="false"
-		class="bgWhite"
+	<f:DynamicPage
+		showFooter="true"
+		class="sapUiNoContentPadding"
 	>
-		<content>
-			<c:Fragment
-				fragmentName="rgssoa.view.fragment.panel.HeaderSoa"
-				type="XML"
-			/>
+		<f:header>
+			<f:DynamicPageHeader
+				pinnable="false"
+				class="noPadding"
+			>
+				<c:Fragment
+					fragmentName="rgssoa.view.fragment.panel.HeaderSoa"
+					type="XML"
+				/>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
 			<NavContainer>
 				<pages>
 					<Page showHeader="false">
@@ -23,7 +31,6 @@
 							<Wizard
 								id="wizScenario2"
 								showNextButton="false"
-								class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
 							>
 								<WizardStep title="{i18n>titleWizard1DocContabili}">
 									<c:Fragment
@@ -31,11 +38,11 @@
 										type="XML"
 									/>
 									<c:Fragment
-										fragmentName="rgssoa.view.fragment.table.QuoteDocumentiScen2"
+										fragmentName="rgssoa.view.fragment.table.TableQuoteDocumentiScen2"
 										type="XML"
 									/>
 									<c:Fragment
-										fragmentName="rgssoa.view.fragment.table.RiepilogoQuoteDocumentiScen2"
+										fragmentName="rgssoa.view.fragment.table.TableRiepQuoteDocumentiScen2"
 										type="XML"
 									/>
 								</WizardStep>
@@ -62,8 +69,8 @@
 					</Page>
 				</pages>
 			</NavContainer>
-		</content>
-		<footer>
+		</f:content>
+		<f:footer>
 			<OverflowToolbar>
 				<Button
 					type="Emphasized"
@@ -106,6 +113,6 @@
 					</layoutData>
 				</Button>
 			</OverflowToolbar>
-		</footer>
-	</Page>
+		</f:footer>
+	</f:DynamicPage>
 </mvc:View>

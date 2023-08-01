@@ -6,16 +6,24 @@
 	displayBlock="true"
 	height="100%"
 	busyIndicatorDelay="0"
+	xmlns:f="sap.f"
 >
-	<Page
-		showHeader="false"
-		class="bgWhite"
+	<f:DynamicPage
+		showFooter="true"
+		class="sapUiNoContentPadding"
 	>
-		<content>
-			<c:Fragment
-				fragmentName="rgssoa.view.fragment.panel.HeaderSoa"
-				type="XML"
-			/>
+		<f:header>
+			<f:DynamicPageHeader
+				pinnable="false"
+				class="noPadding"
+			>
+				<c:Fragment
+					fragmentName="rgssoa.view.fragment.panel.HeaderSoa"
+					type="XML"
+				/>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
 			<NavContainer>
 				<pages>
 					<Page showHeader="false">
@@ -31,11 +39,11 @@
 										type="XML"
 									/>
 									<c:Fragment
-										fragmentName="rgssoa.view.fragment.table.ProspettoLiquidazione"
+										fragmentName="rgssoa.view.fragment.table.TableProspettoLiquidazione"
 										type="XML"
 									/>
 									<c:Fragment
-										fragmentName="rgssoa.view.fragment.table.RiepilogoProspettoLiquidazione"
+										fragmentName="rgssoa.view.fragment.table.TableRiepProspettoLiquidazione"
 										type="XML"
 									/>
 								</WizardStep>
@@ -62,8 +70,8 @@
 					</Page>
 				</pages>
 			</NavContainer>
-		</content>
-		<footer>
+		</f:content>
+		<f:footer>
 			<OverflowToolbar>
 				<Button
 					type="Emphasized"
@@ -106,6 +114,6 @@
 					</layoutData>
 				</Button>
 			</OverflowToolbar>
-		</footer>
-	</Page>
+		</f:footer>
+	</f:DynamicPage>
 </mvc:View>

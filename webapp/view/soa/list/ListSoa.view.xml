@@ -3,24 +3,30 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:c="sap.ui.core"
+	xmlns:f="sap.f"
 >
-	<Page
-		showHeader="false"
-		class="bgWhite"
+	<f:DynamicPage
+		showFooter="true"
+		class="sapUiNoContentPadding"
 	>
-		<content>
+		<f:title>
+			<f:DynamicPageTitle/>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader class="noPadding">
+				<c:Fragment
+					fragmentName="rgssoa.view.fragment.soa.HeaderFilterbar"
+					type="XML"
+				/>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
 			<c:Fragment
-				fragmentName="rgssoa.view.fragment.soa.HeaderFilterbar"
+				fragmentName="rgssoa.view.fragment.table.TableListSOA"
 				type="XML"
 			/>
-		</content>
-		<content>
-			<c:Fragment
-				fragmentName="rgssoa.view.fragment.table.ListSOA"
-				type="XML"
-			/>
-		</content>
-		<footer>
+		</f:content>
+		<f:footer>
 			<OverflowToolbar>
 				<Button
 					type="Emphasized"
@@ -42,6 +48,6 @@
 					</layoutData>
 				</Button>
 			</OverflowToolbar>
-		</footer>
-	</Page>
+		</f:footer>
+	</f:DynamicPage>
 </mvc:View>

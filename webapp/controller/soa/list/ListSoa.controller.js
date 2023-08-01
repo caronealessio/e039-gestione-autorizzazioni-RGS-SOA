@@ -96,34 +96,6 @@ sap.ui.define(
           });
       },
 
-      onToggle: function () {
-        var self = this,
-          oView = self.getView(),
-          oBundle = self.getResourceBundle();
-
-        var btnArrow = oView.byId("btnToggle");
-        var panelFilter = oView.byId("grdFilter");
-        if (btnArrow.getIcon() === "sap-icon://slim-arrow-up") {
-          btnArrow.setIcon("sap-icon://slim-arrow-down");
-          btnArrow.setTooltip(oBundle.getText("tooltipArrowShow"));
-          panelFilter.setVisible(false);
-        } else {
-          btnArrow.setIcon("sap-icon://slim-arrow-up");
-          btnArrow.setTooltip(oBundle.getText("tooltipArrowHide"));
-          panelFilter.setVisible(true);
-        }
-      },
-
-      onBlockToggle: function () {
-        var self = this,
-          oView = self.getView();
-
-        var btnArrow = oView.byId("btnToggle");
-        btnArrow.getEnabled()
-          ? btnArrow.setEnabled(false)
-          : btnArrow.setEnabled(true);
-      },
-
       onSearch: function () {
         this._setPaginatorProperties();
         this._getSoaList();

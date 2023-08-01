@@ -7,10 +7,7 @@
 	height="100%"
 	busyIndicatorDelay="0"
 >
-	<Page
-		showHeader="false"
-		class="bgWhite"
-	>
+	<Page showHeader="false">
 		<content>
 			<c:Fragment
 				fragmentName="rgssoa.view.fragment.panel.HeaderSoa"
@@ -31,7 +28,7 @@
 										type="XML"
 									/>
 									<c:Fragment
-										fragmentName="rgssoa.view.fragment.table.RiepilogoNewProspettoLiquidazione"
+										fragmentName="rgssoa.view.fragment.table.TableRiepNewProspettoLiquidazione"
 										type="XML"
 									/>
 								</WizardStep>

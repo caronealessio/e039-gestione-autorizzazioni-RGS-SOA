@@ -4,12 +4,15 @@
 	xmlns:l="sap.ui.layout"
 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
-  <Panel class="noPadding" backgroundDesign="Transparent">
+	<Panel
+		class="sapUiNoContentPadding"
+		backgroundDesign="Transparent"
+	>
 		<headerToolbar>
-      <OverflowToolbar>
-        <Title text="{i18n>titleCpv}" />
-      </OverflowToolbar>
-    </headerToolbar>
+			<OverflowToolbar>
+				<Title text="{i18n>titleCpv}"/>
+			</OverflowToolbar>
+		</headerToolbar>
 		<content>
 			<Table
 				id="tblCpv"
@@ -17,53 +20,71 @@
 				fixedLayout="false"
 				contextualWidth="Auto"
 				growing="true"
-				items="{path: 'Classificazione>/Cpv'}"
-				
+				items="{
+					path: 'Classificazione>/Cpv'
+				}"
 			>
 				<headerToolbar>
 					<OverflowToolbar class="multiHeaders">
 						<ToolbarSpacer/>
-							<Button 
-								class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom" 
-								icon="sap-icon://add" 
-								text="{i18n>btnAdd}" 
-								type="Emphasized" 
-								press="onAddRow"
-								app:etichetta="Cpv"
-							>
+						<Button
+							class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
+							icon="sap-icon://add"
+							text="{i18n>btnAdd}"
+							type="Emphasized"
+							press="onAddRow"
+							app:etichetta="Cpv"
+						>
 							<layoutData>
-								<OverflowToolbarLayoutData priority="NeverOverflow" />
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
 							</layoutData>
 						</Button>
-						<Button 
-							class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom" 
-							icon="sap-icon://less" 
-							text="{i18n>btnCancel}" 
+						<Button
+							class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
+							icon="sap-icon://less"
+							text="{i18n>btnCancel}"
 							type="Emphasized"
 							press="onCancelRow"
 							app:etichetta="Cpv"
 							app:table="tblCpv"
-							>
+						>
 							<layoutData>
-								<OverflowToolbarLayoutData priority="NeverOverflow" />
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
 							</layoutData>
 						</Button>
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="35%">
-							<header><Text text="{i18n>labelCpv}" /></header>
+					<Column
+						minScreenWidth="Tablet"
+						demandPopin="true"
+						width="35%"
+					>
+						<header>
+							<Text text="{i18n>labelCpv}"/>
+						</header>
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true">
-							<header><Text text="{i18n>labelDescCpv}" /></header>
+					<Column
+						minScreenWidth="Tablet"
+						demandPopin="true"
+					>
+						<header>
+							<Text text="{i18n>labelDescCpv}"/>
+						</header>
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" width="32%">
-							<header><Text text="{i18n>labelImpDaAssociare}" /></header>
+					<Column
+						minScreenWidth="Tablet"
+						demandPopin="true"
+						width="32%"
+					>
+						<header>
+							<Text text="{i18n>labelImpDaAssociare}"/>
+						</header>
 					</Column>
 				</columns>
-					<items >
-						<ColumnListItem vAlign="Middle">
-							<cells>			
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
 							<Input
 								id="iptCpv"
 								valueHelpRequest="onValueHelpCpv"
@@ -71,12 +92,12 @@
 								valueHelpOnly="true"
 								app:dialogName="sdCpv"
 								app:fragmentName="Cpv"
-								app:index="{Classificazione>Index}" 
+								app:index="{Classificazione>Index}"
 								width="65%"
 								value="{Classificazione>Zcpv}"
 								change="onCodiceGestionaleChange"
 							/>
-							<Input 
+							<Input
 								editable="false"
 								value="{Classificazione>ZcpvDesc}"
 							/>
@@ -88,21 +109,34 @@
 								app:index="{Classificazione>Index}"
 								app:etichetta="Cpv"
 								change="onImpDaAssociareChange"
-							/>			
-							</cells>
-						</ColumnListItem>
-					</items>
+							/>
+						</cells>
+					</ColumnListItem>
+				</items>
 			</Table>
 			<Panel backgroundDesign="Transparent">
-          <l:Grid defaultSpan="XL12 L12 M12 S12" class="bgWhite calculator" >
-            <Text text="{i18n>labelImpTotCpv}">
-              <layoutData ><l:GridData span="XL3 L4 M5 S12" indent="XL5 L4 M3" /></layoutData>
-            </Text>
-            <Text text="{path: 'Classificazione>/ImpTotAssociareCpv', formatter:'.formatter.convertFormattedNumber'}"> 
-              <layoutData><l:GridData span="XL1 L1 M1 S12" /></layoutData>
-            </Text>
-        </l:Grid>
+				<l:Grid
+					defaultSpan="XL12 L12 M12 S12"
+					class="calculator"
+				>
+					<Text text="{i18n>labelImpTotCpv}">
+						<layoutData>
+							<l:GridData
+								span="XL3 L4 M5 S12"
+								indent="XL5 L4 M3"
+							/>
+						</layoutData>
+					</Text>
+					<Text text="{
+						path: 'Classificazione>/ImpTotAssociareCpv',
+						formatter: '.formatter.convertFormattedNumber'
+					}">
+						<layoutData>
+							<l:GridData span="XL1 L1 M1 S12"/>
+						</layoutData>
+					</Text>
+				</l:Grid>
 			</Panel>
-		</content> 
+		</content>
 	</Panel>
 </c:FragmentDefinition>

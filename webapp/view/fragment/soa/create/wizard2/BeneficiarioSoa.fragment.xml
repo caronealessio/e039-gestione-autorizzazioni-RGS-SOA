@@ -2,11 +2,30 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
 >
-	<Panel class="noPadding" backgroundDesign="Transparent" visible="{StepScenario>/wizard2}">
-		<c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.Beneficiario" type="XML"/>
-		<c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.ModalitaPagamento" type="XML"/>
-		<c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.DatiVaglia" type="XML"/>
-		<c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.Inps" type="XML"/>
-		<c:Fragment fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.SedeBeneficiario" type="XML"/>
+	<Panel
+		class="sapUiNoContentPadding"
+		backgroundDesign="Transparent"
+		visible="{StepScenario>/wizard2}"
+	>
+		<c:Fragment
+			fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.Beneficiario"
+			type="XML"
+		/>
+		<c:Fragment
+			fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.ModalitaPagamento"
+			type="XML"
+		/>
+		<c:Fragment
+			fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.DatiVaglia"
+			type="XML"
+		/>
+		<c:Fragment
+			fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.Inps"
+			type="XML"
+		/>
+		<c:Fragment
+			fragmentName="rgssoa.view.fragment.soa.create.wizard2.inputBeneficiarioSoa.SedeBeneficiario"
+			type="XML"
+		/>
 	</Panel>
 </c:FragmentDefinition>
