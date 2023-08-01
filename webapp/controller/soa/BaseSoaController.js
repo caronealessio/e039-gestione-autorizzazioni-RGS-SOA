@@ -2227,7 +2227,6 @@ sap.ui.define(
         oModel.create("/InserisciAnagraficaBeneficiarioSet", oBeneficiario, {
           success: function (data, oResponse) {
             var oMessage = self.getMessage(oResponse);
-
             //Se il messaggio è di tipo "warning" signiifica che non è andato a buon fine
             //il controllo SIFE
             switch (oMessage.severity) {

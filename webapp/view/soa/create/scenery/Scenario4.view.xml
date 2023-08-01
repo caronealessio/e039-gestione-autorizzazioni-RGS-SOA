@@ -6,13 +6,24 @@
 	displayBlock="true"
 	height="100%"
 	busyIndicatorDelay="0"
+	xmlns:f="sap.f"
 >
-	<Page showHeader="false">
-		<content>
-			<c:Fragment
-				fragmentName="rgssoa.view.fragment.panel.HeaderSoa"
-				type="XML"
-			/>
+	<f:DynamicPage
+		showFooter="true"
+		class="sapUiNoContentPadding"
+	>
+		<f:header>
+			<f:DynamicPageHeader
+				pinnable="false"
+				class="noPadding"
+			>
+				<c:Fragment
+					fragmentName="rgssoa.view.fragment.panel.HeaderSoa"
+					type="XML"
+				/>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
 			<NavContainer>
 				<pages>
 					<Page showHeader="false">
@@ -55,8 +66,8 @@
 					</Page>
 				</pages>
 			</NavContainer>
-		</content>
-		<footer>
+		</f:content>
+		<f:footer>
 			<OverflowToolbar>
 				<Button
 					type="Emphasized"
@@ -99,6 +110,6 @@
 					</layoutData>
 				</Button>
 			</OverflowToolbar>
-		</footer>
-	</Page>
+		</f:footer>
+	</f:DynamicPage>
 </mvc:View>

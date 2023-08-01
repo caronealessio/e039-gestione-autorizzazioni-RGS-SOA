@@ -3,9 +3,19 @@ sap.ui.define(
     "../../BaseSoaController",
     "../../../../model/formatter",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/export/library",
+    "sap/ui/export/Spreadsheet",
   ],
-  function (BaseSoaController, formatter, JSONModel) {
+  function (
+    BaseSoaController,
+    formatter,
+    JSONModel,
+    exportLibrary,
+    Spreadsheet
+  ) {
     "use strict";
+
+    const EDM_TYPE = exportLibrary.EdmType;
 
     return BaseSoaController.extend(
       "rgssoa.controller.soa.create.scenery.Scenario4",
@@ -321,6 +331,28 @@ sap.ui.define(
             oModelStepScenario.setProperty("/wizard4", true);
             oWizard.nextStep();
           }
+        },
+
+        onExport: function () {
+          var oSheet;
+          var self = this;
+
+          var oTable = self.getView().byId("tblRiepNewProspettoLiquidazione");
+          var oTableModel = oTable.getModel("NewProspettoLiquidazione");
+
+          var aCols = this._createColumnConfig();
+          var oSettings = {
+            workbook: {
+              columns: aCols,
+            },
+            dataSource: oTableModel.getData(),
+            fileName: "Prospetto liquidazione.xlsx",
+          };
+
+          oSheet = new Spreadsheet(oSettings);
+          oSheet.build().finally(function () {
+            oSheet.destroy();
+          });
         },
 
         //#region WIZARD 1
@@ -759,6 +791,64 @@ sap.ui.define(
           }
 
           return true;
+        },
+
+        _createColumnConfig: function () {
+          var self = this;
+          var oBundle = self.getResourceBundle();
+          var aCols = [
+            {
+              label: oBundle.getText("labelTipoDocumento"),
+              property: "TpDoc",
+              type: EDM_TYPE.String,
+            },
+            {
+              label: oBundle.getText("labelDataDocumento"),
+              property: "DataDoc",
+              type: EDM_TYPE.Date,
+              format: "dd.mm.yyyy",
+            },
+            {
+              label: oBundle.getText("labelDataCompetenza"),
+              property: "DataComp",
+              type: EDM_TYPE.Date,
+              format: "dd.mm.yyyy",
+            },
+            {
+              label: oBundle.getText("labelDenomBenLiquidazione"),
+              property: "ZzragSoc",
+              type: EDM_TYPE.String,
+            },
+            {
+              label: oBundle.getText("titleModalitaPagamento"),
+              property: "Zdescwels",
+              type: EDM_TYPE.String,
+            },
+            {
+              label: oBundle.getText("labelIban"),
+              property: "Iban",
+              type: EDM_TYPE.String,
+            },
+            {
+              label: oBundle.getText("labelDurc"),
+              property: "Zdurc",
+              type: EDM_TYPE.String,
+            },
+            {
+              label: oBundle.getText("labelFermoAmministrativo"),
+              property: "ZfermAmm",
+              type: EDM_TYPE.String,
+            },
+            {
+              label: oBundle.getText("labelImportoLiquidazione"),
+              property: "Zimpliq",
+              type: EDM_TYPE.Number,
+              scale: 2,
+              delimiter: true,
+            },
+          ];
+
+          return aCols;
         },
 
         //#endregion

@@ -187,6 +187,87 @@ sap.ui.define(
           });
           self.setModel(oModelFilterDocumenti, "FilterDocumenti");
 
+          var oModelNewAnagraficaBen = new JSONModel({
+            Beneficiario: {
+              FlagSife: true,
+              Lifnr: "",
+              SCountry: "",
+              SType: "",
+              SRagsoc: "",
+              SName: "",
+              SSurname: "",
+              SStreet: "",
+              SHousenum: "",
+              SCity: "",
+              SRegion: "",
+              SPstlz: "",
+              SSedelegale: false,
+              SStcd1: "",
+              SStcd2: "",
+              SStcd3: "",
+
+              DescPaeseResidenza: "",
+              DescProvincia: "",
+            },
+            ModalitaPagamento: {
+              SZwels: "",
+              Zdescwels: "",
+              SType: "",
+              SCountryRes: "",
+              SIban: "",
+              Ztipofirma: "",
+              Swift: "",
+              Zcoordest: "",
+              ValidFromDats: "",
+              ValidToDats: "",
+              Gjahr: "",
+              Zcapo: "",
+              Zcapitolo: "",
+              Zarticolo: "",
+              Zconto: "",
+              ZdescConto: "",
+              Seqnr: "",
+
+              DescPaeseResidenza: "",
+            },
+            Quietanzante: {
+              Zqnome: "",
+              Zqcognome: "",
+              Zqqualifica: "",
+              Stcd1: "",
+              Zqdatanasc: "",
+              Zqluogonasc: "",
+              Zqprovnasc: "",
+              Zqindiriz: "",
+              Zqcitta: "",
+              Zqcap: "",
+              Zqprovincia: "",
+              Zqtelefono: "",
+            },
+            Destinatario: {
+              Zqnomedest: "",
+              Zqcognomedest: "",
+              Zqqualificadest: "",
+              Stcd1Dest: "",
+              Zqdatanascdest: "",
+              Zqluogonascdest: "",
+              Zqprovnascdest: "",
+              Zqindirizdest: "",
+              Zqcittadest: "",
+              Zqcapdest: "",
+              Zqprovinciadest: "",
+              Zqtelefonodest: "",
+            },
+            VisibleNewBeneficiario: false,
+            VisibleNewModalitaPagamento: false,
+            VisibleNewQuietanzante: false,
+            VisibleNewDestinatario: false,
+            TitleDialogNewModPag: "Inserisci Modalità di Pagamento",
+            TitleDialogNewBeneficiario: "Dati Anagrafica Beneficiario",
+            BeneficiarioCreated: false,
+          });
+          self.setModel(oModelNewAnagraficaBen, "NewAnagraficaBen");
+
           self.setModel(oModelSoa, "Soa");
           self.setModel(oModelPaginator, PAGINATOR_MODEL);
           self.setModel(oStepScenario, "StepScenario");
@@ -580,9 +661,6 @@ sap.ui.define(
           self.setFilterEQ(aFilters, "Gjahr", oModelSoa.getProperty("/Gjahr"));
           self.setFilterEQ(aFilters, "Fipex", oModelSoa.getProperty("/Fipos"));
           self.setFilterEQ(aFilters, "Fistl", oModelSoa.getProperty("/Fistl"));
-
-          console.log(aFilters);
-
           return aFilters;
         },
 

@@ -315,7 +315,7 @@ sap.ui.define(
         var aFilters = this._getHeaderFilters();
         var oPaginatorModel = self.getModel(PAGINATOR_MODEL);
         var oPaginator = oView.byId("pnlPaginator");
-        var oListSoa = oView.byId("vbxListSoa");
+        var oListSoa = oView.byId("pnlListSoa");
         var urlParameters = {
           $top: oPaginatorModel.getProperty("/numRecordsForPage"),
           $skip: oPaginatorModel.getProperty("/paginatorSkip"),

@@ -1,7 +1,6 @@
 <c:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
-	xmlns:l="sap.ui.layout"
 >
 	<Panel
 		id="pnlRiepilogoQuoteDocumenti"
@@ -15,145 +14,115 @@
 			</OverflowToolbar>
 		</headerToolbar>
 		<content>
-			<l:Grid
-				defaultSpan="XL12 L12 M12 S12"
-				class="bgNotEditable"
+			<Table
+				id="tblRiepilogoQuoteDocumenti"
+				items="{
+					path: 'Soa>/data'
+				}"
 			>
-				<Table
-					id="tblRiepilogoQuoteDocumenti"
-					items="{
-						path: 'Soa>/data'
-					}"
-				>
-					<columns>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text text="{i18n>labelAnnoRegDocumento}"/>
-							</header>
-						</Column>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text text="{i18n>labelAbbrNRegDocumento}"/>
-							</header>
-						</Column>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text text="{i18n>labelAbbrTipoDocumento}"/>
-							</header>
-						</Column>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text text="{i18n>labelDataDocBeneficiario}"/>
-							</header>
-						</Column>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text text="{i18n>labelDenomBeneficiario}"/>
-							</header>
-						</Column>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text text="{i18n>labelImpDaOrdinare}"/>
-							</header>
-						</Column>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text
-									text="{i18n>labelProspetto}"
-									visible="{= ${Soa>/ZzCebenra} ? false : true}"
-								/>
-							</header>
-						</Column>
-						<Column
-							minScreenWidth="Desktop"
-							demandPopin="true"
-						>
-							<header>
-								<Text
-									text="{i18n>labelRigaProspetto}"
-									visible="{= ${Soa>/ZzCebenra} ? false : true}"
-								/>
-							</header>
-						</Column>
-					</columns>
-					<items>
-						<ColumnListItem
-							vAlign="Middle"
-							class="bgNotEditable"
-						>
-							<cells>
-								<ObjectIdentifier text="{Soa>AnnoRegDocumento}"/>
-								<ObjectIdentifier text="{Soa>NumRegDoc}"/>
-								<Text text="{Soa>TipoDoc}"/>
-								<Text text="{
-									path: 'Soa>DataDocBen',
-									type: 'sap.ui.model.type.Date',
-									formatOptions: {
-										pattern: 'dd.MM.yyyy'
-									}
-								}"/>
-								<Text text="{Soa>DenBen}"/>
-								<Text text="{
-									path: 'Soa>ImpDaOrd',
-									formatter: '.formatter.convertFormattedNumber'
-								}"/>
-								<Text text="{Soa>NProspLiquidazione}"/>
-								<Text text="{Soa>RigaProsp}"/>
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>
-				<Panel
-					id="pnlCalculatorRiepilogo"
-					backgroundDesign="Transparent"
-				>
-					<l:Grid
-						defaultSpan="XL12 L12 M12 S12"
-						class="bgNotEditable calculator"
+				<columns>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
 					>
-						<Text text="{i18n>labelCalculator}">
-							<layoutData>
-								<l:GridData
-									span="XL2 L3 M4 S12"
-									indent="XL8 L5"
-								/>
-							</layoutData>
-						</Text>
-						<Input
-							value="{
-								path: 'Soa>/Zimptot',
+						<header>
+							<Text text="{i18n>labelAnnoRegDocumento}"/>
+						</header>
+					</Column>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
+					>
+						<header>
+							<Text text="{i18n>labelAbbrNRegDocumento}"/>
+						</header>
+					</Column>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
+					>
+						<header>
+							<Text text="{i18n>labelAbbrTipoDocumento}"/>
+						</header>
+					</Column>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
+					>
+						<header>
+							<Text text="{i18n>labelDataDocBeneficiario}"/>
+						</header>
+					</Column>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
+					>
+						<header>
+							<Text text="{i18n>labelDenomBeneficiario}"/>
+						</header>
+					</Column>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
+					>
+						<header>
+							<Text text="{i18n>labelImpDaOrdinare}"/>
+						</header>
+					</Column>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
+					>
+						<header>
+							<Text
+								text="{i18n>labelProspetto}"
+								visible="{= ${Soa>/ZzCebenra} ? false : true}"
+							/>
+						</header>
+					</Column>
+					<Column
+						minScreenWidth="Desktop"
+						demandPopin="true"
+					>
+						<header>
+							<Text
+								text="{i18n>labelRigaProspetto}"
+								visible="{= ${Soa>/ZzCebenra} ? false : true}"
+							/>
+						</header>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						vAlign="Middle"
+						class="bgNotEditable"
+					>
+						<cells>
+							<ObjectIdentifier text="{Soa>AnnoRegDocumento}"/>
+							<ObjectIdentifier text="{Soa>NumRegDoc}"/>
+							<Text text="{Soa>TipoDoc}"/>
+							<Text text="{
+								path: 'Soa>DataDocBen',
+								type: 'sap.ui.model.type.Date',
+								formatOptions: {
+									pattern: 'dd.MM.yyyy'
+								}
+							}"/>
+							<Text text="{Soa>DenBen}"/>
+							<Text text="{
+								path: 'Soa>ImpDaOrd',
 								formatter: '.formatter.convertFormattedNumber'
-							}"
-							editable="false"
-						>
-							<layoutData>
-								<l:GridData span="XL1 L2 M4 S12"/>
-							</layoutData>
-						</Input>
-					</l:Grid>
-				</Panel>
-			</l:Grid>
+							}"/>
+							<Text text="{Soa>NProspLiquidazione}"/>
+							<Text text="{Soa>RigaProsp}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<c:Fragment
+				fragmentName="rgssoa.view.fragment.panel.CalculatorNoEditable"
+				type="XML"
+			/>
 		</content>
 	</Panel>
 </c:FragmentDefinition>
