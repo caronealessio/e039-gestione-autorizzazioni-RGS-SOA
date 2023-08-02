@@ -12,7 +12,7 @@ sap.ui.define(
     const NE = FilterOperator.NE;
     const SOA_ENTITY_SET = "SOASet";
     const SOA_ENTITY_MODEL = "SOASet";
-    const SOA_MODEL = "SoaModel";
+    const SOA_MODEL = "SoaSettings";
     const PAGINATOR_MODEL = "paginatorModel";
 
     return BaseController.extend("rgssoa.controller.soa.list.ListSoa", {
@@ -37,8 +37,10 @@ sap.ui.define(
           paginatorTotalPage: 1,
         });
 
-        var oSoaModel = new JSONModel({
+        var oModelSoa = new JSONModel({
           totalItems: 0,
+          selectedItems: [],
+          enabledBtnDetail: false,
         });
 
         var oModelFilter = new JSONModel({
@@ -72,7 +74,7 @@ sap.ui.define(
         });
 
         self.setModel(oModelPaginator, PAGINATOR_MODEL);
-        self.setModel(oSoaModel, SOA_MODEL);
+        self.setModel(oModelSoa, SOA_MODEL);
         self.setModel(oModelFilter, "Filter");
       },
       onNavBack: function () {
@@ -115,6 +117,48 @@ sap.ui.define(
       onRegisterSoa: function () {
         var self = this;
         self.getRouter().navTo("soa.create.ChoseTypeSoa");
+      },
+
+      onSelectedItem: function (oEvent) {
+        var self = this;
+        var bSelected = oEvent.getParameter("selected");
+        var oModelSoaSettings = self.getModel("SoaSettings");
+        var oTableSoa = self.getView().byId("tblListSoa");
+        var oTableModelSoa = oTableSoa.getModel(SOA_ENTITY_MODEL);
+
+        var aSelectedItems = oModelSoaSettings.getProperty("/selectedItems");
+        var aListItems = oEvent.getParameter("listItems");
+
+        aListItems.map((oListItem) => {
+          var oSelectedItem = oTableModelSoa.getObject(
+            oListItem.getBindingContextPath()
+          );
+
+          if (bSelected) {
+            aSelectedItems.push(oSelectedItem);
+          } else {
+            this._removeUnselectedItem(aSelectedItems, oSelectedItem);
+          }
+        });
+
+        oModelSoaSettings.setProperty(
+          "/enabledBtnDetail",
+          aSelectedItems.length === 1
+        );
+        oModelSoaSettings.setProperty("/selectedItem", aSelectedItems);
+      },
+      onDetail: function () {
+        var self = this;
+        var oModelSoaSettings = self.getModel("SoaSettings");
+        var oSelectedItem = oModelSoaSettings.getProperty("/selectedItems")[0];
+
+        self.getRouter().navTo("soa.detail.scenery.Scenario1", {
+          Gjahr: oSelectedItem.Gjahr,
+          Zchiavesop: oSelectedItem.Zchiavesop,
+          Bukrs: oSelectedItem.Bukrs,
+          Zstep: oSelectedItem.Zstep,
+          Ztipososp: oSelectedItem.Ztipososp,
+        });
       },
 
       //#region PAGINATOR
@@ -347,6 +391,7 @@ sap.ui.define(
                 self.setModelCustom(SOA_ENTITY_MODEL, data.results);
                 self.setPaginatorVisible(oPaginator, data);
                 oView.setBusy(false);
+                self._setSelectedItems(data);
               },
               error: function (error) {
                 oView.setBusy(false);
@@ -484,6 +529,46 @@ sap.ui.define(
         );
 
         return aFilters;
+      },
+
+      _removeUnselectedItem: function (aSelectedItems, oSelectedItem) {
+        var iIndex = aSelectedItems.findIndex((obj) => {
+          return (
+            obj.Gjahr === oSelectedItem.Gjahr &&
+            obj.Zchiavesop === oSelectedItem.Zchiavesop &&
+            obj.Bukrs === oSelectedItem.Bukrs &&
+            obj.Zstep === oSelectedItem.Zstep &&
+            obj.Ztipososp === oSelectedItem.Ztipososp
+          );
+        });
+
+        if (iIndex > -1) {
+          aSelectedItems.splice(iIndex, 1);
+        }
+      },
+
+      _setSelectedItems: function (data) {
+        var self = this;
+        var oTableListSoa = self.getView().byId("tblListSoa");
+        var oModelSoaSettings = self.getModel("SoaSettings");
+
+        var aSelectedItems = oModelSoaSettings.getProperty("/selectedItems");
+
+        if (data.results.length !== 0) {
+          data.results.map((oItem, iIndex) => {
+            aSelectedItems.map((oSelectedItem) => {
+              if (
+                oItem.Gjahr === oSelectedItem.Gjahr &&
+                oItem.Zchiavesop === oSelectedItem.Zchiavesop &&
+                oItem.Bukrs === oSelectedItem.Bukrs &&
+                oItem.Zstep === oSelectedItem.Zstep &&
+                oItem.Ztipososp === oSelectedItem.Ztipososp
+              ) {
+                oTableListSoa.setSelectedItem(oTableListSoa.getItems()[iIndex]);
+              }
+            });
+          });
+        }
       },
 
       //#endregion

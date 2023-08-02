@@ -8,6 +8,7 @@
 		visible="false"
 	>
 		<Table
+			id="tblListSoa"
 			mode="MultiSelect"
 			fixedLayout="false"
 			contextualWidth="Auto"
@@ -20,7 +21,7 @@
 		>
 			<headerToolbar>
 				<OverflowToolbar>
-					<Title text="{SoaModel>/listSOATableTitle}"/>
+					<Title text="{SoaSettings>/listSOATableTitle}"/>
 					<ToolbarSpacer/>
 					<Button
 						text="{i18n>btnAnnullamentoSoa}"
@@ -54,6 +55,8 @@
 						text="{i18n>btnDettaglio}"
 						type="Emphasized"
 						icon="sap-icon://sys-find"
+						press="onDetail"
+						enabled="{SoaSettings>/enabledBtnDetail}"
 					/>
 					<Button
 						text="{i18n>btnExport}"

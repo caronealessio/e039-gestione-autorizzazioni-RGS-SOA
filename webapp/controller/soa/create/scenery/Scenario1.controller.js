@@ -18,7 +18,7 @@ sap.ui.define(
         formatter: formatter,
         onInit: function () {
           var self = this;
-          var oStepScenario = new JSONModel({
+          var oModelStepScenario = new JSONModel({
             wizard1Step1: true,
             wizard1Step2: false,
             wizard1Step3: false,
@@ -31,6 +31,7 @@ sap.ui.define(
           });
 
           var oModelSoa = new JSONModel({
+            EnableEdit: true,
             //Dati SOA (Parte celeste in alto)
             Gjahr: "", //Esercizio di gestione
             Zimptot: "0.00", //Importo
@@ -61,7 +62,9 @@ sap.ui.define(
             Zdescriz: "", //TODO - Open Point - Descrizione Codice FD
             ZspecieSop: "", //Specie SOA
             DescZspecieSop: "", //Descrizione Specie SOA
-            Zidsede: "", //Sede
+            Zsede: "", //Sede Estera
+            Zdenominazione: "", //Descrizione Sede Estera
+            Zidsede: "", //Sede Beneficiario
             Zwels: "", //Codice Modalità Pagamento
             ZCausaleval: "", //Causale Valutaria
             Swift: "", //BIC
@@ -99,11 +102,11 @@ sap.ui.define(
 
             BuType: "", //Tipologia Persona
             Taxnumxl: "", //Codice Fiscale Estero
-            Zdenominazione: "", //Descrizione Sede
+
             Zdurc: "", //Numero identificativo Durc
             ZfermAmm: "", //Fermo amministrativo
             Zdescwels: "", //Descrizione Modalità Pagamento
-            Zbanks: "", //Paese di Residenza (Primi 2 digit IBAN)
+            Banks: "", //Paese di Residenza (Primi 2 digit IBAN)
             ZDesccauval: "", //Descrizione Causale Valutaria
 
             Zqindiriz: "", //Indirizzo primo quietanzante
@@ -255,7 +258,7 @@ sap.ui.define(
 
           self.setModel(oModelPaginator, PAGINATOR_MODEL);
           self.setModel(oModelSoa, "Soa");
-          self.setModel(oStepScenario, "StepScenario");
+          self.setModel(oModelStepScenario, "StepScenario");
           self.setModel(oModelClassificazione, "Classificazione");
 
           this.getRouter()
@@ -306,7 +309,7 @@ sap.ui.define(
           var bWizard4 = oModelStepScenario.getProperty("/wizard4");
 
           if (bWizard1Step1) {
-            self.resetModelSoa("1");
+            self.resetModelSoa("1", true);
             history.go(-1);
           } else if (bWizard1Step2) {
             oModelStepScenario.setProperty("/wizard1Step2", false);

@@ -18,7 +18,7 @@ sap.ui.define(
 
         onInit: function () {
           var self = this;
-          var oStepScenario = new JSONModel({
+          var oModelStepScenario = new JSONModel({
             wizard1Step1: true,
             wizard1Step2: false,
             wizard1Step3: false,
@@ -31,6 +31,7 @@ sap.ui.define(
           });
 
           var oModelSoa = new JSONModel({
+            EnableEdit: true,
             /**   Scenario    */
             Ztipopag: "2", //Tipo Pagamento
 
@@ -68,10 +69,10 @@ sap.ui.define(
             data: [], //Quote Documenti
 
             /**   WIZARD 2 - Beneficiario SOA   */
-            Zidsede: "", //Sede
             BuType: "", //Tipologia Persona
             Taxnumxl: "", //Codice Fiscale Estero
-            Zdenominazione: "", //Descrizione Sede
+            Zsede: "", //Sede Estera
+            Zdenominazione: "", //Descrizione Sede Estera
             Zdurc: "", //Numero identificativo Durc
             ZfermAmm: "", //Fermo amministrativo
 
@@ -83,7 +84,7 @@ sap.ui.define(
             Iban: "", //IBAN
             Zmotivaz: "", //Motivazione cambio IBAN
             Zdescwels: "", //Descrizione Modalità Pagamento
-            Zbanks: "", //Paese di Residenza (Primi 2 digit IBAN)
+            Banks: "", //Paese di Residenza (Primi 2 digit IBAN)
             ZDesccauval: "", //Descrizione Causale Valutaria
 
             /**   WIZARD 2 - Dati Quietanzante/Destinatario Vaglia    */
@@ -118,6 +119,7 @@ sap.ui.define(
             FlagInpsEditabile: false,
 
             /**   WIZARD 2 - Sede Beneficiario */
+            Zidsede: "", //Sede
             Stras: "", //Via,numero civico
             Ort01: "", //Località
             Regio: "", //Regione
@@ -270,7 +272,7 @@ sap.ui.define(
 
           self.setModel(oModelSoa, "Soa");
           self.setModel(oModelPaginator, PAGINATOR_MODEL);
-          self.setModel(oStepScenario, "StepScenario");
+          self.setModel(oModelStepScenario, "StepScenario");
           self.setModel(oModelClassificazione, "Classificazione");
 
           //TODO - Inserire l'acceptOnlyImport anche per CIG e CUP
@@ -323,7 +325,7 @@ sap.ui.define(
           var bWizard4 = oModelStepScenario.getProperty("/wizard4");
 
           if (bWizard1Step1) {
-            self.resetModelSoa("2");
+            self.resetModelSoa("2", true);
             history.go(-1);
           } else if (bWizard1Step2) {
             oModelStepScenario.setProperty("/wizard1Step2", false);

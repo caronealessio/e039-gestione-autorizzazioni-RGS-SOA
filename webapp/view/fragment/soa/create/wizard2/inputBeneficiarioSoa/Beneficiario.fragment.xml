@@ -13,13 +13,22 @@
 					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
 					type="Emphasized"
 					press="onNewModalitaPagamento"
-					enabled="{= ${Soa>/ZspecieSop} === '1' &amp;&amp; (${Soa>/Ztipopag} === '1' || ${Soa>/Ztipopag} === '2' || ${Soa>/Ztipopag} === '3') ? true : false}"
+					enabled="{= 
+						${Soa>/ZspecieSop} === '1' &amp;&amp; 
+						(${Soa>/Ztipopag} === '1' || ${Soa>/Ztipopag} === '2' || ${Soa>/Ztipopag} === '3')
+						&amp;&amp; 
+						${Soa>/EnableEdit} ? true : false 
+					}"
 				/>
 				<Button
 					text="{i18n>btnNewBeneficiario}"
 					class="sapUiTinyMarginEnd sapUiTinyMarginBegin sapUiTinyMarginBottom"
 					type="Emphasized"
-					enabled="{= ${Soa>/ZspecieSop} === '1' &amp;&amp; (${Soa>/Ztipopag} === '2') ? true : false}"
+					enabled="{= 
+						${Soa>/ZspecieSop} === '1' &amp;&amp; 
+						${Soa>/Ztipopag} === '2' &amp;&amp; 
+						${Soa>/EnableEdit} ? true : false
+					}"
 					press="onNewBeneficiario"
 				/>
 			</OverflowToolbar>
@@ -38,7 +47,10 @@
 					</layoutData>
 				</Text>
 				<Input
-					editable="{= ${Soa>/Ztipopag} === '2' ? true : false}"
+					editable="{= 
+						${Soa>/Ztipopag} === '2' &amp;&amp; 
+						${Soa>/EnableEdit} ? true : false
+					}"
 					value="{Soa>/Lifnr}"
 				>
 					<layoutData>
@@ -191,7 +203,7 @@
 				</Text>
 				<Input
 					editable="false"
-					value="{Soa>/Zidsede}"
+					value="{Soa>/Zsede}"
 				>
 					<layoutData>
 						<l:GridData span="XL2 L3 M5 S12"/>

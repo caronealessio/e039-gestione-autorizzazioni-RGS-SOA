@@ -26,8 +26,8 @@ sap.ui.define(
         var self = this;
 
         self.acceptOnlyImport("iptImpDaOrd");
-        self.acceptOnlyImport("iptImpDaAssociare");
-        self.acceptOnlyImport("iptImpDaAssociareCpv");
+        // self.acceptOnlyImport("iptImpDaAssociare");
+        // self.acceptOnlyImport("iptImpDaAssociareCpv");
 
         //TODO - Inserire l'acceptOnlyImport anche per CIG e CUP
       },
@@ -574,9 +574,10 @@ sap.ui.define(
 
       //#region PUBLIC METHODS
 
-      resetModelSoa: function (sScenario) {
+      resetModelSoa: function (sScenario, bEnableEdit) {
         var self = this;
         var oModelSoa = new JSONModel({
+          EnableEdit: bEnableEdit,
           /**   Scenario    */
           Ztipopag: sScenario, //Tipo Pagamento
 
@@ -620,10 +621,10 @@ sap.ui.define(
           data: [], //Quote Documenti
 
           /**   WIZARD 2 - Beneficiario SOA   */
-          Zidsede: "", //Sede
           BuType: "", //Tipologia Persona
           Taxnumxl: "", //Codice Fiscale Estero
-          Zdenominazione: "", //Descrizione Sede
+          Zsede: "", //Sede Estera
+          Zdenominazione: "", //Descrizione Sede Estera
           Zdurc: "", //Numero identificativo Durc
           ZfermAmm: "", //Fermo amministrativo
 
@@ -635,7 +636,7 @@ sap.ui.define(
           Iban: "", //IBAN
           Zmotivaz: "", //Motivazione cambio IBAN
           Zdescwels: "", //Descrizione Modalità Pagamento
-          Zbanks: "", //Paese di Residenza (Primi 2 digit IBAN)
+          Banks: "", //Paese di Residenza (Primi 2 digit IBAN)
           ZDesccauval: "", //Descrizione Causale Valutaria
 
           /**   WIZARD 2 - Dati Quietanzante/Destinatario Vaglia    */
@@ -670,6 +671,7 @@ sap.ui.define(
           FlagInpsEditabile: false,
 
           /**   WIZARD 2 - Sede Beneficiario */
+          Zidsede: "", //Sede
           Stras: "", //Via,numero civico
           Ort01: "", //Località
           Regio: "", //Regione
@@ -985,13 +987,13 @@ sap.ui.define(
 
         var oSelectedItem = oEvent.getParameter("selectedItem");
         var sIban = self.setBlank(oSelectedItem?.getTitle());
-        var sZbanks = sIban ? sIban.slice(0, 2) : "";
+        var sBanks = sIban ? sIban.slice(0, 2) : "";
 
         oModelSoa.setProperty("/Iban", sIban);
-        oModelSoa.setProperty("/Zbanks", sZbanks);
+        oModelSoa.setProperty("/Banks", sBanks);
 
         if (
-          oModelSoa.getProperty("/Zbanks") === "IT" &&
+          oModelSoa.getProperty("/Banks") === "IT" &&
           oModelSoa.getProperty("/Zwels") !== "ID6"
         ) {
           oModelSoa.setProperty("/ZCausaleval", "");
@@ -1156,7 +1158,7 @@ sap.ui.define(
         var oModelSoa = self.getModel("Soa");
 
         oModelSoa.setProperty(
-          "/Zbanks",
+          "/Banks",
           oEvent.getParameter("value")
             ? oEvent.getParameter("value").toUpperCase()
             : ""
@@ -1253,7 +1255,7 @@ sap.ui.define(
                 oModelSoa.setProperty("/TaxnumCf", data?.CodFisc);
                 oModelSoa.setProperty("/Taxnumxl", data?.CodFiscEst);
                 oModelSoa.setProperty("/TaxnumPiva", data?.PIva);
-                oModelSoa.setProperty("/Zidsede", data?.Sede);
+                oModelSoa.setProperty("/Zsede", data?.Sede);
                 oModelSoa.setProperty("/Zdenominazione", data?.DescrSede);
                 oModelSoa.setProperty("/ZzDescebe", data?.EnteBen);
                 oModelSoa.setProperty("/Zdurc", data?.Zdurc);
@@ -1338,7 +1340,7 @@ sap.ui.define(
           urlParameters: oParameters,
           success: function (data, oResponse) {
             oModelSoa.setProperty("/Iban", data?.Iban);
-            oModelSoa.setProperty("/Zbanks", data?.Iban.slice(0, 2));
+            oModelSoa.setProperty("/Banks", data?.Iban.slice(0, 2));
           },
           error: function (error) {},
         });
@@ -1882,7 +1884,8 @@ sap.ui.define(
 
       //#endregion
 
-      /** ------------------GESTIONE ANAGRAFICA BENEFICIARIO------------------- */
+      /** ------------------GESTIONE ANAGRAFICA BENEFICIARIO----------------- */
+      //#region
 
       //#region INSERISCI MODALITA PAGAMENTO
 
@@ -2381,7 +2384,7 @@ sap.ui.define(
 
         oModelSoa.setProperty("/Zwels", oData.Pagamento.SZwels);
         oModelSoa.setProperty("/Zdescwels", oData.Pagamento.Zdescwels);
-        oModelSoa.setProperty("/Zbanks", oData.Pagamento.SCountryRes);
+        oModelSoa.setProperty("/Banks", oData.Pagamento.SCountryRes);
         oModelSoa.setProperty("/Iban", oData.Pagamento.SIban);
         oModelSoa.setProperty("/Ztipofirma", oData.Pagamento.Ztipofirma);
         oModelSoa.setProperty("/Swift", oData.Pagamento.Swift);
@@ -2640,6 +2643,42 @@ sap.ui.define(
           });
       },
 
+      //#endregion
+
+      //#endregion
+
+      /** ---------------------------DETTAGLIO------------------------------- */
+      //#region
+      setInpsEditable: function () {
+        var self = this;
+        //Load Models
+        var oModel = self.getModel();
+        var oModelSoa = self.getModel("Soa");
+
+        if (oModelSoa.getProperty("/Zwels") === "ID4") {
+          var oParameters = {
+            Lifnr: oModelSoa.getProperty("/Lifnr"),
+            Zwels: oModelSoa.getProperty("/Zwels"),
+          };
+
+          var sPath = self.getModel().createKey("InpsSOASet", oParameters);
+
+          self
+            .getModel()
+            .metadataLoaded()
+            .then(function () {
+              oModel.read("/" + sPath, {
+                success: function (data) {
+                  oModelSoa.setProperty(
+                    "/FlagInpsEditabile",
+                    data?.FlagInpsEditabile ? true : false
+                  );
+                },
+                error: function () {},
+              });
+            });
+        }
+      },
       //#endregion
     });
   }

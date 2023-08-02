@@ -258,7 +258,7 @@
 					text="{i18n>headerSonTipoSoa}"
 					class="sapUiTinyMarginEnd sapUiTinyMarginBottom"
 				/>
-				<!-- <Text text="{Soa>/Gjahr}" /> -->
+				<Text text="{Soa>/DescZztipologia}"/>
 				<layoutData>
 					<l:GridData
 						span="XL2 L4 M6 S12"

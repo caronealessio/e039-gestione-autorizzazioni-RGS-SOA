@@ -24,7 +24,7 @@ sap.ui.define(
         onInit: function () {
           var self = this;
 
-          var oStepScenario = new JSONModel({
+          var oModelStepScenario = new JSONModel({
             wizard1Step1: true,
             wizard1Step2: false,
             wizard2: false,
@@ -34,9 +34,10 @@ sap.ui.define(
             visibleBtnInserisciProspLiquidazione: false,
             visibleBtnSave: false,
           });
-          self.setModel(oStepScenario, "StepScenario");
+          self.setModel(oModelStepScenario, "StepScenario");
 
           var oModelSoa = new JSONModel({
+            EnableEdit: true,
             /**   Scenario    */
             Ztipopag: "4", //Tipo Pagamento
 
@@ -80,10 +81,10 @@ sap.ui.define(
             data: [], //Quote Documenti
 
             /**   WIZARD 2 - Beneficiario SOA   */
-            Zidsede: "", //Sede
             BuType: "", //Tipologia Persona
             Taxnumxl: "", //Codice Fiscale Estero
-            Zdenominazione: "", //Descrizione Sede
+            Zsede: "", //Sede Estera
+            Zdenominazione: "", //Descrizione Sede Estera
             Zdurc: "", //Numero identificativo Durc
             ZfermAmm: "", //Fermo amministrativo
 
@@ -95,7 +96,7 @@ sap.ui.define(
             Iban: "", //IBAN
             Zmotivaz: "", //Motivazione cambio IBAN
             Zdescwels: "", //Descrizione Modalità Pagamento
-            Zbanks: "", //Paese di Residenza (Primi 2 digit IBAN)
+            Banks: "", //Paese di Residenza (Primi 2 digit IBAN)
             ZDesccauval: "", //Descrizione Causale Valutaria
 
             /**   WIZARD 2 - Dati Quietanzante/Destinatario Vaglia    */
@@ -130,6 +131,7 @@ sap.ui.define(
             FlagInpsEditabile: false,
 
             /**   WIZARD 2 - Sede Beneficiario */
+            Zidsede: "", //Sede Beneficiario
             Stras: "", //Via,numero civico
             Ort01: "", //Località
             Regio: "", //Regione
@@ -276,7 +278,7 @@ sap.ui.define(
           var bWizard4 = oModelStepScenario.getProperty("/wizard4");
 
           if (bWizard1Step1) {
-            self.resetModelSoa("4");
+            self.resetModelSoa("4", true);
             history.go(-1);
           } else if (bWizard1Step2) {
             oModelStepScenario.setProperty("/wizard1Step2", false);
@@ -470,7 +472,7 @@ sap.ui.define(
 
           oModelSoa.setProperty("/Iban", oSelectedItem?.getTitle());
           oModelSoa.setProperty(
-            "/Zbanks",
+            "/Banks",
             oSelectedItem?.getTitle().slice(0, 2)
           );
 
